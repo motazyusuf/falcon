@@ -78,12 +78,13 @@ class MembersModuleScreenState
             height: 50.h, // Adjust height as needed
             child: TextFormField(
               decoration: InputDecoration(
+                fillColor: Colors.white,
                 filled: true,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
                   borderSide: BorderSide.none,
                 ),
-                hintText: "Search for a member",
+                hintText: MyStrings.searchByMobileNumber,
                 hintStyle: context.textTheme.bodyLarge,
                 contentPadding: EdgeInsets.symmetric(
                   vertical: 14,
@@ -98,22 +99,21 @@ class MembersModuleScreenState
             ),
           ),
           SizedBox(height: 10.h),
-          Expanded(
-            child: FlexibleGridView(
-              crossAxisSpacing: 10.w,
-              mainAxisSpacing: 10.h,
-              builder:
-                  (context, index) => Container(
-                    height: 100.h,
-                    decoration: BoxDecoration(
-                      color: Color(0xFF353535),
-                      borderRadius: BorderRadius.circular(18.r),
-                    ),
-                  ),
-              itemCount: 10,
-              crossAxisCount: 2,
-            ),
-          ),
+          state is MembersLoaded && state.members.isNotEmpty
+              ? Expanded(
+                child: FlexibleGridView(
+                  crossAxisSpacing: 10.w,
+                  mainAxisSpacing: 10.h,
+                  builder:
+                      (context, index) => Text(
+                        state.members[index].firstName,
+                        style: TextStyle(color: Colors.red),
+                      ),
+                  itemCount: state.members.length,
+                  crossAxisCount: 2,
+                ),
+              )
+              : SizedBox(),
         ],
       ),
     );

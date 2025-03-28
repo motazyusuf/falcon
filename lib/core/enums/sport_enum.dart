@@ -11,6 +11,8 @@ enum Sport {
   mma("MMA"),
   grappling("Grappling"),
   burnAndGain("Burn and Gain"),
+  pt("PT"),
+  ptAdvanced("PT Advanced"),
   strengthAndConditioning("S&C");
 
   final String displayName;

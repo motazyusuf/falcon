@@ -13,4 +13,10 @@ class MyStrings {
       'An error occurred. Please try again later.';
   static const String networkIssueDetected =
       'Network issues detected. Please check your connection.';
+  static const String addMember = 'Add Member';
+  static const String firstName = 'First Name';
+  static const String lastName = 'Last Name';
+  static const String phoneNumber = 'Phone Number';
+  static const String addAnotherSubscription = 'Add Another Subscription';
+  static const String searchByMobileNumber = 'Search by mobile number';
 }

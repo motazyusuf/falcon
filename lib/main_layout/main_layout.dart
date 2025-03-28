@@ -1,3 +1,5 @@
+import 'package:falcon_project/core/constants/my_assets.dart';
+import 'package:falcon_project/core/routes/pages_routes.dart';
 import 'package:falcon_project/main_layout/widgets/my_bottom_bar.dart';
 import 'package:falcon_project/modules/members/import/members_module_import.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +16,7 @@ class MainLayout extends StatefulWidget {
 class _MainLayoutState extends State<MainLayout> {
   int currentIndex = 0;
   List<Widget> modules = [
-    MembersModuleScreen(bloc: MembersModuleBloc()),
+    MembersModuleScreen(bloc: MembersModuleBloc()..add(GetMembersEvent())),
     Placeholder(),
   ];
 
@@ -31,11 +33,12 @@ class _MainLayoutState extends State<MainLayout> {
             radius: 45.r,
             backgroundColor: Colors.transparent,
             backgroundImage: AssetImage(
-              'assets/images/falcon_logo.png',
+              MyAssets.logo,
             ), // Replace with your logo
           ),
           actions: [
-            IconButton(padding: EdgeInsets.all(15.w),
+            IconButton(
+              padding: EdgeInsets.all(15.w),
               onPressed: () {},
               icon: Icon(Icons.menu_rounded, size: 30.r),
             ),
@@ -47,8 +50,11 @@ class _MainLayoutState extends State<MainLayout> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.r)),
-          onPressed: () {},
+            borderRadius: BorderRadius.circular(30.r),
+          ),
+          onPressed: () {
+            context.pushNamed(PagesRoutes.addUser);
+          },
           child: Icon(Icons.add),
         ),
         bottomNavigationBar: MyBottomBar(

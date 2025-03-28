@@ -119,7 +119,9 @@ class ApplicationThemeManager {
         fontWeight: MyFontWeights.regular,
       ),
     ),
-    inputDecorationTheme: InputDecorationTheme(),
+    inputDecorationTheme: InputDecorationTheme(
+        hintStyle: TextStyle(color: Color(0xFF616161))
+    ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       elevation: 2,
       selectedLabelStyle: TextStyle(

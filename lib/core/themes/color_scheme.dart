@@ -50,7 +50,7 @@ abstract class MyColorScheme {
     // surface: Color(0xFF121212),  // Cards, Dialogs, BottomSheet.
     // onSurface: Color(0xFFFFFFFF),  // Text/icons on surface.
 
-    surface: Color(0xFFFFFFFF),
+    surface: Color(0xFF212121),
     // Text/icons on surface.
     onSurface: Color(0xFFDDDDDD),
 
