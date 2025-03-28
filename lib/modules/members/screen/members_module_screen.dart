@@ -13,14 +13,59 @@ class MembersModuleScreenState
     extends BaseScreen<MembersModuleBloc, MembersModuleScreen, dynamic> {
   MembersModuleScreenState(super.bloc);
 
-  int currentIndex = 0;
-
   @override
   bool? get ignoreSafeArea => true;
 
   @override
-  // TODO: implement ignoreScaffold
   bool get ignoreScaffold => true;
+
+  CancelFunc? cancelFunc;
+
+  @override
+  void showLoading() {
+    super.closeKeyboard();
+    cancelFunc?.call();
+    cancelFunc = BotToast.showCustomLoading(
+      toastBuilder: (cancelFunc) {
+        this.cancelFunc = cancelFunc; // Store the cancel function here
+        return Center(
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(
+                // Full-screen overlay
+                width: double.infinity,
+                height: double.infinity,
+                color: Colors.black54,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    "assets/images/falcon_logo.png",
+                    fit: BoxFit.cover,
+                    height: 200.h,
+                  ),
+                  SizedBox(
+                    width: 80.w,
+                    child: LinearProgressIndicator(color: Colors.red),
+                  ),
+                  // Custom color
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+      backgroundColor: Colors.transparent, // Remove default overlay
+      allowClick: false, // Prevent taps
+    );
+  }
+
+  @override
+  void hideLoading() {
+    cancelFunc?.call();
+  }
 
   @override
   Widget buildWidget(BuildContext parentContext, RenderDataState state) {
@@ -45,11 +90,14 @@ class MembersModuleScreenState
                   horizontal: 16,
                 ),
                 prefixIcon: Icon(
-                  Icons.search_rounded, color: Colors.grey, size: 25.r,),
+                  Icons.search_rounded,
+                  color: Colors.grey,
+                  size: 25.r,
+                ),
               ),
             ),
           ),
-          SizedBox(height: 10.h,),
+          SizedBox(height: 10.h),
           Expanded(
             child: FlexibleGridView(
               crossAxisSpacing: 10.w,

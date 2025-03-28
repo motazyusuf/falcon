@@ -1,4 +1,5 @@
 import '../core/enums/sport_enum.dart';
+import '../core/functions/my_functions.dart';
 
 class Member {
   String id;
@@ -37,8 +38,10 @@ class Member {
           (json["sports"] as List<String>)
               .map((sport) => Sport.fromString(sport))
               .toList(),
-      subscriptionDate: json["subscription_date"],
-      endDate: json["end_date"],
+      subscriptionDate: DateTime.fromMillisecondsSinceEpoch(
+        json["subscription_date"],
+      ),
+      endDate: DateTime.fromMillisecondsSinceEpoch(json["end_date"]),
       isActive: json["is_active"],
     );
   }
@@ -52,8 +55,11 @@ class Member {
       "due_amount": member.dueAmount,
       "phone_number": member.phoneNumber,
       "sports": member.sports.map((sport) => sport.toString()).toList(),
-      "subscription_date": member.subscriptionDate,
-      "end": member.endDate,
+      "subscription_date":
+          MyFunctions.extractDate(
+            member.subscriptionDate,
+          ).millisecondsSinceEpoch,
+      "end": MyFunctions.extractDate(member.endDate).millisecondsSinceEpoch,
       "is_active": member.isActive,
     };
   }
