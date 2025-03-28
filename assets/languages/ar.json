@@ -1,0 +1,10 @@
+{
+  "No internet connection!": "لا يوجد اتصال بالإنترنت!",
+  "Retry": "إعادة المحاولة",
+  "Retrying...": "جارٍ إعادة المحاولة...",
+  "Try Again": "حاول مرة أخرى",
+  "The request timed out. Please try again later.": "انتهت مهلة الطلب. يرجى المحاولة مرة أخرى لاحقًا.",
+  "The app is temporarily unavailable, please try again later.": "التطبيق غير متوفر مؤقتًا، يرجى المحاولة لاحقًا.",
+  "An error occurred. Please try again later.": "حدث خطأ. يرجى المحاولة مرة أخرى لاحقًا.",
+  "Network issues detected. Please check your connection.": "تم اكتشاف مشكلات في الشبكة. يرجى التحقق من الاتصال."
+}

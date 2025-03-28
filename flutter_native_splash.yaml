@@ -1,0 +1,7 @@
+flutter_native_splash:
+  color: "#000000"
+  image: assets/images/FalconSplashBlack.png
+  android_12:
+    image: assets/images/FalconSplashBlack.png
+    color: "#000000"
+

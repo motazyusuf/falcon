@@ -1,0 +1,10 @@
+{
+  "No internet connection!": "No internet connection!",
+  "Retry": "Retry",
+  "Retrying...": "Retrying...",
+  "Try Again": "Try Again",
+  "The request timed out. Please try again later.": "The request timed out. Please try again later.",
+  "The app is temporarily unavailable, please try again later.": "The app is temporarily unavailable, please try again later.",
+  "An error occurred. Please try again later.": "An error occurred. Please try again later.",
+  "Network issues detected. Please check your connection.": "Network issues detected. Please check your connection."
+}
