@@ -1,37 +1,56 @@
-class Products {
-  List<Product> products;
+import '../core/enums/sport_enum.dart';
 
-  Products(this.products);
+class Member {
+  String id;
+  String name;
+  num paidAmount;
+  num dueAmount;
+  num phoneNumber;
+  List<Sport> sports;
+  DateTime subscriptionDate;
+  DateTime endDate;
+  bool isActive;
 
-  factory Products.fromJson(Map<String, dynamic> json) {
-    return Products(
-      (json["products"] as List<dynamic>)
-          .map((product) => Product.fromJson(product))
-          .toList(),
+  Member({
+    required this.id,
+    required this.name,
+    required this.paidAmount,
+    required this.dueAmount,
+    required this.phoneNumber,
+    required this.sports,
+    required this.subscriptionDate,
+    required this.endDate,
+    required this.isActive,
+  });
+
+  factory Member.fromJson(Map<String, dynamic> json) {
+    return Member(
+      id: json["id"],
+      name: json["name"],
+      paidAmount: json["paid_amount"],
+      dueAmount: json["due_amount"],
+      phoneNumber: json["phone_number"],
+      sports:
+          (json["sports"] as List<String>)
+              .map((sport) => Sport.fromString(sport))
+              .toList(),
+      subscriptionDate: json["subscription_date"],
+      endDate: json["end_date"],
+      isActive: json["is_active"],
     );
   }
-}
 
-class Product {
-  String title;
-  double price;
-  String imageURL;
-
-  Product({required this.title, required this.price, required this.imageURL});
-
-  factory Product.fromJson(Map<String, dynamic> json) {
-    return Product(
-      title: json["title"],
-      price: json["price"],
-      imageURL: json["images"][0],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
+  static Map<String, dynamic> toJson(Member member) {
     return {
-      "title": title,
-      "price": title,
-      "images": [imageURL],
+      "id": member.id,
+      "name": member.name,
+      "paid_amount": member.paidAmount,
+      "due_amount": member.dueAmount,
+      "phone_number": member.phoneNumber,
+      "sports": member.sports.map((sport) => sport.toString()).toList(),
+      "subscription_date": member.subscriptionDate,
+      "end": member.endDate,
+      "is_active": member.isActive,
     };
   }
 }
