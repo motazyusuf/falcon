@@ -34,20 +34,22 @@ class MembersModuleScreenState
             child: TextFormField(
               decoration: InputDecoration(
                 filled: true,
-                fillColor: Colors.white,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
                   borderSide: BorderSide.none,
                 ),
                 hintText: "Search for a member",
+                hintStyle: context.textTheme.bodyLarge,
                 contentPadding: EdgeInsets.symmetric(
                   vertical: 14,
                   horizontal: 16,
                 ),
-                prefixIcon: Icon(Icons.search, color: Colors.grey),
+                prefixIcon: Icon(
+                  Icons.search_rounded, color: Colors.grey, size: 25.r,),
               ),
             ),
           ),
+          SizedBox(height: 10.h,),
           Expanded(
             child: FlexibleGridView(
               crossAxisSpacing: 10.w,

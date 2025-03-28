@@ -39,6 +39,9 @@ dependencies:
   flutter_native_splash: ^2.4.5
   flutter_launcher_icons: ^0.14.3
   flutter_screenutil: ^5.9.3
+  firebase_core: ^3.12.1
+  firebase_auth: ^5.5.1
+  cloud_firestore: ^5.6.5
 
 flutter_launcher_icons:
   android: true
@@ -75,6 +78,7 @@ flutter:
     - assets/images/
     - assets/languages/
 
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 
@@ -86,10 +90,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: Anton_SC
+      fonts:
+        - asset: assets/fonts/AntonSC-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

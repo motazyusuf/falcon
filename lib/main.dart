@@ -1,12 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:falcon_project/core/themes/color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
 import 'core/routes/app_router.dart';
 import 'core/routes/pages_routes.dart';
-import 'modules/members/import/members_module_import.dart';
+import 'core/themes/theme_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,10 +31,7 @@ class MyApp extends StatelessWidget {
       designSize: const Size(360, 690),
       child: CoreSetup(
         appConfig: AppConfig(
-          theme: ThemeData(
-            colorScheme: MyColorScheme.falconColorScheme,
-            useMaterial3: true,
-          ),
+          theme: ApplicationThemeManager.myAppTheme,
           onGenerateRoute: AppRouter.onGenerateRoute,
           initialRoute: PagesRoutes.splash,
           supportedLocales: context.supportedLocales,

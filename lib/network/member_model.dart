@@ -2,7 +2,8 @@ import '../core/enums/sport_enum.dart';
 
 class Member {
   String id;
-  String name;
+  String firstName;
+  String lastName;
   num paidAmount;
   num dueAmount;
   num phoneNumber;
@@ -13,7 +14,8 @@ class Member {
 
   Member({
     required this.id,
-    required this.name,
+    required this.firstName,
+    required this.lastName,
     required this.paidAmount,
     required this.dueAmount,
     required this.phoneNumber,
@@ -26,7 +28,8 @@ class Member {
   factory Member.fromJson(Map<String, dynamic> json) {
     return Member(
       id: json["id"],
-      name: json["name"],
+      firstName: json["first_name"],
+      lastName: json["last_name"],
       paidAmount: json["paid_amount"],
       dueAmount: json["due_amount"],
       phoneNumber: json["phone_number"],
@@ -43,7 +46,8 @@ class Member {
   static Map<String, dynamic> toJson(Member member) {
     return {
       "id": member.id,
-      "name": member.name,
+      "first_name": member.firstName,
+      "last_name": member.lastName,
       "paid_amount": member.paidAmount,
       "due_amount": member.dueAmount,
       "phone_number": member.phoneNumber,
