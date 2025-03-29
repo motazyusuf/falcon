@@ -24,7 +24,7 @@ class MyBottomBar extends StatelessWidget {
         child: BottomNavigationBar(
           showSelectedLabels: true,
           iconSize: 24.r,
-          selectedLabelStyle: TextStyle(fontSize: 7.sp)),
+          selectedLabelStyle: TextStyle(fontSize: 7.sp),
           currentIndex: currentIndex,
           // currentIndex: currentIndex,
           onTap: onTap,
