@@ -13,6 +13,7 @@ class SubscriptionItem extends StatelessWidget {
   final Function() onSubscriptionRemoved;
   final ValueChanged<String> onDueAmountChanged;
   final Function() onStartDateChanged;
+  final Function() onEndDateChanged;
   List<Subscription> subscriptions;
 
   SubscriptionItem({
@@ -21,6 +22,7 @@ class SubscriptionItem extends StatelessWidget {
     required this.onSportChanged,
     required this.onSubscriptionRemoved,
     required this.onStartDateChanged,
+    required this.onEndDateChanged,
     required this.onPaidAmountChanged,
     required this.onDueAmountChanged,
     required this.subscriptions,
@@ -66,9 +68,12 @@ class SubscriptionItem extends StatelessWidget {
           ),
 
           // End Date
-          Text(
-            "${MyStrings.endDate}: ${subscriptions[index].endDate.toString().substring(0, 10)}",
-            style: context.textTheme.displaySmall?.copyWith(fontSize: 12.sp),
+          GestureDetector(
+            onTap: onEndDateChanged,
+            child: Text(
+              "${MyStrings.endDate}: ${subscriptions[index].endDate.toString().substring(0, 10)}",
+              style: context.textTheme.displaySmall?.copyWith(fontSize: 12.sp),
+            ),
           ),
 
           // Paid Amount

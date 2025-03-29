@@ -104,19 +104,30 @@ class _AddUserState extends State<AddMember> {
                           subscriptions[index].sport = newSport!;
                         });
                       },
+                      onEndDateChanged: () async {
+                        DateTime? pickedDate = await showDatePicker(
+                          context: context,
+                          initialDate: subscriptions[index].subscriptionDate
+                              .add(Duration(days: 30)),
+                          firstDate: DateTime(2000),
+                          lastDate: DateTime(2101),
+                        );
+                        if (pickedDate != null) {
+                          setState(() {
+                            subscriptions[index].endDate = pickedDate;
+                          });
+                        }
+                      },
                       onStartDateChanged: () async {
                         DateTime? pickedDate = await showDatePicker(
                           context: context,
                           initialDate: subscriptions[index].subscriptionDate,
-                          firstDate: DateTime.now(),
+                          firstDate: DateTime(2000),
                           lastDate: DateTime(2101),
                         );
                         if (pickedDate != null) {
                           setState(() {
                             subscriptions[index].subscriptionDate = pickedDate;
-                            subscriptions[index].endDate = pickedDate.add(
-                              Duration(days: 30),
-                            );
                           });
                         }
                       },

@@ -1,3 +1,4 @@
+import 'package:falcon_project/core/functions/my_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
@@ -49,14 +50,28 @@ class MemberBrief extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children:
                 member.subscriptions.map((subscription) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  return Column(
                     children: [
-                      Text("${subscription.sport?.displayName}"),
-
-                      subscription.endDate.isAfter(DateTime.now())
-                          ? Icon(Icons.check, color: Colors.green)
-                          : Icon(Icons.close, color: Colors.red),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("${subscription.sport?.displayName}"),
+                              Text(
+                                MyFunctions.dateTimeToString(
+                                  subscription.endDate,
+                                ),
+                              ),
+                            ],
+                          ),
+                          subscription.endDate.isAfter(DateTime.now())
+                              ? Icon(Icons.circle, color: Colors.green)
+                              : Icon(Icons.circle_outlined, color: Colors.red),
+                        ],
+                      ),
+                      SizedBox(height: 5.h),
                     ],
                   );
                 }).toList(),

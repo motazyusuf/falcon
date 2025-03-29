@@ -45,4 +45,8 @@ class MyFunctions {
       allowClick: false, // Prevent taps
     );
   }
+
+  static String dateTimeToString(DateTime date) {
+    return date.toString().substring(0, 10);
+  }
 }
