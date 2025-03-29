@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:falcon_project/core/constants/my_assets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
 import 'core/constants/my_strings.dart';
@@ -15,9 +17,18 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
+  double height = 0;
+  double width = 0;
   @override
   void initState() {
-    Timer(const Duration(seconds: 1), () {
+    Future.delayed(Duration(milliseconds: 300), () {
+      setState(() {
+        height = 350.h;
+        width = 350.w;
+        // Animate to target height
+      });
+    });
+    Timer(const Duration(seconds: 2), () {
       MaintenanceConfig.instantiate(
         MaintenanceConfig(
           customMessage: MyStrings.appUnavailable.tr(),
@@ -45,6 +56,31 @@ class _SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Align(
+        alignment: Alignment.center,
+        child: AnimatedContainer(
+          height: height,
+          width: width,
+          duration: Duration(milliseconds: 500),
+          // color: Colors.red,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(MyAssets.logo),
+                FittedBox(
+                  child: Text(
+                    MyStrings.whereChampionsAreMade,
+                    style: TextStyle().copyWith(fontSize: 30.sp),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

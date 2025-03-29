@@ -22,6 +22,9 @@ class MyStrings {
   static const String addAnotherSubscription = 'Add Another Subscription';
   static const String searchByMobileNumber = 'Search by mobile number';
 
+  // splash
+  static const String whereChampionsAreMade = 'Where Champions Are Made';
+
   // mainLayout
   static const String members = 'Members';
   static const String analytics = 'Analytics';
