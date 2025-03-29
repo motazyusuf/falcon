@@ -70,11 +70,8 @@ class _SplashState extends State<Splash> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(MyAssets.logo),
-                FittedBox(
-                  child: Text(
-                    MyStrings.whereChampionsAreMade,
-                    style: TextStyle().copyWith(fontSize: 30.sp),
-                  ),
+                Text(
+                  MyStrings.whereChampionsAreMade,
                 ),
               ],
             ),
