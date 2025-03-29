@@ -12,7 +12,6 @@ class MemberBrief extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 120.h,
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
         color: context.colorScheme.secondaryContainer,
@@ -25,23 +24,42 @@ class MemberBrief extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "${member.firstName} ${member.lastName}",
-            style: const TextStyle(fontWeight: FontWeight.bold),
+          Center(
+            child: FittedBox(
+              child: Text(
+                "${member.firstName} ${member.lastName}",
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
           ),
+          SizedBox(height: 1.h),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: AdvancedLine(
+              direction: Axis.horizontal,
+              line: SolidLine(),
+              paintDef:
+                  Paint()
+                    ..color = context.colorScheme.primary
+                    ..strokeWidth = 2.h,
+            ),
+          ),
+          SizedBox(height: 5.h),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children:
-                member.subscriptions
-                    .map(
-                      (subscription) =>
-                          Text("${subscription.sport?.displayName}"),
-                    )
-                    .toList(),
-          ),
-          Text(
-            member.isActive ? "Active" : "Non Active",
-            style: TextStyle(color: Colors.green),
+                member.subscriptions.map((subscription) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("${subscription.sport?.displayName}"),
+
+                      subscription.endDate.isAfter(DateTime.now())
+                          ? Icon(Icons.check, color: Colors.green)
+                          : Icon(Icons.close, color: Colors.red),
+                    ],
+                  );
+                }).toList(),
           ),
         ],
       ),
