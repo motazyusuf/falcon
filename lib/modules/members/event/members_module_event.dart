@@ -9,3 +9,9 @@ class AddMemberEvent extends BaseEvent {
 }
 
 class GetMembersEvent extends BaseEvent {}
+
+class FilterMembersEvent extends BaseEvent {
+  String filterValue;
+
+  FilterMembersEvent(this.filterValue);
+}

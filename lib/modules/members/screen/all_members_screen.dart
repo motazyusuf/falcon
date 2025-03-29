@@ -1,17 +1,17 @@
 part of '../import/members_module_import.dart';
 
-class MembersModuleScreen extends StatefulWidget {
+class AllMembersScreen extends StatefulWidget {
   final MembersModuleBloc bloc;
 
-  const MembersModuleScreen({super.key, required this.bloc});
+  const AllMembersScreen({super.key, required this.bloc});
 
   @override
-  MembersModuleScreenState createState() => MembersModuleScreenState(bloc);
+  AllMembersScreenState createState() => AllMembersScreenState(bloc);
 }
 
-class MembersModuleScreenState
-    extends BaseScreen<MembersModuleBloc, MembersModuleScreen, dynamic> {
-  MembersModuleScreenState(super.bloc);
+class AllMembersScreenState
+    extends BaseScreen<MembersModuleBloc, AllMembersScreen, dynamic> {
+  AllMembersScreenState(super.bloc);
 
   @override
   bool? get ignoreSafeArea => true;
@@ -84,7 +84,7 @@ class MembersModuleScreenState
                   borderRadius: BorderRadius.circular(16),
                   borderSide: BorderSide.none,
                 ),
-                hintText: MyStrings.searchByMobileNumber,
+                hintText: MyStrings.searchForMember,
                 hintStyle: context.textTheme.bodyLarge,
                 contentPadding: EdgeInsets.symmetric(
                   vertical: 14,
@@ -98,16 +98,29 @@ class MembersModuleScreenState
               ),
             ),
           ),
-          SizedBox(height: 10.h),
-          state is MembersLoaded && state.members.isNotEmpty
+          SportsTabBar(context: context),
+          SizedBox(height: 5.h),
+          state is MembersLoaded && bloc.allMembers.isNotEmpty
               ? Expanded(
                 child: FlexibleGridView(
                   crossAxisSpacing: 10.w,
                   mainAxisSpacing: 10.h,
                   builder:
                       (context, index) =>
-                          MemberBrief(member: state.members[index]),
-                  itemCount: state.members.length,
+                          MemberBrief(member: bloc.allMembers[index]),
+                  itemCount: bloc.allMembers.length,
+                  crossAxisCount: 2,
+                ),
+              )
+              : state is MembersFiltered && bloc.filteredMembers.isNotEmpty
+              ? Expanded(
+                child: FlexibleGridView(
+                  crossAxisSpacing: 10.w,
+                  mainAxisSpacing: 10.h,
+                  builder:
+                      (context, index) =>
+                          MemberBrief(member: bloc.filteredMembers[index]),
+                  itemCount: bloc.filteredMembers.length,
                   crossAxisCount: 2,
                 ),
               )

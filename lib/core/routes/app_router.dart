@@ -1,5 +1,5 @@
 import 'package:falcon_project/core/routes/pages_routes.dart';
-import 'package:falcon_project/main_layout/add_member.dart';
+import 'package:falcon_project/main_layout/add_member_screen.dart';
 import 'package:falcon_project/main_layout/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:opticore/opticore.dart';
@@ -18,7 +18,7 @@ class AppRouter {
 
       case PagesRoutes.home:
         return MaterialPageRoute(
-          builder: (context) => MembersModuleScreen(bloc: MembersModuleBloc()),
+          builder: (context) => AllMembersScreen(bloc: MembersModuleBloc()),
           settings: settings,
         );
 
@@ -27,7 +27,7 @@ class AppRouter {
           builder:
               (context) => BlocProvider(
                 create: (context) => MembersModuleBloc(),
-                child: AddMember(),
+                child: AddMemberScreen(),
               ),
           settings: settings,
         );

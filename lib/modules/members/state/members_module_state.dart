@@ -10,9 +10,11 @@ final class MembersInitialState extends RenderDataState {
 // }
 
 final class MembersLoaded extends RenderDataState {
-  List<Member> members;
+  MembersLoaded() : super(null);
+}
 
-  MembersLoaded(this.members,) : super(null);
+final class MembersFiltered extends RenderDataState {
+  MembersFiltered() : super(null);
 }
 
 final class MemberAdded extends NonRenderState {}

@@ -2,6 +2,8 @@ part of '../import/members_module_import.dart';
 
 class MembersModuleBloc extends BaseBloc {
   final MembersModuleRepo membersModuleRepo = MembersModuleRepo();
+  List<Member> filteredMembers = [];
+  List<Member> allMembers = [];
 
   Future<void> addMember(AddMemberEvent event, Emitter emit) async {
     emit(LoadingStateNonRender());
@@ -15,9 +17,9 @@ class MembersModuleBloc extends BaseBloc {
     await emit.forEach<QuerySnapshot<Member>>(
       stream,
       onData: (snapshot) {
-        List<Member> members = snapshot.docs.map((doc) => doc.data()).toList();
+        allMembers = snapshot.docs.map((doc) => doc.data()).toList();
         emit(EndLoadingStateNonRender());
-        return MembersLoaded(members);
+        return MembersLoaded();
       },
       onError: (error, stackTrace) {
         return MemberError();
@@ -25,9 +27,30 @@ class MembersModuleBloc extends BaseBloc {
     );
   }
 
+  filterMembers(FilterMembersEvent event, Emitter emit) async {
+    emit(LoadingStateNonRender());
+    if (event.filterValue == "all") {
+      filteredMembers = allMembers;
+      emit(MembersFiltered());
+    } else {
+      filteredMembers =
+          allMembers
+              .where(
+                (member) => member.subscriptions.any(
+                  (subscription) =>
+                      subscription.sport?.displayName == event.filterValue,
+                ),
+              )
+              .toList();
+      emit(MembersFiltered());
+    }
+    emit(EndLoadingStateNonRender());
+  }
+
   MembersModuleBloc()
     : super(MembersModuleStateFactory(), initialState: MembersInitialState()) {
     on<AddMemberEvent>(addMember);
     on<GetMembersEvent>(getMembers);
+    on<FilterMembersEvent>(filterMembers);
   }
 }

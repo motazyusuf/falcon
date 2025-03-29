@@ -20,7 +20,7 @@ class MyStrings {
   static const String lastName = 'Last Name';
   static const String phoneNumber = 'Phone Number';
   static const String addAnotherSubscription = 'Add Another Subscription';
-  static const String searchByMobileNumber = 'Search by mobile number';
+  static const String searchForMember = 'Search For Member';
 
   // splash
   static const String whereChampionsAreMade = 'Where Champions Are Made';

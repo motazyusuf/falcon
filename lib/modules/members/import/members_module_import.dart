@@ -7,9 +7,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
 import '../../../network/member_model.dart';
+import '../screen/widgets/sports_tab_bar.dart';
 
 part '../bloc/members_module_bloc.dart';
 part '../event/members_module_event.dart';
 part '../factory/members_module_factory.dart';
-part '../screen/members_module_screen.dart';
+part '../screen/all_members_screen.dart';
 part '../state/members_module_state.dart';

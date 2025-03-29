@@ -16,7 +16,7 @@ class MainLayout extends StatefulWidget {
 class _MainLayoutState extends State<MainLayout> {
   int currentIndex = 0;
   List<Widget> modules = [
-    MembersModuleScreen(bloc: MembersModuleBloc()..add(GetMembersEvent())),
+    AllMembersScreen(bloc: MembersModuleBloc()..add(GetMembersEvent())),
     Placeholder(),
   ];
 

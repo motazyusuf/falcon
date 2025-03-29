@@ -9,14 +9,14 @@ import 'package:opticore/opticore.dart';
 import '../core/enums/sport_enum.dart';
 import '../network/member_model.dart';
 
-class AddMember extends StatefulWidget {
-  const AddMember({super.key});
+class AddMemberScreen extends StatefulWidget {
+  const AddMemberScreen({super.key});
 
   @override
-  State<AddMember> createState() => _AddUserState();
+  State<AddMemberScreen> createState() => _AddUserState();
 }
 
-class _AddUserState extends State<AddMember> {
+class _AddUserState extends State<AddMemberScreen> {
   final TextEditingController firstNameController = TextEditingController();
 
   final TextEditingController lastNameController = TextEditingController();
