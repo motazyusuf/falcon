@@ -105,10 +105,8 @@ class MembersModuleScreenState
                   crossAxisSpacing: 10.w,
                   mainAxisSpacing: 10.h,
                   builder:
-                      (context, index) => Text(
-                        state.members[index].firstName,
-                        style: TextStyle(color: Colors.red),
-                      ),
+                      (context, index) =>
+                          MemberBrief(member: state.members[index]),
                   itemCount: state.members.length,
                   crossAxisCount: 2,
                 ),

@@ -26,7 +26,7 @@ class Member {
       phoneNumber: json["phone_number"],
       subscriptions:
           (json["subscriptions"] as List<dynamic>)
-              .map((subscription) => Subscription.fromJson(json))
+              .map((subscription) => Subscription.fromJson(subscription))
               .toList(),
       isActive: json["is_active"],
     );
@@ -65,7 +65,7 @@ class Subscription {
     return Subscription(
       paidAmount: json["paid_amount"] ?? 0,
       dueAmount: json["due_amount"] ?? 0,
-      sport: json["sport"],
+      sport: Sport.fromString(json["sport"]),
       subscriptionDate: DateTime.fromMillisecondsSinceEpoch(
         json["subscription_date"] ?? 0,
       ),
@@ -82,7 +82,7 @@ class Subscription {
           MyFunctions.extractDate(
             subscription.subscriptionDate,
           ).millisecondsSinceEpoch,
-      "end":
+      "end_date":
           MyFunctions.extractDate(subscription.endDate).millisecondsSinceEpoch,
     };
   }
