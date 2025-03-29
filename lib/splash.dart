@@ -63,15 +63,18 @@ class _SplashState extends State<Splash> {
         child: AnimatedContainer(
           height: height,
           width: width,
-          duration: Duration(milliseconds: 500),
+          duration: Duration(milliseconds: 700),
           // color: Colors.red,
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(MyAssets.logo),
-                Text(
-                  MyStrings.whereChampionsAreMade,
+                Expanded(
+                  child: Text(
+                    MyStrings.whereChampionsAreMade,
+                    style: TextStyle().copyWith(fontSize: 20.sp),
+                  ),
                 ),
               ],
             ),

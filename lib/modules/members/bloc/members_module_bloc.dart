@@ -12,6 +12,7 @@ class MembersModuleBloc extends BaseBloc {
   }
 
   Future<void> getMembers(GetMembersEvent event, Emitter emit) async {
+    print("Get Members");
     emit(LoadingStateNonRender());
     var stream = membersModuleRepo.getDataStream();
     await emit.forEach<QuerySnapshot<Member>>(
@@ -52,5 +53,6 @@ class MembersModuleBloc extends BaseBloc {
     on<AddMemberEvent>(addMember);
     on<GetMembersEvent>(getMembers);
     on<FilterMembersEvent>(filterMembers);
+    add(GetMembersEvent());
   }
 }

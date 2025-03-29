@@ -52,24 +52,29 @@ class MemberBrief extends StatelessWidget {
                 member.subscriptions.map((subscription) {
                   return Column(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("${subscription.sport?.displayName}"),
-                              Text(
-                                MyFunctions.dateTimeToString(
-                                  subscription.endDate,
+                      FittedBox(
+                        child: Row(
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text("${subscription.sport?.displayName}"),
+                                Text(
+                                  MyFunctions.dateTimeToString(
+                                    subscription.endDate,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          subscription.endDate.isAfter(DateTime.now())
-                              ? Icon(Icons.circle, color: Colors.green)
-                              : Icon(Icons.circle_outlined, color: Colors.red),
-                        ],
+                              ],
+                            ),
+                            SizedBox(width: 20.w),
+                            subscription.endDate.isAfter(DateTime.now())
+                                ? Icon(Icons.circle, color: Colors.green)
+                                : Icon(
+                                  Icons.circle_outlined,
+                                  color: Colors.red,
+                                ),
+                          ],
+                        ),
                       ),
                       SizedBox(height: 5.h),
                     ],
