@@ -1,3 +1,4 @@
+import 'package:falcon_project/core/constants/my_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
@@ -59,21 +60,21 @@ class SubscriptionItem extends StatelessWidget {
           GestureDetector(
             onTap: onStartDateChanged,
             child: Text(
-              "Start Date: ${subscriptions[index].subscriptionDate.toString().substring(0, 10)}",
+              "${MyStrings.startDate}: ${subscriptions[index].subscriptionDate.toString().substring(0, 10)}",
               style: context.textTheme.displaySmall?.copyWith(fontSize: 12.sp),
             ),
           ),
 
           // End Date
           Text(
-            "End Date: ${subscriptions[index].endDate.toString().substring(0, 10)}",
+            "${MyStrings.endDate}: ${subscriptions[index].endDate.toString().substring(0, 10)}",
             style: context.textTheme.displaySmall?.copyWith(fontSize: 12.sp),
           ),
 
           // Paid Amount
           TextFormField(
             style: context.textTheme.displaySmall?.copyWith(fontSize: 12.sp),
-            decoration: InputDecoration(hintText: "Paid Amount"),
+            decoration: InputDecoration(hintText: MyStrings.paidAmount),
             keyboardType: TextInputType.number,
             onChanged: onPaidAmountChanged,
           ),
@@ -81,7 +82,7 @@ class SubscriptionItem extends StatelessWidget {
           // Due Amount
           TextFormField(
             style: context.textTheme.displaySmall?.copyWith(fontSize: 12.sp),
-            decoration: InputDecoration(hintText: "Due Amount"),
+            decoration: InputDecoration(hintText: MyStrings.dueAmount),
             keyboardType: TextInputType.number,
             onChanged: onDueAmountChanged,
           ),
@@ -92,7 +93,7 @@ class SubscriptionItem extends StatelessWidget {
             child: TextButton(
               onPressed: onSubscriptionRemoved,
               child: Text(
-                "Remove",
+                MyStrings.remove,
                 style: context.textTheme.displaySmall?.copyWith(
                   fontSize: 12.sp,
                   color: context.colorScheme.primary,

@@ -13,10 +13,21 @@ class MyStrings {
       'An error occurred. Please try again later.';
   static const String networkIssueDetected =
       'Network issues detected. Please check your connection.';
+
+  // add member
   static const String addMember = 'Add Member';
   static const String firstName = 'First Name';
   static const String lastName = 'Last Name';
   static const String phoneNumber = 'Phone Number';
   static const String addAnotherSubscription = 'Add Another Subscription';
   static const String searchByMobileNumber = 'Search by mobile number';
+
+  // mainLayout
+  static const String members = 'Members';
+  static const String analytics = 'Analytics';
+  static const String startDate = 'Start Date';
+  static const String endDate = 'End Date';
+  static const String paidAmount = 'Paid Amount';
+  static const String dueAmount = 'Due Amount';
+  static const String remove = 'Remove';
 }

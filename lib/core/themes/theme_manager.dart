@@ -70,7 +70,7 @@ class ApplicationThemeManager {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
     ),
     filledButtonTheme: FilledButtonThemeData(style: FilledButton.styleFrom()),
-    scaffoldBackgroundColor: MyColorScheme.falconColorScheme.secondary,
+    scaffoldBackgroundColor: Color(0xff121212),
     appBarTheme: AppBarTheme(
       scrolledUnderElevation: 0,
       elevation: 0,
