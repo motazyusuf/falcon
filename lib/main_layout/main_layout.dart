@@ -22,49 +22,46 @@ class _MainLayoutState extends State<MainLayout> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => MembersModuleBloc(),
-      child: Scaffold(
-        extendBodyBehindAppBar: false,
-        appBar: AppBar(
-          toolbarHeight: 70.h,
-          // Adjust height to fit the logo and search bar
-          title: CircleAvatar(
-            radius: 45.r,
-            backgroundColor: Colors.transparent,
-            backgroundImage: AssetImage(
-              MyAssets.logo,
-            ), // Replace with your logo
+    return Scaffold(
+      extendBodyBehindAppBar: false,
+      appBar: AppBar(
+        toolbarHeight: 70.h,
+        // Adjust height to fit the logo and search bar
+        title: CircleAvatar(
+          radius: 45.r,
+          backgroundColor: Colors.transparent,
+          backgroundImage: AssetImage(
+            MyAssets.logo,
+          ), // Replace with your logo
+        ),
+        actions: [
+          IconButton(
+            padding: EdgeInsets.all(15.w),
+            onPressed: () {},
+            icon: Icon(Icons.menu_rounded, size: 30.r),
           ),
-          actions: [
-            IconButton(
-              padding: EdgeInsets.all(15.w),
-              onPressed: () {},
-              icon: Icon(Icons.menu_rounded, size: 30.r),
-            ),
-          ],
-          centerTitle: true,
+        ],
+        centerTitle: true,
+      ),
+      body: modules[currentIndex],
+      extendBody: true,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.r),
         ),
-        body: modules[currentIndex],
-        extendBody: true,
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: FloatingActionButton(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.r),
-          ),
-          onPressed: () {
-            context.pushNamed(PagesRoutes.addUser);
-          },
-          child: Icon(Icons.add),
-        ),
-        bottomNavigationBar: MyBottomBar(
-          onTap: (value) {
-            setState(() {
-              currentIndex = value;
-            });
-          },
-          currentIndex: currentIndex,
-        ),
+        onPressed: () {
+          context.pushNamed(PagesRoutes.addUser);
+        },
+        child: Icon(Icons.add),
+      ),
+      bottomNavigationBar: MyBottomBar(
+        onTap: (value) {
+          setState(() {
+            currentIndex = value;
+          });
+        },
+        currentIndex: currentIndex,
       ),
     );
   }

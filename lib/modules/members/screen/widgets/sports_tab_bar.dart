@@ -17,7 +17,7 @@ class SportsTabBar extends StatelessWidget {
       child: TabBar(
         onTap: (index) {
           if (index == 0) {
-            context.read<MembersModuleBloc>().add(FilterMembersEvent("all"));
+            context.read<MembersModuleBloc>().add(GetMembersEvent());
           } else {
             context.read<MembersModuleBloc>().add(
               FilterMembersEvent(Sport.values[index - 1].displayName),

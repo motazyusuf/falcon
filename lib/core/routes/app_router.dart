@@ -34,7 +34,11 @@ class AppRouter {
 
       case PagesRoutes.mainLayout:
         return MaterialPageRoute(
-          builder: (context) => MainLayout(),
+          builder:
+              (context) => BlocProvider(
+                create: (context) => MembersModuleBloc(),
+                child: MainLayout(),
+              ),
           settings: settings,
         );
 

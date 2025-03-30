@@ -1,6 +1,11 @@
 part of '../import/members_module_import.dart';
 
 class MembersModuleBloc extends BaseBloc {
+  @override
+  Future<void> close() async {
+    // To keep stream open
+  }
+
   final MembersModuleRepo membersModuleRepo = MembersModuleRepo();
   List<Member> filteredMembers = [];
   List<Member> allMembers = [];
