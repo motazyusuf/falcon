@@ -68,7 +68,7 @@ class AllMembersScreenState
   }
 
   @override
-  Widget buildWidget(BuildContext parentContext, RenderDataState state) {
+  Widget buildWidget(BuildContext context, RenderDataState state) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
       child: Column(
@@ -98,7 +98,61 @@ class AllMembersScreenState
               ),
             ),
           ),
-          SportsTabBar(),
+          DefaultTabController(
+            length: Sport.values.length + 1,
+            child: TabBar(
+              tabAlignment: TabAlignment.start,
+              onTap: (index) {
+                if (index == 0) {
+                  // context.read<MembersModuleBloc>().add(
+                  //   FilterMembersEvent('all'),
+                  context.read<MembersModuleBloc>().add(GetMembersEvent());
+                } else {
+                  context.read<MembersModuleBloc>().add(
+                    FilterMembersEvent(Sport.values[index - 1].displayName),
+                  );
+                }
+              },
+              isScrollable: true,
+              indicatorPadding: EdgeInsets.zero,
+              labelPadding: const EdgeInsets.symmetric(horizontal: 5),
+              padding: const EdgeInsets.only(top: 8, bottom: 8),
+              indicatorColor: Colors.transparent,
+              dividerColor: Colors.transparent,
+              tabs: [
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                  decoration: BoxDecoration(
+                    color: context.colorScheme.secondary,
+                    borderRadius: BorderRadius.circular(25.r),
+                  ),
+                  child: Text(
+                    "All Sports",
+                    style: TextStyle().copyWith(
+                      fontFamily: "Anton_SC",
+                      fontSize: 13.sp,
+                    ),
+                  ),
+                ),
+                ...Sport.values.map(
+                  (sport) => Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                    decoration: BoxDecoration(
+                      color: context.colorScheme.secondary,
+                      borderRadius: BorderRadius.circular(25.r),
+                    ),
+                    child: Text(
+                      sport.displayName,
+                      style: TextStyle().copyWith(
+                        fontFamily: "Anton_SC",
+                        fontSize: 13.sp,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
           SizedBox(height: 5.h),
           state is MembersLoaded && bloc.allMembers.isNotEmpty
               ? Expanded(

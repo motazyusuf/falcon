@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
+import '../../../core/enums/sport_enum.dart';
 import '../../../network/member_model.dart';
-import '../screen/widgets/sports_tab_bar.dart';
 
 part '../bloc/members_module_bloc.dart';
 part '../event/members_module_event.dart';

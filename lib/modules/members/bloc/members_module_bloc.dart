@@ -3,18 +3,13 @@ part of '../import/members_module_import.dart';
 class MembersModuleBloc extends BaseBloc {
   @override
   Future<void> close() async {
-    // To keep stream open
+    debugPrint(">>>>>>>>>>>MemberBloc will not be closed<<<<<<<<<<<");
   }
 
   final MembersModuleRepo membersModuleRepo = MembersModuleRepo();
   List<Member> filteredMembers = [];
   List<Member> allMembers = [];
 
-  Future<void> addMember(AddMemberEvent event, Emitter emit) async {
-    emit(LoadingStateNonRender());
-    await membersModuleRepo.addMember(event.member);
-    emit(EndLoadingStateNonRender());
-  }
 
   Future<void> getMembers(GetMembersEvent event, Emitter emit) async {
     print("Get Members");
@@ -55,7 +50,7 @@ class MembersModuleBloc extends BaseBloc {
 
   MembersModuleBloc()
     : super(MembersModuleStateFactory(), initialState: MembersInitialState()) {
-    on<AddMemberEvent>(addMember);
+    debugPrint(">>>>>>>>>>>Start MembersBloc<<<<<<<<<<<");
     on<GetMembersEvent>(getMembers);
     on<FilterMembersEvent>(filterMembers);
   }

@@ -5,16 +5,24 @@ import 'package:opticore/opticore.dart';
 
 import '../../../../core/enums/sport_enum.dart';
 
-class SportsTabBar extends StatelessWidget {
+class SportsTabBar extends StatefulWidget {
   const SportsTabBar({super.key});
 
+  @override
+  State<SportsTabBar> createState() => _SportsTabBarState();
+}
+
+class _SportsTabBarState extends State<SportsTabBar> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: Sport.values.length + 1,
       child: TabBar(
+        tabAlignment: TabAlignment.start,
         onTap: (index) {
           if (index == 0) {
+            // context.read<MembersModuleBloc>().add(
+            //   FilterMembersEvent('all'),
             context.read<MembersModuleBloc>().add(GetMembersEvent());
           } else {
             context.read<MembersModuleBloc>().add(
