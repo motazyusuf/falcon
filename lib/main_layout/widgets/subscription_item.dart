@@ -12,6 +12,8 @@ class SubscriptionItem extends StatelessWidget {
   final ValueChanged<String> onDueAmountChanged;
   final Function() onStartDateChanged;
   final Function(int) onEndDateChanged;
+  int index;
+  List<bool> isEndDatePicked;
   DateTime pickedStartDate;
 
   SubscriptionItem({
@@ -22,7 +24,9 @@ class SubscriptionItem extends StatelessWidget {
     required this.onEndDateChanged,
     required this.onPaidAmountChanged,
     required this.onDueAmountChanged,
-    required this.pickedStartDate
+    required this.pickedStartDate,
+    required this.index,
+    required this.isEndDatePicked
   });
 
   @override
@@ -57,11 +61,13 @@ class SubscriptionItem extends StatelessWidget {
           SizedBox(height: 10.h),
           // Subscription Start Date
           GestureDetector(
-            onTap: onStartDateChanged,
+            onTap: isEndDatePicked[index] ? null : onStartDateChanged,
             child: Text(
               "${MyStrings.startDate}: ${pickedStartDate.toString().substring(
                   0, 10)}",
-              style: context.textTheme.displaySmall?.copyWith(fontSize: 12.sp),
+              style: context.textTheme.displaySmall?.copyWith(fontSize: 12.sp,
+                  color: isEndDatePicked[index] ? context.colorScheme
+                      .secondaryContainer : null),
             ),
           ),
           SizedBox(height: 15.h),
@@ -107,7 +113,6 @@ class SubscriptionItem extends StatelessWidget {
                 ),
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 5.w),
-
                   decoration: BoxDecoration(
                     color: context.colorScheme.secondary,
                     borderRadius: BorderRadius.circular(25.r),

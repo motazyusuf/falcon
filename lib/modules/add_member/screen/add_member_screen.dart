@@ -32,9 +32,9 @@ class AddMemberScreenState
       dueAmount: 0,
     ),
   ];
+  List<bool> isEndDatePicked = [false];
 
   @override
-  // TODO: implement scaffoldConfig
   ScaffoldConfig get scaffoldConfig => ScaffoldConfig(
     appBar: AppBar(
       title: Text(MyStrings.addMember),
@@ -48,7 +48,8 @@ class AddMemberScreenState
 
   @override
   Widget buildWidget(BuildContext context, RenderDataState state) {
-    return SingleChildScrollView(
+    return StatefulBuilder(builder: (context, newState) =>
+        SingleChildScrollView(
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 15.w),
@@ -75,70 +76,85 @@ class AddMemberScreenState
               keyboardType: TextInputType.phone,
             ),
             SizedBox(height: 20.h),
-            SizedBox(
-              height: 230.h,
-              child: ListView.separated(
-                itemCount: subscriptions.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return SubscriptionItem(
-                    pickedStartDate: subscriptions[index].subscriptionDate,
-                    onSportChanged: (newSport) {
-                      setState(() {
-                        subscriptions[index].sport = newSport!;
-                      });
-                    },
-                    onEndDateChanged: (tabIndex) {
-                      if (tabIndex == 0) {
-                        subscriptions[index].endDate = subscriptions[index]
-                            .subscriptionDate
-                            .add(Duration(days: 30));
-                      } else if (tabIndex == 1) {
-                        subscriptions[index].endDate = subscriptions[index]
-                            .subscriptionDate
-                            .add(Duration(days: 60));
-                      } else {
-                        subscriptions[index].endDate = subscriptions[index]
-                            .subscriptionDate
-                            .add(Duration(days: 90));
-                      }
-                    },
-                    onStartDateChanged: () async {
-                      DateTime? pickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: subscriptions[index].subscriptionDate,
-                        firstDate: DateTime(2000),
-                        lastDate: DateTime(2101),
+            StatefulBuilder(
+              builder: (context, newState) {
+                return SizedBox(
+                  height: 230.h,
+                  child: ListView.separated(
+                    itemCount: subscriptions.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return SubscriptionItem(
+                        pickedStartDate: subscriptions[index].subscriptionDate,
+                        onSportChanged: (newSport) {
+                          setState(() {
+                            subscriptions[index].sport = newSport!;
+                          });
+                        },
+                        onEndDateChanged: (tabIndex) {
+                          newState(() {
+                            isEndDatePicked[index] = true;
+                            if (tabIndex == 0) {
+                              subscriptions[index]
+                                  .endDate = subscriptions[index]
+                                  .subscriptionDate
+                                  .add(Duration(days: 30));
+                            } else if (tabIndex == 1) {
+                              subscriptions[index]
+                                  .endDate = subscriptions[index]
+                                  .subscriptionDate
+                                  .add(Duration(days: 60));
+                            } else {
+                              subscriptions[index]
+                                  .endDate = subscriptions[index]
+                                  .subscriptionDate
+                                  .add(Duration(days: 90));
+                            }
+                          });
+                        },
+                        onStartDateChanged: () async {
+                          DateTime? pickedDate = await showDatePicker(
+                            context: context,
+                            initialDate: subscriptions[index].subscriptionDate,
+                            firstDate: DateTime(2000),
+                            lastDate: DateTime(2101),
+                          );
+                          if (pickedDate != null) {
+                            setState(() {
+                              subscriptions[index].subscriptionDate =
+                                  pickedDate;
+                            });
+                          }
+                        },
+                        onPaidAmountChanged: (value) {
+                          subscriptions[index].paidAmount =
+                              num.tryParse(value) ?? 0;
+                        },
+                        onDueAmountChanged: (value) {
+                          subscriptions[index].dueAmount =
+                              num.tryParse(value) ?? 0;
+                        },
+                        onSubscriptionRemoved: () {
+                          newState(() {
+                            subscriptions.removeAt(index);
+                            isEndDatePicked.removeAt(index);
+                          });
+                        },
+                        index: index,
+                        isEndDatePicked: isEndDatePicked,
                       );
-                      if (pickedDate != null) {
-                        setState(() {
-                          subscriptions[index].subscriptionDate = pickedDate;
-                        });
-                      }
                     },
-                    onPaidAmountChanged: (value) {
-                      subscriptions[index].paidAmount =
-                          num.tryParse(value) ?? 0;
-                    },
-                    onDueAmountChanged: (value) {
-                      subscriptions[index].dueAmount = num.tryParse(value) ?? 0;
-                    },
-                    onSubscriptionRemoved: () {
-                      setState(() {
-                        subscriptions.removeAt(index);
-                      });
-                    },
-                  );
-                },
-                separatorBuilder: (context, index) => SizedBox(width: 10.w),
-              ),
+                    separatorBuilder: (context, index) => SizedBox(width: 10.w),
+                  ),
+                );
+              },
             ),
             SizedBox(height: 70.h),
             CoreButton(
               title: MyStrings.addAnotherSubscription,
               backgroundColor: context.colorScheme.secondaryContainer,
               onTap: () {
-                setState(() {
+                newState(() {
                   subscriptions.add(
                     Subscription(
                       sport: Sport.values.first,
@@ -150,6 +166,7 @@ class AddMemberScreenState
                       dueAmount: 0,
                     ),
                   );
+                  isEndDatePicked.add(false);
                 });
               },
             ),
@@ -174,7 +191,8 @@ class AddMemberScreenState
           ],
         ),
       ),
-    );
+        ));
+
   }
 
   @override
