@@ -16,7 +16,8 @@ class MainLayout extends StatefulWidget {
 class _MainLayoutState extends State<MainLayout> {
   int currentIndex = 0;
   List<Widget> modules = [
-    AllMembersScreen(bloc: MembersModuleBloc()),
+    AllMembersScreen(bloc: MembersModuleBloc()
+      ..add(GetMembersEvent())),
     Placeholder(),
   ];
 
@@ -51,7 +52,7 @@ class _MainLayoutState extends State<MainLayout> {
           borderRadius: BorderRadius.circular(30.r),
         ),
         onPressed: () {
-          context.pushNamed(PagesRoutes.addUser);
+          context.pushNamed(PagesRoutes.addMember);
         },
         child: Icon(Icons.add),
       ),

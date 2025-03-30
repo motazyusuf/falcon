@@ -58,6 +58,5 @@ class MembersModuleBloc extends BaseBloc {
     on<AddMemberEvent>(addMember);
     on<GetMembersEvent>(getMembers);
     on<FilterMembersEvent>(filterMembers);
-    add(GetMembersEvent());
   }
 }

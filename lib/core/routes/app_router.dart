@@ -22,7 +22,7 @@ class AppRouter {
           settings: settings,
         );
 
-      case PagesRoutes.addUser:
+      case PagesRoutes.addMember:
         return MaterialPageRoute(
           builder:
               (context) => BlocProvider(

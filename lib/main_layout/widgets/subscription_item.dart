@@ -31,6 +31,7 @@ class SubscriptionItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 150.w,
       padding: EdgeInsets.symmetric(horizontal: 5.w),
       decoration: BoxDecoration(
         color: context.colorScheme.secondaryFixed,
@@ -41,21 +42,23 @@ class SubscriptionItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Sport Dropdown
-          DropdownButtonFormField<Sport>(
-            dropdownColor: context.colorScheme.secondaryContainer,
-            value: subscriptions[index].sport,
-            decoration: InputDecoration(),
-            items:
-                Sport.values.map((sport) {
-                  return DropdownMenuItem(
-                    value: sport,
-                    child: Text(
-                      sport.displayName,
-                      style: TextStyle().copyWith(fontSize: 15.sp),
-                    ),
-                  );
-                }).toList(),
-            onChanged: onSportChanged,
+          Flexible(
+            child: DropdownButtonFormField<Sport>(
+              dropdownColor: context.colorScheme.secondaryContainer,
+              value: subscriptions[index].sport,
+              decoration: InputDecoration(),
+              items:
+                  Sport.values.map((sport) {
+                    return DropdownMenuItem(
+                      value: sport,
+                      child: Text(
+                        sport.displayName,
+                        style: TextStyle().copyWith(fontSize: 15.sp),
+                      ),
+                    );
+                  }).toList(),
+              onChanged: onSportChanged,
+            ),
           ),
           SizedBox(height: 10),
           // Subscription Start Date
@@ -94,7 +97,7 @@ class SubscriptionItem extends StatelessWidget {
 
           // Remove Button
           Align(
-            alignment: Alignment.centerRight,
+            alignment: Alignment.bottomRight,
             child: TextButton(
               onPressed: onSubscriptionRemoved,
               child: Text(
