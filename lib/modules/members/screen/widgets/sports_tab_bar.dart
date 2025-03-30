@@ -6,9 +6,7 @@ import 'package:opticore/opticore.dart';
 import '../../../../core/enums/sport_enum.dart';
 
 class SportsTabBar extends StatelessWidget {
-  const SportsTabBar({super.key, required this.context});
-
-  final BuildContext context;
+  const SportsTabBar({super.key});
 
   @override
   Widget build(BuildContext context) {

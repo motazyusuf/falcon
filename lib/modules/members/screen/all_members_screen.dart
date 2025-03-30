@@ -98,7 +98,7 @@ class AllMembersScreenState
               ),
             ),
           ),
-          SportsTabBar(context: context),
+          SportsTabBar(),
           SizedBox(height: 5.h),
           state is MembersLoaded && bloc.allMembers.isNotEmpty
               ? Expanded(

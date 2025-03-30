@@ -61,7 +61,6 @@ class _addMemberState extends State<AddMemberScreen> {
         ),
         body: SingleChildScrollView(
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-          reverse: true,
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 15.w),
             child: Column(
@@ -88,32 +87,31 @@ class _addMemberState extends State<AddMemberScreen> {
                 ),
                 SizedBox(height: 20.h),
                 SizedBox(
-                  height: 200.h,
+                  height: 230.h,
                   child: ListView.separated(
-                    shrinkWrap: true,
                     itemCount: subscriptions.length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       return SubscriptionItem(
-                        index: index,
-                        subscriptions: subscriptions,
+                        pickedStartDate: subscriptions[index].subscriptionDate,
                         onSportChanged: (newSport) {
                           setState(() {
                             subscriptions[index].sport = newSport!;
                           });
                         },
-                        onEndDateChanged: () async {
-                          DateTime? pickedDate = await showDatePicker(
-                            context: context,
-                            initialDate: subscriptions[index].subscriptionDate
-                                .add(Duration(days: 30)),
-                            firstDate: DateTime(2000),
-                            lastDate: DateTime(2101),
-                          );
-                          if (pickedDate != null) {
-                            setState(() {
-                              subscriptions[index].endDate = pickedDate;
-                            });
+                        onEndDateChanged: (tabIndex) {
+                          if (tabIndex == 0) {
+                            subscriptions[index].endDate = subscriptions[index]
+                                .subscriptionDate
+                                .add(Duration(days: 30));
+                          } else if (tabIndex == 1) {
+                            subscriptions[index].endDate = subscriptions[index]
+                                .subscriptionDate
+                                .add(Duration(days: 60));
+                          } else {
+                            subscriptions[index].endDate = subscriptions[index]
+                                .subscriptionDate
+                                .add(Duration(days: 90));
                           }
                         },
                         onStartDateChanged: () async {
@@ -148,7 +146,7 @@ class _addMemberState extends State<AddMemberScreen> {
                     separatorBuilder: (context, index) => SizedBox(width: 10.w),
                   ),
                 ),
-                SizedBox(height: 80.h),
+                SizedBox(height: 70.h),
                 CoreButton(
                   title: MyStrings.addAnotherSubscription,
                   backgroundColor: context.colorScheme.secondaryContainer,

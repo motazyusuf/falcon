@@ -4,34 +4,32 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
 import '../../core/enums/sport_enum.dart';
-import '../../network/member_model.dart';
 
 class SubscriptionItem extends StatelessWidget {
-  int index;
   final ValueChanged<Sport?> onSportChanged;
   final ValueChanged<String> onPaidAmountChanged;
   final Function() onSubscriptionRemoved;
   final ValueChanged<String> onDueAmountChanged;
   final Function() onStartDateChanged;
-  final Function() onEndDateChanged;
-  List<Subscription> subscriptions;
+  final Function(int) onEndDateChanged;
+  DateTime pickedStartDate;
 
   SubscriptionItem({
     super.key,
-    required this.index,
     required this.onSportChanged,
     required this.onSubscriptionRemoved,
     required this.onStartDateChanged,
     required this.onEndDateChanged,
     required this.onPaidAmountChanged,
     required this.onDueAmountChanged,
-    required this.subscriptions,
+    required this.pickedStartDate
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 150.w,
+      width: 180.w,
+      height: 250.h,
       padding: EdgeInsets.symmetric(horizontal: 5.w),
       decoration: BoxDecoration(
         color: context.colorScheme.secondaryFixed,
@@ -41,41 +39,103 @@ class SubscriptionItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Sport Dropdown
-          Flexible(
-            child: DropdownButtonFormField<Sport>(
-              dropdownColor: context.colorScheme.secondaryContainer,
-              value: subscriptions[index].sport,
-              decoration: InputDecoration(),
-              items:
-                  Sport.values.map((sport) {
-                    return DropdownMenuItem(
-                      value: sport,
-                      child: Text(
-                        sport.displayName,
-                        style: TextStyle().copyWith(fontSize: 15.sp),
-                      ),
-                    );
-                  }).toList(),
-              onChanged: onSportChanged,
-            ),
+          DropdownButtonFormField<Sport>(
+            dropdownColor: context.colorScheme.secondaryContainer,
+            value: Sport.values[0],
+            items:
+            Sport.values.map((sport) {
+              return DropdownMenuItem(
+                value: sport,
+                child: Text(
+                  sport.displayName,
+                  style: TextStyle().copyWith(fontSize: 15.sp),
+                ),
+              );
+            }).toList(),
+            onChanged: onSportChanged,
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 10.h),
           // Subscription Start Date
           GestureDetector(
             onTap: onStartDateChanged,
             child: Text(
-              "${MyStrings.startDate}: ${subscriptions[index].subscriptionDate.toString().substring(0, 10)}",
+              "${MyStrings.startDate}: ${pickedStartDate.toString().substring(
+                  0, 10)}",
               style: context.textTheme.displaySmall?.copyWith(fontSize: 12.sp),
             ),
           ),
+          SizedBox(height: 15.h),
+          DefaultTabController(
+            length: 4,
+            child: TabBar(
+              tabAlignment: TabAlignment.center,
+              physics: const ClampingScrollPhysics(),
+              padding: EdgeInsets.zero,
+              isScrollable: true,
+              onTap: onEndDateChanged,
+              indicatorPadding: EdgeInsets.zero,
+              labelPadding: EdgeInsets.zero,
+              indicatorColor: Colors.transparent,
+              dividerColor: Colors.transparent,
+              tabs: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: context.colorScheme.secondary,
+                    borderRadius: BorderRadius.circular(25.r),
+                  ),
+                  child: Text(
+                    "",
+                    style: TextStyle().copyWith(
+                      fontFamily: "Anton_SC",
+                      fontSize: 10.sp,
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 5.w),
+                  decoration: BoxDecoration(
+                    color: context.colorScheme.secondary,
+                    borderRadius: BorderRadius.circular(25.r),
+                  ),
+                  child: Text(
+                    "Month",
+                    style: TextStyle().copyWith(
+                      fontFamily: "Anton_SC",
+                      fontSize: 10.sp,
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 5.w),
 
-          // End Date
-          GestureDetector(
-            onTap: onEndDateChanged,
-            child: Text(
-              "${MyStrings.endDate}: ${subscriptions[index].endDate.toString().substring(0, 10)}",
-              style: context.textTheme.displaySmall?.copyWith(fontSize: 12.sp),
+                  decoration: BoxDecoration(
+                    color: context.colorScheme.secondary,
+                    borderRadius: BorderRadius.circular(25.r),
+                  ),
+                  child: Text(
+                    "2 Months",
+                    style: TextStyle().copyWith(
+                      fontFamily: "Anton_SC",
+                      fontSize: 10.sp,
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 5.w),
+
+                  decoration: BoxDecoration(
+                    color: context.colorScheme.secondary,
+                    borderRadius: BorderRadius.circular(25.r),
+                  ),
+                  child: Text(
+                    "3 months",
+                    style: TextStyle().copyWith(
+                      fontFamily: "Anton_SC",
+                      fontSize: 10.sp,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
 
