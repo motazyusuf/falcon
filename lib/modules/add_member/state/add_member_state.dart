@@ -5,3 +5,5 @@ class AddMemberInitialState extends RenderDataState {
 }
 
 final class MemberAdded extends NonRenderState {}
+
+final class NoEndDate extends NonRenderState {}

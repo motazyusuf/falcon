@@ -4,6 +4,7 @@ class AddMemberInitialEvent extends BaseEvent {}
 
 class AddMemberEvent extends BaseEvent {
   Member member;
-
   AddMemberEvent(this.member);
 }
+
+class AddMemberWithNoEndDateEvent extends BaseEvent {}

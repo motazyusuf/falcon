@@ -9,6 +9,11 @@ class AddMemberBloc extends BaseBloc {
     emit(EndLoadingStateNonRender());
   }
 
+  addMemberWithNoEndDateEvent(AddMemberWithNoEndDateEvent event, Emitter emit) {
+    print("I am inside add member with no end date");
+    emit(NoEndDate());
+  }
+
   @override
   Future<void> close() {
     debugPrint(">>>>>>>>>>>Close AddMemberBloc<<<<<<<<<<<");
@@ -19,6 +24,7 @@ class AddMemberBloc extends BaseBloc {
     : super(AddMemberStateFactory(), initialState: AddMemberInitialState()) {
     debugPrint(">>>>>>>>>>>Start AddMemberBloc<<<<<<<<<<<");
     on<AddMemberEvent>(addMember);
+    on<AddMemberWithNoEndDateEvent>(addMemberWithNoEndDateEvent);
   }
 
   @override

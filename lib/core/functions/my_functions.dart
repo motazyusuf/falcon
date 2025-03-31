@@ -49,4 +49,11 @@ class MyFunctions {
   static String dateTimeToString(DateTime date) {
     return date.toString().substring(0, 10);
   }
+
+  static String? validateNotEmpty(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return "";
+    }
+    return null;
+  }
 }

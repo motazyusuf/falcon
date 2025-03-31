@@ -120,6 +120,7 @@ class ApplicationThemeManager {
       ),
     ),
     inputDecorationTheme: InputDecorationTheme(
+        errorStyle: TextStyle(fontSize: 0),
         hintStyle: TextStyle(color: Color(0xFF616161))
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(

@@ -13,4 +13,4 @@ part '../bloc/add_member_bloc.dart';
 part '../event/add_member_event.dart';
 part '../factory/add_member_state_factory.dart';
 part '../screen/add_member_screen.dart';
-part '../state/example_module_state.dart';
+part '../state/add_member_state.dart';

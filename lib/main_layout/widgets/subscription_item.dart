@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
 import '../../core/enums/sport_enum.dart';
+import '../../core/functions/my_functions.dart';
 
 class SubscriptionItem extends StatelessWidget {
   final ValueChanged<Sport?> onSportChanged;
@@ -146,6 +147,7 @@ class SubscriptionItem extends StatelessWidget {
 
           // Paid Amount
           TextFormField(
+            validator: MyFunctions.validateNotEmpty,
             style: context.textTheme.displaySmall?.copyWith(fontSize: 12.sp),
             decoration: InputDecoration(hintText: MyStrings.paidAmount),
             keyboardType: TextInputType.number,
