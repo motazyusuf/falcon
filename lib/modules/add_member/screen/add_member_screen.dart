@@ -184,10 +184,8 @@ class AddMemberScreenState
                           subscriptions.add(
                             Subscription(
                               sport: Sport.values.first,
-                              // Default sport
                               subscriptionDate: DateTime.now(),
                               endDate: DateTime.now().add(Duration(days: 30)),
-                              // Default 1 month
                               paidAmount: 0,
                               dueAmount: 0,
                             ),
@@ -209,6 +207,7 @@ class AddMemberScreenState
                             AddMemberEvent(
                               Member(
                                 id: "",
+                                extraNotes: notesController.text,
                                 firstName: firstNameController.text,
                                 lastName: lastNameController.text,
                                 isActive: true,

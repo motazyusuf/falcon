@@ -20,7 +20,7 @@ class MemberFullDetails extends StatelessWidget {
           Center(
             child: Text(
               "${member.firstName} ${member.lastName}",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.sp),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30.sp),
             ),
           ),
           SizedBox(height: 1.h),
@@ -37,11 +37,16 @@ class MemberFullDetails extends StatelessWidget {
           ),
           SizedBox(height: 10.h),
           Text(
-            "Phone number: 0${member.phoneNumber}",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
+            "Phone number:  0${member.phoneNumber}",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23.sp),
           ),
           SizedBox(height: 10.h),
-          Text("Subscriptions:"),
+          Text(
+            "Extra Notes:  ${member.extraNotes}",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp),
+          ),
+          SizedBox(height: 10.h),
+          Text("Subscriptions: "),
           SizedBox(height: 5.h),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
