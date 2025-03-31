@@ -24,6 +24,8 @@ class _MainLayoutState extends State<MainLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+      // 🔥 Prevents FAB from moving
       extendBodyBehindAppBar: false,
       appBar: AppBar(
         toolbarHeight: 70.h,
