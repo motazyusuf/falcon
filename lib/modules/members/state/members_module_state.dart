@@ -13,11 +13,12 @@ final class MembersLoaded extends RenderDataState {
   MembersLoaded() : super(null);
 }
 
+final class SearchedMembersLoaded extends RenderDataState {
+  SearchedMembersLoaded() : super(null);
+}
+
 final class MembersFiltered extends RenderDataState {
   MembersFiltered() : super(null);
 }
 
 
-final class TransitionState extends NonRenderState {}
-
-final class MemberError extends NonRenderState {}

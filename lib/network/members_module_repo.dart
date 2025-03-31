@@ -4,14 +4,13 @@ import 'package:opticore/opticore.dart';
 import 'member_model.dart';
 
 class MembersModuleRepo extends BaseRepo {
-
   static CollectionReference<Member> getCollection() {
     return FirebaseFirestore.instance
         .collection('Members')
         .withConverter<Member>(
-        fromFirestore: (snapshot, _) =>
-            Member.fromJson(snapshot.data()!),
-        toFirestore: (value, _) => Member.toJson(value));
+          fromFirestore: (snapshot, _) => Member.fromJson(snapshot.data()!),
+          toFirestore: (value, _) => Member.toJson(value),
+        );
   }
 
   Future<void> addMember(Member member) async {
@@ -37,5 +36,23 @@ class MembersModuleRepo extends BaseRepo {
     var stream = collectionRef.snapshots();
 
     return stream;
+  }
+
+  Future<List<Member>> searchMembers(String query) async {
+    var collectionRef = getCollection();
+
+    print("Typed: ${query}");
+    if (query.isEmpty) return [];
+
+    // Search by 'name'
+    final keywordsQuery =
+        await collectionRef
+            .where('search_keywords', arrayContains: query)
+            .get();
+
+    final results = keywordsQuery.docs.map((doc) => doc.data()).toList();
+
+    print(results);
+    return results;
   }
 }

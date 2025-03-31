@@ -47,6 +47,7 @@ class AddMemberScreenState
     ),
   );
 
+
   @override
   Widget buildWidget(BuildContext context, RenderDataState state) {
     return StatefulBuilder(

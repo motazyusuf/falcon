@@ -9,6 +9,7 @@ class MembersModuleBloc extends BaseBloc {
   final MembersModuleRepo membersModuleRepo = MembersModuleRepo();
   List<Member> filteredMembers = [];
   List<Member> allMembers = [];
+  List<Member> searchedMembers = [];
 
 
   Future<void> getMembers(GetMembersEvent event, Emitter emit) async {
@@ -22,10 +23,14 @@ class MembersModuleBloc extends BaseBloc {
         emit(EndLoadingStateNonRender());
         return MembersLoaded();
       },
-      onError: (error, stackTrace) {
-        return MemberError();
-      },
     );
+  }
+
+  Future<void> getSearchedMembers(SearchForMembersEvent event,
+      Emitter emit) async {
+    searchedMembers =
+    await membersModuleRepo.searchMembers(event.searchedForValue);
+    emit(MembersLoaded());
   }
 
   filterMembers(FilterMembersEvent event, Emitter emit) async {
@@ -53,5 +58,7 @@ class MembersModuleBloc extends BaseBloc {
     debugPrint(">>>>>>>>>>>Start MembersBloc<<<<<<<<<<<");
     on<GetMembersEvent>(getMembers);
     on<FilterMembersEvent>(filterMembers);
+    on<SearchForMembersEvent>(getSearchedMembers);
+
   }
 }
