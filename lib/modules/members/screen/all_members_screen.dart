@@ -199,7 +199,26 @@ class AllMembersScreenState
                   itemCount: bloc.searchedMembers.length,
                   crossAxisCount: 2,
                 ),
-              )
+          ) : state is MembersFiltered ? Expanded(
+            child: FlexibleGridView(
+              crossAxisSpacing: 10.w,
+              mainAxisSpacing: 10.h,
+              builder:
+                  (context, index) =>
+                  MemberBrief(
+                    onTap: () {
+                      CoreSheet.showCupertino(expand: true,
+                          enableDrag: true,
+                          backgroundColor: context.colorScheme.secondary,
+                          child: MemberFullDetails(
+                              member: bloc.filteredMembers[index]));
+                    },
+                    member: bloc.filteredMembers[index],
+                  ),
+              itemCount: bloc.filteredMembers.length,
+              crossAxisCount: 2,
+            ),
+          )
               : SizedBox(),
         ],
       ),
