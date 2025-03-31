@@ -5,6 +5,7 @@ class Member {
   String? id;
   String firstName;
   String lastName;
+  String? extraNotes;
   num phoneNumber;
   List<Subscription> subscriptions;
   bool isActive;
@@ -15,6 +16,7 @@ class Member {
     required this.firstName,
     required this.lastName,
     required this.phoneNumber,
+    this.extraNotes,
     required this.subscriptions,
     required this.isActive,
   }) : searchKeywords =
@@ -25,6 +27,7 @@ class Member {
       id: json["id"],
       firstName: json["first_name"],
       lastName: json["last_name"],
+      extraNotes: json["extra_notes"],
       phoneNumber: json["phone_number"],
       subscriptions: (json["subscriptions"] as List<dynamic>)
           .map((subscription) => Subscription.fromJson(subscription))
@@ -37,6 +40,7 @@ class Member {
     return {
       "id": member.id ?? "",
       "first_name": member.firstName,
+      "extra_notes": member.extraNotes ?? "",
       "last_name": member.lastName,
       "phone_number": member.phoneNumber,
       "subscriptions": member.subscriptions

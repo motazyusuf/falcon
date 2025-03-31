@@ -21,6 +21,7 @@ class MyStrings {
   static const String phoneNumber = 'Phone Number';
   static const String addAnotherSubscription = 'Add Another Subscription';
   static const String searchForMember = 'Search For Member';
+  static const String extraNotes = 'Extra Notes';
 
   // splash
   static const String whereChampionsAreMade = 'Where Champions Are Made';

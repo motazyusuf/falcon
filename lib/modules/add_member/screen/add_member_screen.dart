@@ -15,6 +15,7 @@ class AddMemberScreenState
 
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController notesController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController paidAmountController = TextEditingController();
   final TextEditingController dueAmountController = TextEditingController();
@@ -71,14 +72,14 @@ class AddMemberScreenState
                         hintText: MyStrings.firstName,
                       ),
                     ),
-                    SizedBox(height: 20.h),
+                    SizedBox(height: 10.h),
                     TextFormField(
                       validator: MyFunctions.validateNotEmpty,
                       style: context.textTheme.bodyLarge,
                       controller: lastNameController,
                       decoration: InputDecoration(hintText: MyStrings.lastName),
                     ),
-                    SizedBox(height: 20.h),
+                    SizedBox(height: 10.h),
                     TextFormField(
                       validator: MyFunctions.validateNotEmpty,
                       style: context.textTheme.bodyLarge,
@@ -88,7 +89,16 @@ class AddMemberScreenState
                       ),
                       keyboardType: TextInputType.phone,
                     ),
-                    SizedBox(height: 20.h),
+                    SizedBox(height: 10.h),
+                    TextFormField(
+                      style: context.textTheme.bodyLarge,
+                      controller: notesController,
+                      decoration: InputDecoration(
+                        hintText: MyStrings.extraNotes,
+                      ),
+                      keyboardType: TextInputType.phone,
+                    ),
+                    SizedBox(height: 10.h),
                     StatefulBuilder(
                       builder: (context, newState) {
                         return SizedBox(
@@ -165,7 +175,7 @@ class AddMemberScreenState
                         );
                       },
                     ),
-                    SizedBox(height: 70.h),
+                    SizedBox(height: 40.h),
                     CoreButton(
                       title: MyStrings.addAnotherSubscription,
                       backgroundColor: context.colorScheme.secondaryContainer,
