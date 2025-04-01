@@ -3,58 +3,48 @@ import '../core/functions/my_functions.dart';
 
 class Member {
   String? id;
-  String firstName;
-  String lastName;
+  String name;
   String? extraNotes;
   num phoneNumber;
   List<Subscription> subscriptions;
-  bool isActive;
   List<String> searchKeywords; // 🔥 Used for Firestore search
 
   Member({
     this.id,
-    required this.firstName,
-    required this.lastName,
+    required this.name,
     required this.phoneNumber,
     this.extraNotes,
     required this.subscriptions,
-    required this.isActive,
-  }) : searchKeywords =
-  _generateSearchKeywords(firstName, lastName, phoneNumber); // Auto-generate
+  }) : searchKeywords = _generateSearchKeywords(name); // Auto-generate
 
   factory Member.fromJson(Map<String, dynamic> json) {
     return Member(
       id: json["id"],
-      firstName: json["first_name"],
-      lastName: json["last_name"],
+      name: json["name"],
       extraNotes: json["extra_notes"],
       phoneNumber: json["phone_number"],
       subscriptions: (json["subscriptions"] as List<dynamic>)
           .map((subscription) => Subscription.fromJson(subscription))
           .toList(),
-      isActive: json["is_active"],
     );
   }
 
   static Map<String, dynamic> toJson(Member member) {
     return {
       "id": member.id ?? "",
-      "first_name": member.firstName,
+      "name": member.name,
       "extra_notes": member.extraNotes ?? "",
-      "last_name": member.lastName,
       "phone_number": member.phoneNumber,
       "subscriptions": member.subscriptions
           .map((subscription) => Subscription.toJson(subscription))
           .toList(),
-      "is_active": member.isActive,
       "search_keywords": member.searchKeywords,
       // 🔥 Store searchable substrings
     };
   }
 
   /// 🔥 Generate searchable substrings for name & phone number
-  static List<String> _generateSearchKeywords(String firstName, String lastName,
-      num phoneNumber) {
+  static List<String> _generateSearchKeywords(String name) {
     Set<String> keywords = {};
 
     void generateSubstrings(String text) {
@@ -66,8 +56,7 @@ class Member {
       }
     }
 
-    generateSubstrings(firstName);
-    generateSubstrings(lastName);
+    generateSubstrings(name);
 
     return keywords.toList();
   }

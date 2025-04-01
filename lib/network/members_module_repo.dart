@@ -22,7 +22,7 @@ class MembersModuleRepo extends BaseRepo {
 
     member.id = documentRef.id;
 
-    print(">>>>>>>>>>>>>>$member.id");
+    member.subscriptions.sort((b, a) => a.endDate.compareTo(b.endDate));
 
     // set values to document
     await documentRef.set(member);
@@ -34,6 +34,14 @@ class MembersModuleRepo extends BaseRepo {
 
     // stream snapshots
     var stream = collectionRef.snapshots();
+
+    // stream.listen((onData) {
+    //   onData.docs.map((member) =>
+    //       member
+    //           .data()
+    //           .subscriptions
+    //           .sort((b, a) => a.endDate.compareTo(b.endDate)));
+    // });
 
     return stream;
   }

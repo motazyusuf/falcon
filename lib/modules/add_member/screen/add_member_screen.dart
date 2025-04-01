@@ -208,9 +208,8 @@ class AddMemberScreenState
                               Member(
                                 id: "",
                                 extraNotes: notesController.text,
-                                firstName: firstNameController.text,
-                                lastName: lastNameController.text,
-                                isActive: true,
+                                name: "${firstNameController
+                                    .text} ${lastNameController.text}",
                                 phoneNumber: phoneController.text.toIntOrNull!,
                                 subscriptions: subscriptions,
                               ),

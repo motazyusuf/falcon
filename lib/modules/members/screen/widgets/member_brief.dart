@@ -21,9 +21,6 @@ class MemberBrief extends StatelessWidget {
           color: context.colorScheme.secondaryContainer,
           border: Border.all(color: context.colorScheme.secondary),
           borderRadius: BorderRadius.circular(20.r), // Rounded edges
-          // boxShadow: [
-          //   BoxShadow(color: Colors.black, blurRadius: 5, spreadRadius: 2),
-          // ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,7 +28,7 @@ class MemberBrief extends StatelessWidget {
             Center(
               child: FittedBox(
                 child: Text(
-                  "${member.firstName} ${member.lastName}",
+                  member.name,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -62,7 +59,10 @@ class MemberBrief extends StatelessWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("${subscription.sport?.displayName}"),
+                                Text(
+                                  "${subscription.sport?.displayName}",
+                                  style: TextStyle().copyWith(fontSize: 15.sp),
+                                ),
                                 Text(
                                   MyFunctions.dateTimeToString(
                                     subscription.endDate,
