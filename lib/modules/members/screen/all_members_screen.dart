@@ -153,10 +153,11 @@ class AllMembersScreenState
                           child: MemberFullDetails(
                             member: bloc.allMembers[index],
                             onCancelTapped: (subscription) {
-                              MembersModuleRepo repo = MembersModuleRepo();
-                              repo.removeSubscription(
-                                bloc.allMembers[index].id!,
-                                subscription,
+                              bloc.add(
+                                MembersCancelSubscriptionEvent(
+                                  id: bloc.allMembers[index].id!,
+                                  subscription: subscription,
+                                ),
                               );
                               bloc.allMembers[index].subscriptions.remove(
                                 subscription,
@@ -182,6 +183,12 @@ class AllMembersScreenState
                           backgroundColor: context.colorScheme.secondary,
                           child: MemberFullDetails(
                             onCancelTapped: (subscription) {
+                              bloc.add(
+                                MembersCancelSubscriptionEvent(
+                                  id: bloc.searchedMembers[index].id!,
+                                  subscription: subscription,
+                                ),
+                              );
                               bloc.searchedMembers[index].subscriptions.remove(
                                 subscription,
                               );
@@ -205,6 +212,12 @@ class AllMembersScreenState
                           backgroundColor: context.colorScheme.secondary,
                           child: MemberFullDetails(
                             onCancelTapped: (subscription) {
+                              bloc.add(
+                                FilterMembersCancelSubscriptionEvent(
+                                  id: bloc.filteredMembers[index].id!,
+                                  subscription: subscription,
+                                ),
+                              );
                               bloc.filteredMembers[index].subscriptions.remove(
                                 subscription,
                               );
