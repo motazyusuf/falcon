@@ -70,6 +70,7 @@ class AllMembersScreenState
   }
 
   bool canSearch = true;
+
   @override
   Widget buildWidget(BuildContext context, RenderDataState state) {
     return Padding(
@@ -79,12 +80,15 @@ class AllMembersScreenState
         children: [
           SizedBox(
             height: 50.h, // Adjust height as needed
-            child: TextFormField(enabled: canSearch,
+            child: TextFormField(
+              enabled: canSearch,
               controller: searchController,
               onChanged: (value) => bloc.add(SearchForMembersEvent(value)),
               decoration: InputDecoration(
-                fillColor: canSearch ? Colors.white : context.colorScheme
-                    .secondaryContainer,
+                fillColor:
+                    canSearch
+                        ? Colors.white
+                        : context.colorScheme.secondaryContainer,
                 filled: true,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
@@ -92,8 +96,9 @@ class AllMembersScreenState
                 ),
                 hintText: MyStrings.searchForMember,
                 hintStyle: context.textTheme.bodyLarge?.copyWith(
-                    color: canSearch ? null : context.colorScheme
-                        .secondaryContainer),
+                  color:
+                      canSearch ? null : context.colorScheme.secondaryContainer,
+                ),
                 contentPadding: EdgeInsets.symmetric(
                   vertical: 14,
                   horizontal: 16,
@@ -165,70 +170,63 @@ class AllMembersScreenState
           ),
           SizedBox(height: 5.h),
           state is MembersLoaded &&
-              bloc.allMembers.isNotEmpty &&
-              searchController.text.isEmpty
-              ? Expanded(
-                child: FlexibleGridView(
-                  crossAxisSpacing: 10.w,
-                  mainAxisSpacing: 10.h,
-                  builder:
-                      (context, index) =>
-                      MemberBrief(
-                        onTap: () {
-                          CoreSheet.showCupertino(expand: true,
-                              enableDrag: true,
-                              backgroundColor: context.colorScheme.secondary,
-                              child: MemberFullDetails(
-                                  member: bloc.allMembers[index]));
-                        },
-                        member: bloc.allMembers[index],
-                      ),
-                  itemCount: bloc.allMembers.length,
-                  crossAxisCount: 2,
-                ),
-              )
-              : state is MembersLoaded &&
-              bloc.searchedMembers.isNotEmpty &&
-              searchController.text.isNotEmpty
-              ? Expanded(
-                child: FlexibleGridView(
-                  crossAxisSpacing: 10.w,
-                  mainAxisSpacing: 10.h,
-                  builder:
-                      (context, index) =>
-                      MemberBrief(
-                        onTap: () {
-                          CoreSheet.showCupertino(expand: true,
-                              enableDrag: true,
-                              backgroundColor: context.colorScheme.secondary,
-                              child: MemberFullDetails(
-                                  member: bloc.searchedMembers[index]));
-                        },
-                        member: bloc.searchedMembers[index],
-                      ),
-                  itemCount: bloc.searchedMembers.length,
-                  crossAxisCount: 2,
-                ),
-          ) : state is MembersFiltered ? Expanded(
-            child: FlexibleGridView(
-              crossAxisSpacing: 10.w,
-              mainAxisSpacing: 10.h,
-              builder:
-                  (context, index) =>
-                  MemberBrief(
-                    onTap: () {
-                      CoreSheet.showCupertino(expand: true,
+                  bloc.allMembers.isNotEmpty &&
+                  searchController.text.isEmpty
+              ? AllMembersScreenBody(
+                builder:
+                    (context, index) => MemberBrief(
+                      onTap: () {
+                        CoreSheet.showCupertino(
+                          expand: true,
                           enableDrag: true,
                           backgroundColor: context.colorScheme.secondary,
                           child: MemberFullDetails(
-                              member: bloc.filteredMembers[index]));
-                    },
-                    member: bloc.filteredMembers[index],
-                  ),
-              itemCount: bloc.filteredMembers.length,
-              crossAxisCount: 2,
-            ),
-          )
+                            member: bloc.allMembers[index],
+                          ),
+                        );
+                      },
+                      member: bloc.allMembers[index],
+                    ),
+                itemCount: bloc.allMembers.length,
+              )
+              : state is MembersLoaded &&
+                  bloc.searchedMembers.isNotEmpty &&
+                  searchController.text.isNotEmpty
+              ? AllMembersScreenBody(
+                builder:
+                    (context, index) => MemberBrief(
+                      onTap: () {
+                        CoreSheet.showCupertino(
+                          expand: true,
+                          enableDrag: true,
+                          backgroundColor: context.colorScheme.secondary,
+                          child: MemberFullDetails(
+                            member: bloc.searchedMembers[index],
+                          ),
+                        );
+                      },
+                      member: bloc.searchedMembers[index],
+                    ),
+                itemCount: bloc.searchedMembers.length,
+              )
+              : state is MembersFiltered
+              ? AllMembersScreenBody(
+                builder:
+                    (context, index) => MemberBrief(
+                      onTap: () {
+                        CoreSheet.showCupertino(
+                          expand: true,
+                          enableDrag: true,
+                          backgroundColor: context.colorScheme.secondary,
+                          child: MemberFullDetails(
+                            member: bloc.filteredMembers[index],
+                          ),
+                        );
+                      },
+                      member: bloc.filteredMembers[index],
+                    ),
+                itemCount: bloc.filteredMembers.length,
+              )
               : SizedBox(),
         ],
       ),
