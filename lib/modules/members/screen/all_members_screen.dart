@@ -90,12 +90,10 @@ class AllMembersScreenState
               onTap: (index) {
                 if (index == 0) {
                   canSearch = true;
-                  // context.read<MembersModuleBloc>().add(
-                  //   FilterMembersEvent('all'),
-                  context.read<MembersModuleBloc>().add(GetMembersEvent());
+                  bloc.add(GetMembersEvent());
                 } else {
                   canSearch = false;
-                  context.read<MembersModuleBloc>().add(
+                  bloc.add(
                     FilterMembersEvent(Sport.values[index - 1].displayName),
                   );
                 }
