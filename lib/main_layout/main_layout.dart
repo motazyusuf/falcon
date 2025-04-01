@@ -46,7 +46,10 @@ class _MainLayoutState extends State<MainLayout> {
         ],
         centerTitle: true,
       ),
-      body: modules[currentIndex],
+      body: IndexedStack(
+        index: currentIndex,
+        children: modules,
+      ),
       extendBody: true,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
