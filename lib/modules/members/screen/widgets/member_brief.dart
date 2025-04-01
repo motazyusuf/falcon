@@ -49,13 +49,15 @@ class MemberBrief extends StatelessWidget {
             Column(
               children: [
                 Column(
-                  children: [
+                  children: member.subscriptions.isNotEmpty ?
+                  [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                          children:
+                          [
                             Text(
                               "${member.subscriptions[0].sport?.displayName}",
                               style: TextStyle().copyWith(fontSize: 15.sp),
@@ -73,7 +75,7 @@ class MemberBrief extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 5.h),
-                  ],
+                  ] : [SizedBox()],
                 ),
               ],
             ),

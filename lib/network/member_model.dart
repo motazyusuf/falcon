@@ -91,16 +91,17 @@ class Subscription {
   }
 
   static Map<String, dynamic> toJson(Subscription subscription) {
+    DateTime subscriptionRefactored = MyFunctions.extractDate(
+      subscription.subscriptionDate,
+    );
+    DateTime endRefactored = MyFunctions.extractDate(subscription.endDate);
+
     return {
       "paid_amount": subscription.paidAmount,
       "due_amount": subscription.dueAmount ?? 0,
       "sport": subscription.sport?.displayName,
-      "subscription_date":
-          MyFunctions.extractDate(
-            subscription.subscriptionDate,
-          ).millisecondsSinceEpoch,
-      "end_date":
-          MyFunctions.extractDate(subscription.endDate).millisecondsSinceEpoch,
+      "subscription_date": subscriptionRefactored.millisecondsSinceEpoch,
+      "end_date": endRefactored.millisecondsSinceEpoch,
     };
   }
 }

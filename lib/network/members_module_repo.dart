@@ -34,15 +34,6 @@ class MembersModuleRepo extends BaseRepo {
 
     // stream snapshots
     var stream = collectionRef.snapshots();
-
-    // stream.listen((onData) {
-    //   onData.docs.map((member) =>
-    //       member
-    //           .data()
-    //           .subscriptions
-    //           .sort((b, a) => a.endDate.compareTo(b.endDate)));
-    // });
-
     return stream;
   }
 
@@ -64,15 +55,25 @@ class MembersModuleRepo extends BaseRepo {
     return results;
   }
 
-  Future<void> removeSubscription(String userId,
-      Subscription subscription) async {
-    final collectionRef = getCollection();
-    final docRef = collectionRef.doc(userId);
-
+  Future<void> removeSubscription(
+    String userId,
+    Subscription subscription,
+  ) async {
+    final docRef = FirebaseFirestore.instance.collection('Members').doc(userId);
     await docRef.update({
-      'subscriptions': FieldValue.arrayRemove(
-          [Subscription.toJson(subscription)])
+      'subscriptions': FieldValue.arrayRemove([
+        {
+          'due_amount': int.parse(subscription.dueAmount!.toString()),
+          'end_date': int.parse(
+            subscription.endDate.millisecondsSinceEpoch.toString(),
+          ),
+          'paid_amount': int.parse(subscription.paidAmount.toString()),
+          'sport': subscription.sport?.displayName.toString(),
+          'subscription_date': int.parse(
+            subscription.subscriptionDate.millisecondsSinceEpoch.toString(),
+          ),
+        },
+      ]),
     });
   }
-
 }
