@@ -1,14 +1,20 @@
+import 'package:falcon_project/modules/members/screen/widgets/member_full_details/subscription_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
-import '../../../../../core/functions/my_functions.dart';
 import '../../../../../network/member_model.dart';
 
-class MemberFullDetails extends StatelessWidget {
+class MemberFullDetails extends StatefulWidget {
   MemberFullDetails({super.key, required this.member});
 
-  Member member;
+  final Member member;
+
+  @override
+  State<MemberFullDetails> createState() => _MemberFullDetailsState();
+}
+
+class _MemberFullDetailsState extends State<MemberFullDetails> {
   bool isActive = false;
 
   @override
@@ -24,7 +30,7 @@ class MemberFullDetails extends StatelessWidget {
               Expanded(
                 child: Text(
                   textAlign: TextAlign.center,
-                  member.name,
+                  widget.member.name,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30.sp,
@@ -48,127 +54,41 @@ class MemberFullDetails extends StatelessWidget {
           ),
           SizedBox(height: 10.h),
           Text(
-            "Phone number:  0${member.phoneNumber}",
+            "Phone number:  0${widget.member.phoneNumber}",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23.sp),
           ),
           SizedBox(height: 10.h),
           Visibility(
-            visible: member.extraNotes!.isNotEmpty ? true : false,
+            visible: widget.member.extraNotes!.isNotEmpty ? true : false,
             child: Text(
-              "Extra Notes:  ${member.extraNotes}",
+              "Extra Notes:  ${widget.member.extraNotes}",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp),
             ),
           ),
-          SizedBox(height: member.extraNotes!.isNotEmpty ? 10.h : 0),
+          SizedBox(height: widget.member.extraNotes!.isNotEmpty ? 10.h : 0),
           Text("Subscriptions history: "),
           SizedBox(height: 5.h),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children:
-                member.subscriptions.map((subscription) {
+                widget.member.subscriptions.map((subscription) {
                   isActive = false;
                   if (subscription.endDate.isAfter(DateTime.now())) {
                     isActive = true;
                   }
-                  return Container(
-                    margin: EdgeInsets.all(5.h),
-                    padding: EdgeInsets.all(10.w),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.r),
-                      border: Border.all(
-                        width: 2.r,
-                        color: isActive ? Colors.green : Colors.red,
-                      ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Class: ${subscription.sport?.displayName}",
-                                  style: TextStyle().copyWith(
-                                    color:
-                                        !isActive
-                                            ? context
-                                                .colorScheme
-                                                .secondaryContainer
-                                            : null,
-                                  ),
-                                ),
-                                Text(
-                                  "Start date: ${MyFunctions.dateTimeToString(subscription.subscriptionDate)}",
-                                  style: TextStyle().copyWith(
-                                    color:
-                                        !isActive
-                                            ? context
-                                                .colorScheme
-                                                .secondaryContainer
-                                            : null,
-                                  ),
-                                ),
-                                Text(
-                                  "End date: ${MyFunctions.dateTimeToString(subscription.endDate)}",
-                                  style: TextStyle().copyWith(
-                                    color:
-                                        !isActive
-                                            ? context
-                                                .colorScheme
-                                                .secondaryContainer
-                                            : null,
-                                  ),
-                                ),
-                                Text(
-                                  "Paid Amount: ${subscription.paidAmount}",
-                                  style: TextStyle().copyWith(
-                                    color:
-                                        !isActive
-                                            ? context
-                                                .colorScheme
-                                                .secondaryContainer
-                                            : null,
-                                  ),
-                                ),
-                                Text(
-                                  "Due Amount:  ${subscription.dueAmount}",
-                                  style: TextStyle().copyWith(
-                                    color:
-                                        !isActive
-                                            ? context
-                                                .colorScheme
-                                                .secondaryContainer
-                                            : null,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(width: 20.w),
-                            Column(
-                              children: [
-                                Text(
-                                  "Cancel",
-                                  style: TextStyle(
-                                    color:
-                                        !isActive
-                                            ? context
-                                                .colorScheme
-                                                .secondaryContainer
-                                            : Colors.red,
-                                    fontFamily: "Anton_SC",
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 5.h),
-                      ],
-                    ),
+                  return SubscriptionContainer(
+                    isActive: isActive,
+                    subscription: subscription,
+                    onCancelTapped: () {
+                      widget.member.subscriptions.remove(subscription);
+                      setState(() {});
+                    },
+                    onSettleTapped: () {
+                      subscription.paidAmount =
+                          subscription.paidAmount + subscription.dueAmount!;
+                      subscription.dueAmount = 0;
+                      setState(() {});
+                    },
                   );
                 }).toList(),
           ),

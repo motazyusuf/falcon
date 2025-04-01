@@ -69,6 +69,7 @@ class AllMembersScreenState
     cancelFunc?.call();
   }
 
+  bool canSearch = true;
   @override
   Widget buildWidget(BuildContext context, RenderDataState state) {
     return Padding(
@@ -78,18 +79,21 @@ class AllMembersScreenState
         children: [
           SizedBox(
             height: 50.h, // Adjust height as needed
-            child: TextFormField(
+            child: TextFormField(enabled: canSearch,
               controller: searchController,
               onChanged: (value) => bloc.add(SearchForMembersEvent(value)),
               decoration: InputDecoration(
-                fillColor: Colors.white,
+                fillColor: canSearch ? Colors.white : context.colorScheme
+                    .secondaryContainer,
                 filled: true,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
                   borderSide: BorderSide.none,
                 ),
                 hintText: MyStrings.searchForMember,
-                hintStyle: context.textTheme.bodyLarge,
+                hintStyle: context.textTheme.bodyLarge?.copyWith(
+                    color: canSearch ? null : context.colorScheme
+                        .secondaryContainer),
                 contentPadding: EdgeInsets.symmetric(
                   vertical: 14,
                   horizontal: 16,
@@ -108,10 +112,12 @@ class AllMembersScreenState
               tabAlignment: TabAlignment.start,
               onTap: (index) {
                 if (index == 0) {
+                  canSearch = true;
                   // context.read<MembersModuleBloc>().add(
                   //   FilterMembersEvent('all'),
                   context.read<MembersModuleBloc>().add(GetMembersEvent());
                 } else {
+                  canSearch = false;
                   context.read<MembersModuleBloc>().add(
                     FilterMembersEvent(Sport.values[index - 1].displayName),
                   );
@@ -192,7 +198,11 @@ class AllMembersScreenState
                       (context, index) =>
                       MemberBrief(
                         onTap: () {
-                          CoreSheet.showCupertino(child: Text("Test"));
+                          CoreSheet.showCupertino(expand: true,
+                              enableDrag: true,
+                              backgroundColor: context.colorScheme.secondary,
+                              child: MemberFullDetails(
+                                  member: bloc.searchedMembers[index]));
                         },
                         member: bloc.searchedMembers[index],
                       ),

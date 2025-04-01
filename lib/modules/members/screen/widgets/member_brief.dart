@@ -47,10 +47,8 @@ class MemberBrief extends StatelessWidget {
             ),
             SizedBox(height: 5.h),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
