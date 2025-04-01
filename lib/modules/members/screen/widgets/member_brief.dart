@@ -48,40 +48,36 @@ class MemberBrief extends StatelessWidget {
             SizedBox(height: 5.h),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children:
-                  member.subscriptions.map((subscription) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "${subscription.sport?.displayName}",
-                                  style: TextStyle().copyWith(fontSize: 15.sp),
-                                ),
-                                Text(
-                                  MyFunctions.dateTimeToString(
-                                    subscription.endDate,
-                                  ),
-                                ),
-                              ],
+                            Text(
+                              "${member.subscriptions[0].sport?.displayName}",
+                              style: TextStyle().copyWith(fontSize: 15.sp),
                             ),
-                            subscription.endDate.isAfter(DateTime.now())
-                                ? Icon(Icons.circle, color: Colors.green)
-                                : Icon(
-                                  Icons.circle_outlined,
-                                  color: Colors.red,
-                                ),
+                            Text(
+                              MyFunctions.dateTimeToString(
+                                member.subscriptions[0].endDate,
+                              ),
+                            ),
                           ],
                         ),
-                        SizedBox(height: 5.h),
+                        member.subscriptions[0].endDate.isAfter(DateTime.now())
+                            ? Icon(Icons.circle, color: Colors.green)
+                            : Icon(Icons.circle_outlined, color: Colors.red),
                       ],
-                    );
-                  }).toList(),
+                    ),
+                    SizedBox(height: 5.h),
+                  ],
+                ),
+              ],
             ),
           ],
         ),
