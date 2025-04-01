@@ -79,16 +79,23 @@ class _MemberFullDetailsState extends State<MemberFullDetails> {
                   return SubscriptionContainer(
                     isActive: isActive,
                     subscription: subscription,
-                    onCancelTapped: () {
-                      widget.member.subscriptions.remove(subscription);
-                      setState(() {});
-                    },
-                    onSettleTapped: () {
-                      subscription.paidAmount =
-                          subscription.paidAmount + subscription.dueAmount!;
-                      subscription.dueAmount = 0;
-                      setState(() {});
-                    },
+                    onCancelTapped:
+                        isActive
+                            ? () {
+                              widget.member.subscriptions.remove(subscription);
+                              setState(() {});
+                            }
+                            : null,
+                    onSettleTapped:
+                        isActive && subscription.dueAmount != 0
+                            ? () {
+                              subscription.paidAmount =
+                                  subscription.paidAmount +
+                                  subscription.dueAmount!;
+                              subscription.dueAmount = 0;
+                              setState(() {});
+                            }
+                            : null,
                   );
                 }).toList(),
           ),

@@ -16,8 +16,8 @@ class SubscriptionContainer extends StatelessWidget {
 
   final Subscription subscription;
   final bool isActive;
-  Function() onCancelTapped;
-  Function() onSettleTapped;
+  Function()? onCancelTapped;
+  Function()? onSettleTapped;
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +93,7 @@ class SubscriptionContainer extends StatelessWidget {
               Column(
                 children: [
                   ElevatedButton(
-                    onPressed: isActive ? onSettleTapped : null,
+                    onPressed: onSettleTapped,
                     style: ElevatedButton.styleFrom(
                       backgroundColor:
                           isActive && subscription.dueAmount != 0
@@ -121,8 +121,12 @@ class SubscriptionContainer extends StatelessWidget {
                   ),
                   SizedBox(height: 10.h),
                   ElevatedButton(
-                    onPressed: isActive ? onCancelTapped : null,
+                    onPressed: onCancelTapped,
                     style: ElevatedButton.styleFrom(
+                      backgroundColor:
+                          isActive
+                              ? context.colorScheme.secondary
+                              : context.colorScheme.secondaryContainer,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(
                           30,
@@ -133,7 +137,12 @@ class SubscriptionContainer extends StatelessWidget {
                         vertical: 12,
                       ), // Button size
                     ),
-                    child: Text("Cancel"),
+                    child: Text(
+                      "Cancel",
+                      style: TextStyle(
+                        color: isActive ? Colors.red : Color(0xFF616161),
+                      ),
+                    ),
                   ),
                 ],
               ),
