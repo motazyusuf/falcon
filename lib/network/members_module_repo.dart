@@ -63,4 +63,16 @@ class MembersModuleRepo extends BaseRepo {
     print(results);
     return results;
   }
+
+  Future<void> removeSubscription(String userId,
+      Subscription subscription) async {
+    final collectionRef = getCollection();
+    final docRef = collectionRef.doc(userId);
+
+    await docRef.update({
+      'subscriptions': FieldValue.arrayRemove(
+          [Subscription.toJson(subscription)])
+    });
+  }
+
 }

@@ -152,6 +152,16 @@ class AllMembersScreenState
                           backgroundColor: context.colorScheme.secondary,
                           child: MemberFullDetails(
                             member: bloc.allMembers[index],
+                            onCancelTapped: (subscription) {
+                              MembersModuleRepo repo = MembersModuleRepo();
+                              repo.removeSubscription(
+                                bloc.allMembers[index].id!,
+                                subscription,
+                              );
+                              bloc.allMembers[index].subscriptions.remove(
+                                subscription,
+                              );
+                            },
                           ),
                         );
                       },
@@ -171,6 +181,11 @@ class AllMembersScreenState
                           enableDrag: true,
                           backgroundColor: context.colorScheme.secondary,
                           child: MemberFullDetails(
+                            onCancelTapped: (subscription) {
+                              bloc.searchedMembers[index].subscriptions.remove(
+                                subscription,
+                              );
+                            },
                             member: bloc.searchedMembers[index],
                           ),
                         );
@@ -189,6 +204,11 @@ class AllMembersScreenState
                           enableDrag: true,
                           backgroundColor: context.colorScheme.secondary,
                           child: MemberFullDetails(
+                            onCancelTapped: (subscription) {
+                              bloc.filteredMembers[index].subscriptions.remove(
+                                subscription,
+                              );
+                            },
                             member: bloc.filteredMembers[index],
                           ),
                         );

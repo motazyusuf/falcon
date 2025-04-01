@@ -6,9 +6,14 @@ import 'package:opticore/opticore.dart';
 import '../../../../../network/member_model.dart';
 
 class MemberFullDetails extends StatefulWidget {
-  MemberFullDetails({super.key, required this.member});
+  MemberFullDetails({
+    super.key,
+    required this.member,
+    required this.onCancelTapped,
+  });
 
   final Member member;
+  Function(Subscription) onCancelTapped;
 
   @override
   State<MemberFullDetails> createState() => _MemberFullDetailsState();
@@ -82,8 +87,9 @@ class _MemberFullDetailsState extends State<MemberFullDetails> {
                     onCancelTapped:
                         isActive
                             ? () {
-                              widget.member.subscriptions.remove(subscription);
-                              setState(() {});
+                              setState(() {
+                                widget.onCancelTapped(subscription);
+                              });
                             }
                             : null,
                     onSettleTapped:
