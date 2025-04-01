@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:falcon_project/core/constants/my_strings.dart';
 import 'package:falcon_project/modules/members/screen/widgets/all_members_screen_body.dart';
 import 'package:falcon_project/modules/members/screen/widgets/member_brief.dart';
 import 'package:falcon_project/modules/members/screen/widgets/member_full_details/member_full_details.dart';
@@ -10,6 +9,7 @@ import 'package:opticore/opticore.dart';
 
 import '../../../core/enums/sport_enum.dart';
 import '../../../network/member_model.dart';
+import '../screen/widgets/search_bar.dart';
 
 part '../bloc/members_module_bloc.dart';
 part '../event/members_module_event.dart';

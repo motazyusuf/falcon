@@ -78,38 +78,10 @@ class AllMembersScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          SizedBox(
-            height: 50.h, // Adjust height as needed
-            child: TextFormField(
-              enabled: canSearch,
-              controller: searchController,
-              onChanged: (value) => bloc.add(SearchForMembersEvent(value)),
-              decoration: InputDecoration(
-                fillColor:
-                    canSearch
-                        ? Colors.white
-                        : context.colorScheme.secondaryContainer,
-                filled: true,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16),
-                  borderSide: BorderSide.none,
-                ),
-                hintText: MyStrings.searchForMember,
-                hintStyle: context.textTheme.bodyLarge?.copyWith(
-                  color:
-                      canSearch ? null : context.colorScheme.secondaryContainer,
-                ),
-                contentPadding: EdgeInsets.symmetric(
-                  vertical: 14,
-                  horizontal: 16,
-                ),
-                prefixIcon: Icon(
-                  Icons.search_rounded,
-                  color: Colors.grey,
-                  size: 25.r,
-                ),
-              ),
-            ),
+          MySearchBar(
+            canSearch: canSearch,
+            onChanged: (value) => bloc.add(SearchForMembersEvent(value)),
+            searchController: searchController,
           ),
           DefaultTabController(
             length: Sport.values.length + 1,
