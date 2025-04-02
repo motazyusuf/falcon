@@ -16,11 +16,17 @@ class MemberFullDetails extends StatefulWidget {
   Function(Subscription) onCancelTapped;
 
   @override
-  State<MemberFullDetails> createState() => _MemberFullDetailsState();
+  State<MemberFullDetails> createState() => MemberFullDetailsState();
 }
 
-class _MemberFullDetailsState extends State<MemberFullDetails> {
+class MemberFullDetailsState extends State<MemberFullDetails> {
   bool isActive = false;
+
+  void childRebuild() {
+    setState(() {
+      print("I am set state>>>>>>>>>>>>>>");
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,9 +93,7 @@ class _MemberFullDetailsState extends State<MemberFullDetails> {
                     onCancelTapped:
                         isActive
                             ? () {
-                              setState(() {
                                 widget.onCancelTapped(subscription);
-                              });
                             }
                             : null,
                     onSettleTapped:

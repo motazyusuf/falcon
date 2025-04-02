@@ -71,6 +71,15 @@ class AllMembersScreenState
 
   bool canSearch = true;
 
+  final GlobalKey<MemberFullDetailsState> _key = GlobalKey();
+
+
+  void triggerRebuild() {
+    print("I should trigger the child rebuild");
+    _key.currentState
+        ?.childRebuild(); // Triggering setState in the child widget
+  }
+
   @override
   Widget buildWidget(BuildContext context, RenderDataState state) {
     return Padding(
@@ -150,7 +159,7 @@ class AllMembersScreenState
                           expand: true,
                           enableDrag: true,
                           backgroundColor: context.colorScheme.secondary,
-                          child: MemberFullDetails(
+                          child: MemberFullDetails(key: _key,
                             member: bloc.allMembers[index],
                             onCancelTapped: (subscription) {
                               showDialog(
@@ -169,6 +178,8 @@ class AllMembersScreenState
                                         );
                                         bloc.allMembers[index].subscriptions
                                             .remove(subscription);
+                                        triggerRebuild();
+                                        context.pop();
                                       },
                                     ),
                               );
@@ -191,7 +202,7 @@ class AllMembersScreenState
                           expand: true,
                           enableDrag: true,
                           backgroundColor: context.colorScheme.secondary,
-                          child: MemberFullDetails(
+                          child: MemberFullDetails(key: _key,
                             onCancelTapped: (subscription) {
                               showDialog(
                                 context: context,
@@ -211,6 +222,9 @@ class AllMembersScreenState
                                             .searchedMembers[index]
                                             .subscriptions
                                             .remove(subscription);
+                                        triggerRebuild();
+                                        context.pop();
+
                                       },
                                     ),
                               );
@@ -232,7 +246,7 @@ class AllMembersScreenState
                           expand: true,
                           enableDrag: true,
                           backgroundColor: context.colorScheme.secondary,
-                          child: MemberFullDetails(
+                          child: MemberFullDetails(key: _key,
                             onCancelTapped: (subscription) {
                               showDialog(barrierDismissible: true,
                                 context: context,
@@ -251,6 +265,8 @@ class AllMembersScreenState
                                             .subscriptions.remove(
                                           subscription,
                                         );
+                                        triggerRebuild();
+                                        context.pop();
                                       },
                                 ),
                               );

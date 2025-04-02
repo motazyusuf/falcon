@@ -8,6 +8,8 @@ class CriticalActionDialogue extends StatelessWidget {
 
   String message;
   Function() onConfirmTapped;
+
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
