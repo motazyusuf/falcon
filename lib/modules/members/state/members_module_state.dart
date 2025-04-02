@@ -4,10 +4,6 @@ final class MembersInitialState extends RenderDataState {
   MembersInitialState() : super(null);
 }
 
-// final class MembersLoaded extends RenderDataState {
-//   Members? products;
-//   MembersLoaded(this.products) : super(null);
-// }
 
 final class MembersLoaded extends RenderDataState {
   MembersLoaded() : super(null);
@@ -23,4 +19,11 @@ final class MembersFiltered extends RenderDataState {
 
 final class MemberDeleted extends NonRenderState {
   MemberDeleted();
+}
+
+final class MemberDetails extends NonRenderState {
+  List<Member> list;
+  int index;
+
+  MemberDetails(this.index, this.list);
 }

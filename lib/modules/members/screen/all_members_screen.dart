@@ -153,48 +153,10 @@ class AllMembersScreenState
                 builder:
                     (context, index) => MemberBrief(
                       onTap: () {
-                        CoreSheet.showCupertino(
-                          expand: true,
-                          enableDrag: true,
-                          backgroundColor: context.colorScheme.secondary,
-                          child: MemberFullDetails(
-                            key: _key,
-                            member: bloc.allMembers[index],
-                            onCancelTapped: (subscription) {
-                              showDialog(
-                                context: context,
-                                builder:
-                                    (context) =>
-                                    CriticalActionDialogue(
-                                      message: bloc.allMembers[index]
-                                          .subscriptions.length == 1
-                                          ? "member will be deleted"
-                                          :
-                                      "Amount will be deducted from revenue",
-                                      onConfirmTapped: () {
-                                        if (bloc.allMembers[index].subscriptions
-                                            .length == 1) {
-                                          bloc.add(DeleteMemberEvent(
-                                              id: bloc.allMembers[index].id!));
-                                          context.pop();
-                                          context.pop();
-                                        }
-                                        else {
-                                          bloc.add(
-                                            MembersCancelSubscriptionEvent(
-                                              id: bloc.allMembers[index].id!,
-                                              subscription: subscription,
-                                            ),
-                                          );
-                                          bloc.allMembers[index].subscriptions
-                                              .remove(subscription);
-                                          triggerRebuild();
-                                          context.pop();
-                                        }
-                                      },
-                                    ),
-                              );
-                            },
+                        bloc.add(
+                          ShowMemberDetailsEvent(
+                            index: index,
+                            list: bloc.allMembers,
                           ),
                         );
                       },
@@ -209,52 +171,10 @@ class AllMembersScreenState
                 builder:
                     (context, index) => MemberBrief(
                       onTap: () {
-                        CoreSheet.showCupertino(
-                          expand: true,
-                          enableDrag: true,
-                          backgroundColor: context.colorScheme.secondary,
-                          child: MemberFullDetails(
-                            key: _key,
-                            onCancelTapped: (subscription) {
-                              showDialog(
-                                context: context,
-                                builder:
-                                    (context) =>
-                                    CriticalActionDialogue(
-                                      message: bloc.searchedMembers[index]
-                                          .subscriptions.length == 1
-                                          ? "Member will be deleted"
-                                          :
-                                      "Amount will be deducted from revenue",
-                                      onConfirmTapped: () {
-                                        if (bloc.searchedMembers[index]
-                                            .subscriptions.length == 1) {
-                                          bloc.add(DeleteMemberEvent(
-                                              id: bloc.searchedMembers[index]
-                                                  .id!));
-                                          context.pop();
-                                          context.pop();
-                                        }
-                                        else {
-                                          bloc.add(
-                                          MembersCancelSubscriptionEvent(
-                                            id: bloc.searchedMembers[index].id!,
-                                            subscription: subscription,
-                                          ),
-                                        );
-                                          bloc
-                                              .searchedMembers[index]
-                                              .subscriptions
-                                              .remove(subscription);
-                                        }
-
-                                        triggerRebuild();
-                                        context.pop();
-                                      },
-                                    ),
-                              );
-                            },
-                            member: bloc.searchedMembers[index],
+                        bloc.add(
+                          ShowMemberDetailsEvent(
+                            index: index,
+                            list: bloc.searchedMembers,
                           ),
                         );
                       },
@@ -267,65 +187,10 @@ class AllMembersScreenState
                 builder:
                     (context, index) => MemberBrief(
                       onTap: () {
-                        CoreSheet.showCupertino(
-                          expand: true,
-                          enableDrag: true,
-                          backgroundColor: context.colorScheme.secondary,
-                          child: MemberFullDetails(
-                            key: _key,
-                            onCancelTapped: (subscription) {
-                              showDialog(
-                                barrierDismissible: true,
-                                context: context,
-                                builder:
-                                    (context) =>
-                                    CriticalActionDialogue(
-                                      message:
-                                      bloc
-                                          .filteredMembers[index]
-                                          .subscriptions
-                                          .length ==
-                                          1
-                                          ? "Member will be deleted"
-                                          : "Amount will be deducted from revenue",
-                                      onConfirmTapped: () {
-                                        if (bloc
-                                            .filteredMembers[index]
-                                            .subscriptions
-                                            .length ==
-                                            1) {
-                                          bloc.add(
-                                            DeleteMemberEvent(
-                                              id:
-                                              bloc
-                                                  .filteredMembers[index]
-                                                  .id!,
-                                            ),
-                                          );
-                                          context.pop();
-                                          context.pop();
-                                        } else {
-                                          bloc.add(
-                                            FilterMembersCancelSubscriptionEvent(
-                                              id:
-                                              bloc
-                                                  .filteredMembers[index]
-                                                  .id!,
-                                              subscription: subscription,
-                                            ),
-                                          );
-                                          bloc
-                                              .filteredMembers[index]
-                                              .subscriptions
-                                              .remove(subscription);
-                                        }
-                                        triggerRebuild();
-                                        context.pop();
-                                      },
-                                    ),
-                              );
-                            },
-                            member: bloc.filteredMembers[index],
+                        bloc.add(
+                          ShowMemberDetailsEvent(
+                            index: index,
+                            list: bloc.filteredMembers,
                           ),
                         );
                       },
@@ -342,9 +207,50 @@ class AllMembersScreenState
   @override
   void listenToState(BuildContext context, BaseState state) {
     if (state is MemberDeleted) {
-      ToastHelper.showToast(
-        "Member Deleted",
-        type: ToastType.success,
+      ToastHelper.showToast("Member Deleted", type: ToastType.success);
+    }
+
+    if (state is MemberDetails) {
+      CoreSheet.showCupertino(
+        expand: true,
+        enableDrag: true,
+        backgroundColor: context.colorScheme.secondary,
+        child: MemberFullDetails(
+          key: _key,
+          member: state.list[state.index],
+          onCancelTapped: (subscription) {
+            showDialog(
+              context: context,
+              builder:
+                  (context) => CriticalActionDialogue(
+                    message:
+                        state.list[state.index].subscriptions.length == 1
+                            ? "member will be deleted"
+                            : "Amount will be deducted from revenue",
+                    onConfirmTapped: () {
+                      if (state.list[state.index].subscriptions.length == 1) {
+                        bloc.add(
+                          DeleteMemberEvent(id: state.list[state.index].id!),
+                        );
+                        context.pop();
+                      } else {
+                        bloc.add(
+                          MembersCancelSubscriptionEvent(
+                            id: state.list[state.index].id!,
+                            subscription: subscription,
+                          ),
+                        );
+                        state.list[state.index].subscriptions.remove(
+                          subscription,
+                        );
+                        triggerRebuild();
+                      }
+                      context.pop();
+                    },
+                  ),
+            );
+          },
+        ),
       );
     }
   }
