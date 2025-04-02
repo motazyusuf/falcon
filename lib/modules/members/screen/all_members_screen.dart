@@ -73,7 +73,6 @@ class AllMembersScreenState
 
   final GlobalKey<MemberFullDetailsState> _key = GlobalKey();
 
-
   void triggerRebuild() {
     _key.currentState
         ?.memberFullDetails(); // Triggering setState in the child widget
@@ -158,7 +157,8 @@ class AllMembersScreenState
                           expand: true,
                           enableDrag: true,
                           backgroundColor: context.colorScheme.secondary,
-                          child: MemberFullDetails(key: _key,
+                          child: MemberFullDetails(
+                            key: _key,
                             member: bloc.allMembers[index],
                             onCancelTapped: (subscription) {
                               showDialog(
@@ -166,19 +166,31 @@ class AllMembersScreenState
                                 builder:
                                     (context) =>
                                     CriticalActionDialogue(
-                                      message:
+                                      message: bloc.allMembers[index]
+                                          .subscriptions.length == 1
+                                          ? "member will be deleted"
+                                          :
                                       "Amount will be deducted from revenue",
                                       onConfirmTapped: () {
-                                        bloc.add(
-                                          MembersCancelSubscriptionEvent(
-                                            id: bloc.allMembers[index].id!,
-                                            subscription: subscription,
-                                          ),
-                                        );
-                                        bloc.allMembers[index].subscriptions
-                                            .remove(subscription);
-                                        triggerRebuild();
-                                        context.pop();
+                                        if (bloc.allMembers[index].subscriptions
+                                            .length == 1) {
+                                          bloc.add(DeleteMemberEvent(
+                                              id: bloc.allMembers[index].id!));
+                                          context.pop();
+                                          context.pop();
+                                        }
+                                        else {
+                                          bloc.add(
+                                            MembersCancelSubscriptionEvent(
+                                              id: bloc.allMembers[index].id!,
+                                              subscription: subscription,
+                                            ),
+                                          );
+                                          bloc.allMembers[index].subscriptions
+                                              .remove(subscription);
+                                          triggerRebuild();
+                                          context.pop();
+                                        }
                                       },
                                     ),
                               );
@@ -201,29 +213,43 @@ class AllMembersScreenState
                           expand: true,
                           enableDrag: true,
                           backgroundColor: context.colorScheme.secondary,
-                          child: MemberFullDetails(key: _key,
+                          child: MemberFullDetails(
+                            key: _key,
                             onCancelTapped: (subscription) {
                               showDialog(
                                 context: context,
                                 builder:
                                     (context) =>
                                     CriticalActionDialogue(
-                                      message:
+                                      message: bloc.searchedMembers[index]
+                                          .subscriptions.length == 1
+                                          ? "Member will be deleted"
+                                          :
                                       "Amount will be deducted from revenue",
                                       onConfirmTapped: () {
-                                        bloc.add(
+                                        if (bloc.searchedMembers[index]
+                                            .subscriptions.length == 1) {
+                                          bloc.add(DeleteMemberEvent(
+                                              id: bloc.searchedMembers[index]
+                                                  .id!));
+                                          context.pop();
+                                          context.pop();
+                                        }
+                                        else {
+                                          bloc.add(
                                           MembersCancelSubscriptionEvent(
                                             id: bloc.searchedMembers[index].id!,
                                             subscription: subscription,
                                           ),
                                         );
-                                        bloc
-                                            .searchedMembers[index]
-                                            .subscriptions
-                                            .remove(subscription);
+                                          bloc
+                                              .searchedMembers[index]
+                                              .subscriptions
+                                              .remove(subscription);
+                                        }
+
                                         triggerRebuild();
                                         context.pop();
-
                                       },
                                     ),
                               );
@@ -245,29 +271,58 @@ class AllMembersScreenState
                           expand: true,
                           enableDrag: true,
                           backgroundColor: context.colorScheme.secondary,
-                          child: MemberFullDetails(key: _key,
+                          child: MemberFullDetails(
+                            key: _key,
                             onCancelTapped: (subscription) {
-                              showDialog(barrierDismissible: true,
+                              showDialog(
+                                barrierDismissible: true,
                                 context: context,
-                                builder: (context) =>
+                                builder:
+                                    (context) =>
                                     CriticalActionDialogue(
                                       message:
-                                      "Amount will be deducted from revenue",
+                                      bloc
+                                          .filteredMembers[index]
+                                          .subscriptions
+                                          .length ==
+                                          1
+                                          ? "Member will be deleted"
+                                          : "Amount will be deducted from revenue",
                                       onConfirmTapped: () {
-                                        bloc.add(
-                                          FilterMembersCancelSubscriptionEvent(
-                                            id: bloc.filteredMembers[index].id!,
-                                            subscription: subscription,
-                                          ),
-                                        );
-                                        bloc.filteredMembers[index]
-                                            .subscriptions.remove(
-                                          subscription,
-                                        );
+                                        if (bloc
+                                            .filteredMembers[index]
+                                            .subscriptions
+                                            .length ==
+                                            1) {
+                                          bloc.add(
+                                            DeleteMemberEvent(
+                                              id:
+                                              bloc
+                                                  .filteredMembers[index]
+                                                  .id!,
+                                            ),
+                                          );
+                                          context.pop();
+                                          context.pop();
+                                        } else {
+                                          bloc.add(
+                                            FilterMembersCancelSubscriptionEvent(
+                                              id:
+                                              bloc
+                                                  .filteredMembers[index]
+                                                  .id!,
+                                              subscription: subscription,
+                                            ),
+                                          );
+                                          bloc
+                                              .filteredMembers[index]
+                                              .subscriptions
+                                              .remove(subscription);
+                                        }
                                         triggerRebuild();
                                         context.pop();
                                       },
-                                ),
+                                    ),
                               );
                             },
                             member: bloc.filteredMembers[index],
@@ -285,5 +340,12 @@ class AllMembersScreenState
   }
 
   @override
-  void listenToState(BuildContext context, BaseState state) {}
+  void listenToState(BuildContext context, BaseState state) {
+    if (state is MemberDeleted) {
+      ToastHelper.showToast(
+        "Member Deleted",
+        type: ToastType.success,
+      );
+    }
+  }
 }

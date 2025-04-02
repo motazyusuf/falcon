@@ -21,4 +21,6 @@ final class MembersFiltered extends RenderDataState {
   MembersFiltered() : super(null);
 }
 
-
+final class MemberDeleted extends NonRenderState {
+  MemberDeleted();
+}

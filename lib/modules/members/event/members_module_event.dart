@@ -32,3 +32,9 @@ class MembersCancelSubscriptionEvent extends BaseEvent {
   MembersCancelSubscriptionEvent(
       {required this.id, required this.subscription});
 }
+
+class DeleteMemberEvent extends BaseEvent {
+  String id;
+
+  DeleteMemberEvent({required this.id});
+}

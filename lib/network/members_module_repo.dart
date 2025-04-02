@@ -76,4 +76,9 @@ class MembersModuleRepo extends BaseRepo {
       ]),
     });
   }
+
+  Future<void> deleteMember(String userId) async {
+    final docRef = FirebaseFirestore.instance.collection('Members').doc(userId);
+    await docRef.delete();
+  }
 }

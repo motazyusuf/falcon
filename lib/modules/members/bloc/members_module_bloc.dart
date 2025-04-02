@@ -76,6 +76,14 @@ class MembersModuleBloc extends BaseBloc {
     emit(MembersLoaded());
   }
 
+  Future<void> deleteMember(DeleteMemberEvent event,
+      Emitter emit,) async {
+    emit(LoadingStateNonRender());
+    await membersModuleRepo.deleteMember(event.id);
+    emit(EndLoadingStateNonRender());
+    emit(MemberDeleted());
+  }
+
   MembersModuleBloc()
     : super(MembersModuleStateFactory(), initialState: MembersInitialState()) {
     debugPrint(">>>>>>>>>>>Start MembersBloc<<<<<<<<<<<");
@@ -84,5 +92,6 @@ class MembersModuleBloc extends BaseBloc {
     on<SearchForMembersEvent>(getSearchedMembers);
     on<FilterMembersCancelSubscriptionEvent>(removeFilteredSubscription);
     on<MembersCancelSubscriptionEvent>(removeSubscription);
+    on<DeleteMemberEvent>(deleteMember);
   }
 }
