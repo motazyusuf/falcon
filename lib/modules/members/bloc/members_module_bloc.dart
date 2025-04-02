@@ -11,7 +11,6 @@ class MembersModuleBloc extends BaseBloc {
   List<Member> allMembers = [];
   List<Member> searchedMembers = [];
 
-
   Future<void> getMembers(GetMembersEvent event, Emitter emit) async {
     print("Get Members");
     emit(LoadingStateNonRender());
@@ -26,11 +25,13 @@ class MembersModuleBloc extends BaseBloc {
     );
   }
 
-  Future<void> getSearchedMembers(SearchForMembersEvent event,
-      Emitter emit) async
-  {
-    searchedMembers =
-    await membersModuleRepo.searchMembers(event.searchedForValue);
+  Future<void> getSearchedMembers(
+    SearchForMembersEvent event,
+    Emitter emit,
+  ) async {
+    searchedMembers = await membersModuleRepo.searchMembers(
+      event.searchedForValue,
+    );
     emit(MembersLoaded());
   }
 
@@ -55,17 +56,22 @@ class MembersModuleBloc extends BaseBloc {
   }
 
   Future<void> removeFilteredSubscription(
-      FilterMembersCancelSubscriptionEvent event, Emitter emit) async {
+    FilterMembersCancelSubscriptionEvent event,
+    Emitter emit,
+  ) async {
     emit(LoadingStateNonRender());
     await membersModuleRepo.removeSubscription(event.id, event.subscription);
     emit(EndLoadingStateNonRender());
     emit(MembersFiltered());
   }
 
-  Future<void> removeSubscription(MembersCancelSubscriptionEvent event,
-      Emitter emit) async {
+  Future<void> removeSubscription(
+    MembersCancelSubscriptionEvent event,
+    Emitter emit,
+  ) async {
     emit(LoadingStateNonRender());
     await membersModuleRepo.removeSubscription(event.id, event.subscription);
+
     emit(EndLoadingStateNonRender());
     emit(MembersLoaded());
   }
