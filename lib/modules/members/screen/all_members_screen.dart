@@ -75,9 +75,8 @@ class AllMembersScreenState
 
 
   void triggerRebuild() {
-    print("I should trigger the child rebuild");
     _key.currentState
-        ?.childRebuild(); // Triggering setState in the child widget
+        ?.memberFullDetails(); // Triggering setState in the child widget
   }
 
   @override

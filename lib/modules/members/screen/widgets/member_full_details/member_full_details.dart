@@ -6,14 +6,14 @@ import 'package:opticore/opticore.dart';
 import '../../../../../network/member_model.dart';
 
 class MemberFullDetails extends StatefulWidget {
-  MemberFullDetails({
+  const MemberFullDetails({
     super.key,
     required this.member,
     required this.onCancelTapped,
   });
 
   final Member member;
-  Function(Subscription) onCancelTapped;
+  final Function(Subscription) onCancelTapped;
 
   @override
   State<MemberFullDetails> createState() => MemberFullDetailsState();
@@ -22,9 +22,8 @@ class MemberFullDetails extends StatefulWidget {
 class MemberFullDetailsState extends State<MemberFullDetails> {
   bool isActive = false;
 
-  void childRebuild() {
+  void memberFullDetails() {
     setState(() {
-      print("I am set state>>>>>>>>>>>>>>");
     });
   }
 
