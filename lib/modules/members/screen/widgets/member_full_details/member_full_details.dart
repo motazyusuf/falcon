@@ -1,3 +1,4 @@
+import 'package:falcon_project/core/routes/pages_routes.dart';
 import 'package:falcon_project/modules/members/screen/widgets/member_full_details/subscription_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -50,8 +51,15 @@ class MemberFullDetailsState extends State<MemberFullDetails> {
                   ),
                 ),
               ),
-              Icon(Icons.edit),
-            ],
+              GestureDetector(
+                child: Icon(Icons.edit),
+                onTap: () {
+                  context.pushNamed(
+                    PagesRoutes.addMember,
+                    arguments: widget.member,
+                  );
+                },
+              )],
           ),
           SizedBox(height: 1.h),
           Padding(
