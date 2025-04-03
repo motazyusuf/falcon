@@ -11,12 +11,14 @@ class MemberFullDetails extends StatefulWidget {
     required this.member,
     required this.onCancelTapped,
     required this.onSettleTapped,
-    required this.onDeleteTapped});
-
+    required this.onDeleteTapped,
+  });
   final Member member;
   final Function(Subscription) onCancelTapped;
-  final Function(Subscription) onSettleTapped;;
-  final Function() onDeleteTapped@override
+  final Function(Subscription) onSettleTapped;
+  final Function() onDeleteTapped;
+
+  @override
   State<MemberFullDetails> createState() => MemberFullDetailsState();
 }
 
