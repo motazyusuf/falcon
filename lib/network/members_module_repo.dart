@@ -55,7 +55,7 @@ class MembersModuleRepo extends BaseRepo {
     return results;
   }
 
-  Future<void> removeSubscription(
+  Future<void> cancelSubscription(
     String userId,
     Subscription subscription,
   ) async {
@@ -76,6 +76,37 @@ class MembersModuleRepo extends BaseRepo {
       ]),
     });
   }
+
+  Future<void> settleSubscription(String userId,
+      Subscription subscription) async {
+    final docRef = FirebaseFirestore.instance.collection('Members').doc(userId);
+
+    await FirebaseFirestore.instance.runTransaction((transaction) async {
+      final snapshot = await transaction.get(docRef);
+
+
+      List<dynamic> subscriptions = snapshot.get('subscriptions');
+
+      // Create a modified list
+      List<dynamic> updatedSubscriptions = subscriptions.map((sub) {
+        if (sub['sport'] == subscription.sport?.displayName &&
+            sub['subscription_date'] ==
+                subscription.subscriptionDate.millisecondsSinceEpoch &&
+            sub['end_date'] == subscription.endDate.millisecondsSinceEpoch) {
+          return {
+            ...sub, // Keep other properties the same
+            'due_amount': int.parse(subscription.dueAmount!.toString()),
+            'paid_amount': int.parse(subscription.paidAmount.toString()),
+          };
+        }
+        return sub;
+      }).toList();
+
+      // Update the document
+      transaction.update(docRef, {'subscriptions': updatedSubscriptions});
+    });
+  }
+
 
   Future<void> deleteMember(String userId) async {
     final docRef = FirebaseFirestore.instance.collection('Members').doc(userId);

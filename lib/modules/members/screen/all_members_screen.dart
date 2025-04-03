@@ -235,7 +235,7 @@ class AllMembersScreenState
                         context.pop();
                       } else {
                         bloc.add(
-                          MembersCancelSubscriptionEvent(
+                          CancelSubscriptionEvent(
                             id: state.list[state.index].id!,
                             subscription: subscription,
                           ),
@@ -245,6 +245,28 @@ class AllMembersScreenState
                         );
                         triggerRebuild();
                       }
+                      context.pop();
+                    },
+                  ),
+            );
+          },
+          onSettleTapped: (subscription) {
+            showDialog(
+              context: context,
+              builder:
+                  (context) => CriticalActionDialogue(
+                    message: "Amount will be added to revenue",
+                    onConfirmTapped: () {
+                      subscription.paidAmount =
+                          subscription.paidAmount + subscription.dueAmount!;
+                      subscription.dueAmount = 0;
+                      bloc.add(
+                        SettleSubscriptionEvent(
+                          id: state.list[state.index].id!,
+                          subscription: subscription,
+                        ),
+                      );
+                      triggerRebuild();
                       context.pop();
                     },
                   ),

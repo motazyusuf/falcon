@@ -10,10 +10,12 @@ class MemberFullDetails extends StatefulWidget {
     super.key,
     required this.member,
     required this.onCancelTapped,
+    required this.onSettleTapped,
   });
 
   final Member member;
   final Function(Subscription) onCancelTapped;
+  final Function(Subscription) onSettleTapped;
 
   @override
   State<MemberFullDetails> createState() => MemberFullDetailsState();
@@ -98,11 +100,7 @@ class MemberFullDetailsState extends State<MemberFullDetails> {
                     onSettleTapped:
                         isActive && subscription.dueAmount != 0
                             ? () {
-                              subscription.paidAmount =
-                                  subscription.paidAmount +
-                                  subscription.dueAmount!;
-                              subscription.dueAmount = 0;
-                              setState(() {});
+                              widget.onSettleTapped(subscription);
                             }
                             : null,
                   );

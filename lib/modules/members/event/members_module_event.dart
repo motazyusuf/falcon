@@ -17,12 +17,18 @@ class FilterMembersEvent extends BaseEvent {
   FilterMembersEvent(this.filterValue);
 }
 
-class MembersCancelSubscriptionEvent extends BaseEvent {
+class CancelSubscriptionEvent extends BaseEvent {
   String id;
   Subscription subscription;
 
-  MembersCancelSubscriptionEvent(
-      {required this.id, required this.subscription});
+  CancelSubscriptionEvent({required this.id, required this.subscription});
+}
+
+class SettleSubscriptionEvent extends BaseEvent {
+  String id;
+  Subscription subscription;
+
+  SettleSubscriptionEvent({required this.id, required this.subscription});
 }
 
 class DeleteMemberEvent extends BaseEvent {

@@ -55,12 +55,12 @@ class MembersModuleBloc extends BaseBloc {
     emit(EndLoadingStateNonRender());
   }
 
-  Future<void> removeSubscription(
-    MembersCancelSubscriptionEvent event,
-    Emitter emit,
-  ) async {
+  Future<void> cancelSubscription(
+    CancelSubscriptionEvent event,
+    Emitter emit,) async
+  {
     emit(LoadingStateNonRender());
-    await membersModuleRepo.removeSubscription(event.id, event.subscription);
+    await membersModuleRepo.cancelSubscription(event.id, event.subscription);
     emit(EndLoadingStateNonRender());
     // emit(MembersLoaded());
   }
@@ -76,13 +76,24 @@ class MembersModuleBloc extends BaseBloc {
     emit(MemberDetails(event.index, event.list));
   }
 
+  Future<void> settleSubscription(
+    SettleSubscriptionEvent event,
+    Emitter emit,
+  ) async {
+    emit(LoadingStateNonRender());
+    await membersModuleRepo.settleSubscription(event.id, event.subscription);
+    emit(EndLoadingStateNonRender());
+    // emit(MembersLoaded());
+  }
+
   MembersModuleBloc()
     : super(MembersModuleStateFactory(), initialState: MembersInitialState()) {
     debugPrint(">>>>>>>>>>>Start MembersBloc<<<<<<<<<<<");
     on<GetMembersEvent>(getMembers);
     on<FilterMembersEvent>(filterMembers);
     on<SearchForMembersEvent>(getSearchedMembers);
-    on<MembersCancelSubscriptionEvent>(removeSubscription);
+    on<CancelSubscriptionEvent>(cancelSubscription);
+    on<SettleSubscriptionEvent>(settleSubscription);
     on<DeleteMemberEvent>(deleteMember);
     on<ShowMemberDetailsEvent>(showMemberDetails);
   }
