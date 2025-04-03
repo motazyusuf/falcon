@@ -272,6 +272,22 @@ class AllMembersScreenState
                   ),
             );
           },
+          onDeleteTapped: () {
+            showDialog(
+              context: context,
+              builder:
+                  (context) =>
+                  CriticalActionDialogue(
+                    message: "Member will be deleted",
+                    onConfirmTapped: () {
+                      context.pop();
+                      bloc.add(
+                          DeleteMemberEvent(id: state.list[state.index].id!));
+                      context.pop();
+                    },
+                  ),
+            );
+          },
         ),
       );
     }

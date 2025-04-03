@@ -11,13 +11,12 @@ class MemberFullDetails extends StatefulWidget {
     required this.member,
     required this.onCancelTapped,
     required this.onSettleTapped,
-  });
+    required this.onDeleteTapped});
 
   final Member member;
   final Function(Subscription) onCancelTapped;
-  final Function(Subscription) onSettleTapped;
-
-  @override
+  final Function(Subscription) onSettleTapped;;
+  final Function() onDeleteTapped@override
   State<MemberFullDetails> createState() => MemberFullDetailsState();
 }
 
@@ -107,7 +106,7 @@ class MemberFullDetailsState extends State<MemberFullDetails> {
                 }).toList(),
           ),
           SizedBox(height: 5.h),
-          CoreButton(title: "Delete Member"),
+          CoreButton(title: "Delete Member", onTap: widget.onDeleteTapped,),
         ],
       ),
     );
