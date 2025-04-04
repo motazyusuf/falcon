@@ -147,42 +147,6 @@ class AllMembersScreenState
             ),
           ),
           SizedBox(height: 5.h),
-          // state is MembersLoaded &&
-          //         bloc.allMembers.isNotEmpty &&
-          //         searchController.text.isEmpty
-          //     ? AllMembersScreenBody(
-          //       builder:
-          //           (context, index) => MemberBrief(
-          //             onTap: () {
-          //               bloc.add(
-          //                 ShowMemberDetailsEvent(
-          //                   index: index,
-          //                   list: bloc.allMembers,
-          //                 ),
-          //               );
-          //             },
-          //             member: bloc.allMembers[index],
-          //           ),
-          //       itemCount: bloc.allMembers.length,
-          //     )
-          //     : state is MembersLoaded &&
-          //         bloc.searchedMembers.isNotEmpty &&
-          //         searchController.text.isNotEmpty
-          //     ? AllMembersScreenBody(
-          //       builder:
-          //           (context, index) => MemberBrief(
-          //             onTap: () {
-          //               bloc.add(
-          //                 ShowMemberDetailsEvent(
-          //                   index: index,
-          //                   list: bloc.searchedMembers,
-          //                 ),
-          //               );
-          //             },
-          //             member: bloc.searchedMembers[index],
-          //           ),
-          //       itemCount: bloc.searchedMembers.length,
-          //     )
           state is MembersLoaded
               ? AllMembersScreenBody(
             builder:

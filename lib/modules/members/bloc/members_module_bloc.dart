@@ -26,8 +26,8 @@ class MembersModuleBloc extends BaseBloc {
   }
 
   getSearchedMembers(SearchForMembersEvent event,
-    Emitter emit,
-  ) async {earchedMembers =
+    Emitter emit,) async {
+    searchedMembers =
         allMembers.where((member) {
           return member.name.toLowerCase().contains(
             event.searchedForValue.toLowerCase(),
