@@ -254,7 +254,7 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                         widget.onConfirmTapped(widget.member);
                       } else {
                         ToastHelper.showToast(
-                          "Choose End Date",
+                          "Check End Date And Paid Amount",
                           type: ToastType.error,
                         );
                       }
