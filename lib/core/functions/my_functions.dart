@@ -56,4 +56,13 @@ class MyFunctions {
     }
     return null;
   }
+
+  static String getFirstName(String fullName) {
+    return fullName.split(" ").first;
+  }
+
+  static String getLastName(String fullName) {
+    List<String> parts = fullName.split(" ");
+    return parts.length > 1 ? parts.last : "";
+  }
 }

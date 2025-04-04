@@ -33,8 +33,11 @@ class AddMemberScreenState
       dueAmount: 0,
     ),
   ];
+  List<Subscription> updateMemberSubscriptions = [];
   List<bool> isEndDatePicked = [false];
+  List<bool> isEndDatePickedForMemberUpdated = [];
   final _formKey = GlobalKey<FormState>();
+  bool memberBeingEdited = false;
 
   @override
   ScaffoldConfig get scaffoldConfig => ScaffoldConfig(
@@ -48,13 +51,16 @@ class AddMemberScreenState
     ),
   );
 
-
   @override
   Widget buildWidget(BuildContext context, RenderDataState state) {
+    final argument = ModalRoute.of(context)?.settings.arguments as Member?;
+    if (argument != null) {
+      memberBeingEdited = true;
+    }
+
     return StatefulBuilder(
       builder:
-          (context, newState) =>
-          Form(
+          (context, newState) => Form(
             key: _formKey,
             child: SingleChildScrollView(
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
@@ -65,27 +71,47 @@ class AddMemberScreenState
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextFormField(
-                      validator: MyFunctions.validateNotEmpty,
+                      validator:
+                          memberBeingEdited
+                              ? null
+                              : MyFunctions.validateNotEmpty,
                       style: context.textTheme.bodyLarge,
                       controller: firstNameController,
                       decoration: InputDecoration(
-                        hintText: MyStrings.firstName,
+                        hintText:
+                            memberBeingEdited
+                                ? MyFunctions.getFirstName(argument!.name)
+                                : MyStrings.firstName,
                       ),
                     ),
                     SizedBox(height: 10.h),
                     TextFormField(
-                      validator: MyFunctions.validateNotEmpty,
+                      validator:
+                          memberBeingEdited
+                              ? null
+                              : MyFunctions.validateNotEmpty,
                       style: context.textTheme.bodyLarge,
                       controller: lastNameController,
-                      decoration: InputDecoration(hintText: MyStrings.lastName),
+                      decoration: InputDecoration(
+                        hintText:
+                            memberBeingEdited
+                                ? MyFunctions.getLastName(argument!.name)
+                                : MyStrings.lastName,
+                      ),
                     ),
                     SizedBox(height: 10.h),
                     TextFormField(
-                      validator: MyFunctions.validateNotEmpty,
+                      validator:
+                          memberBeingEdited
+                              ? null
+                              : MyFunctions.validateNotEmpty,
                       style: context.textTheme.bodyLarge,
                       controller: phoneController,
                       decoration: InputDecoration(
-                        hintText: MyStrings.phoneNumber,
+                        hintText:
+                            memberBeingEdited
+                                ? argument!.phoneNumber.toString()
+                                : MyStrings.phoneNumber,
                       ),
                       keyboardType: TextInputType.phone,
                     ),
@@ -94,45 +120,79 @@ class AddMemberScreenState
                       style: context.textTheme.bodyLarge,
                       controller: notesController,
                       decoration: InputDecoration(
-                        hintText: MyStrings.extraNotes,
+                        hintText:
+                            memberBeingEdited
+                                ? argument!.extraNotes!.isEmpty
+                                    ? "Extra Notes"
+                                    : argument.extraNotes
+                                : MyStrings.extraNotes,
                       ),
-                      keyboardType: TextInputType.phone,
                     ),
                     SizedBox(height: 10.h),
+                    Visibility(
+                      visible: memberBeingEdited,
+                      child: Text("Add new subscriptions:"),
+                    ),
                     StatefulBuilder(
                       builder: (context, newState) {
                         return SizedBox(
                           height: 230.h,
                           child: ListView.separated(
-                            itemCount: subscriptions.length,
+                            itemCount:
+                                memberBeingEdited
+                                    ? updateMemberSubscriptions.length
+                                    : subscriptions.length,
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index) {
                               return SubscriptionItem(
                                 pickedStartDate:
-                                subscriptions[index].subscriptionDate,
+                                    subscriptions[index].subscriptionDate,
                                 onSportChanged: (newSport) {
                                   setState(() {
-                                    subscriptions[index].sport = newSport!;
+                                    memberBeingEdited
+                                        ? updateMemberSubscriptions[index]
+                                            .sport = newSport!
+                                        : subscriptions[index].sport =
+                                            newSport!;
                                   });
                                 },
                                 onEndDateChanged: (tabIndex) {
                                   newState(() {
-                                    isEndDatePicked[index] = true;
+                                    memberBeingEdited
+                                        ? isEndDatePickedForMemberUpdated[index] =
+                                            true
+                                        : isEndDatePicked[index] = true;
+
                                     if (tabIndex == 0) {
-                                      subscriptions[index]
-                                          .endDate = subscriptions[index]
-                                          .subscriptionDate
-                                          .add(Duration(days: 30));
+                                      memberBeingEdited
+                                          ? updateMemberSubscriptions[index]
+                                              .endDate = subscriptions[index]
+                                              .subscriptionDate
+                                              .add(Duration(days: 30))
+                                          : subscriptions[index]
+                                              .endDate = subscriptions[index]
+                                              .subscriptionDate
+                                              .add(Duration(days: 30));
                                     } else if (tabIndex == 1) {
-                                      subscriptions[index]
-                                          .endDate = subscriptions[index]
-                                          .subscriptionDate
-                                          .add(Duration(days: 60));
+                                      memberBeingEdited
+                                          ? updateMemberSubscriptions[index]
+                                              .endDate = subscriptions[index]
+                                              .subscriptionDate
+                                              .add(Duration(days: 60))
+                                          : subscriptions[index]
+                                              .endDate = subscriptions[index]
+                                              .subscriptionDate
+                                              .add(Duration(days: 60));
                                     } else {
-                                      subscriptions[index]
-                                          .endDate = subscriptions[index]
-                                          .subscriptionDate
-                                          .add(Duration(days: 90));
+                                      memberBeingEdited
+                                          ? updateMemberSubscriptions[index]
+                                              .endDate = subscriptions[index]
+                                              .subscriptionDate
+                                              .add(Duration(days: 90))
+                                          : subscriptions[index]
+                                              .endDate = subscriptions[index]
+                                              .subscriptionDate
+                                              .add(Duration(days: 90));
                                     }
                                   });
                                 },
@@ -140,33 +200,52 @@ class AddMemberScreenState
                                   DateTime? pickedDate = await showDatePicker(
                                     context: context,
                                     initialDate:
-                                    subscriptions[index].subscriptionDate,
+                                        subscriptions[index].subscriptionDate,
                                     firstDate: DateTime(2000),
                                     lastDate: DateTime(2101),
                                   );
                                   if (pickedDate != null) {
                                     setState(() {
-                                      subscriptions[index].subscriptionDate =
-                                          pickedDate;
+                                      memberBeingEdited
+                                          ? updateMemberSubscriptions[index]
+                                              .subscriptionDate = pickedDate
+                                          : subscriptions[index]
+                                              .subscriptionDate = pickedDate;
                                     });
                                   }
                                 },
                                 onPaidAmountChanged: (value) {
-                                  subscriptions[index].paidAmount =
-                                      num.tryParse(value) ?? 0;
+                                  memberBeingEdited
+                                      ? updateMemberSubscriptions[index]
+                                          .paidAmount = num.tryParse(value) ?? 0
+                                      : subscriptions[index].paidAmount =
+                                          num.tryParse(value) ?? 0;
                                 },
                                 onDueAmountChanged: (value) {
-                                  subscriptions[index].dueAmount =
-                                      num.tryParse(value) ?? 0;
+                                  memberBeingEdited
+                                      ? updateMemberSubscriptions[index]
+                                          .dueAmount = num.tryParse(value) ?? 0
+                                      : subscriptions[index].dueAmount =
+                                          num.tryParse(value) ?? 0;
                                 },
                                 onSubscriptionRemoved: () {
                                   newState(() {
-                                    subscriptions.removeAt(index);
-                                    isEndDatePicked.removeAt(index);
+                                    if (memberBeingEdited) {
+                                      updateMemberSubscriptions.removeAt(index);
+                                      isEndDatePickedForMemberUpdated.removeAt(
+                                        index,
+                                      );
+                                    } else {
+                                      subscriptions.removeAt(index);
+                                      isEndDatePicked.removeAt(index);
+                                    }
                                   });
                                 },
                                 index: index,
-                                isEndDatePicked: isEndDatePicked,
+                                isEndDatePicked:
+                                    memberBeingEdited
+                                        ? isEndDatePickedForMemberUpdated
+                                        : isEndDatePicked,
                               );
                             },
                             separatorBuilder:
@@ -175,28 +254,47 @@ class AddMemberScreenState
                         );
                       },
                     ),
-                    SizedBox(height: 40.h),
+                    SizedBox(height: 25.h),
                     CoreButton(
                       title: MyStrings.addAnotherSubscription,
                       backgroundColor: context.colorScheme.secondaryContainer,
                       onTap: () {
                         newState(() {
-                          subscriptions.add(
-                            Subscription(
-                              sport: Sport.values.first,
-                              subscriptionDate: DateTime.now(),
-                              endDate: DateTime.now().add(Duration(days: 30)),
-                              paidAmount: 0,
-                              dueAmount: 0,
-                            ),
-                          );
-                          isEndDatePicked.add(false);
+                          memberBeingEdited
+                              ? updateMemberSubscriptions.add(
+                                Subscription(
+                                  sport: Sport.values.first,
+                                  subscriptionDate: DateTime.now(),
+                                  endDate: DateTime.now().add(
+                                    Duration(days: 30),
+                                  ),
+                                  paidAmount: 0,
+                                  dueAmount: 0,
+                                ),
+                              )
+                              : subscriptions.add(
+                                Subscription(
+                                  sport: Sport.values.first,
+                                  subscriptionDate: DateTime.now(),
+                                  endDate: DateTime.now().add(
+                                    Duration(days: 30),
+                                  ),
+                                  paidAmount: 0,
+                                  dueAmount: 0,
+                                ),
+                              );
+                          memberBeingEdited
+                              ? isEndDatePickedForMemberUpdated.add(false)
+                              : isEndDatePicked.add(false);
                         });
                       },
                     ),
                     SizedBox(height: 10.h),
                     CoreButton(
-                      title: MyStrings.addMember,
+                      title:
+                          memberBeingEdited
+                              ? "Update Member"
+                              : MyStrings.addMember,
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
                           if (isEndDatePicked.contains(false)) {
@@ -208,8 +306,8 @@ class AddMemberScreenState
                               Member(
                                 id: "",
                                 extraNotes: notesController.text,
-                                name: "${firstNameController
-                                    .text} ${lastNameController.text}",
+                                name:
+                                    "${firstNameController.text} ${lastNameController.text}",
                                 phoneNumber: phoneController.text.toIntOrNull!,
                                 subscriptions: subscriptions,
                               ),
@@ -238,10 +336,7 @@ class AddMemberScreenState
       context.pop();
     }
     if (state is NoEndDate) {
-      ToastHelper.showToast(
-        "Months required",
-        type: ToastType.error,
-      );
+      ToastHelper.showToast("Months required", type: ToastType.error);
     }
   }
 }
