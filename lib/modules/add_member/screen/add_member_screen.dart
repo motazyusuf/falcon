@@ -39,7 +39,7 @@ class AddMemberScreenState
   @override
   ScaffoldConfig get scaffoldConfig => ScaffoldConfig(
     appBar: AppBar(
-      title: Text(MyStrings.addMember),
+      title: Text("Add Member"),
       centerTitle: true,
       leading: IconButton(
         onPressed: () => Navigator.pop(context),
