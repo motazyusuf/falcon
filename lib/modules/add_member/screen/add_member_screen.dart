@@ -136,7 +136,8 @@ class AddMemberScreenState
                                     }
                                   });
                                 },
-                                onStartDateChanged: () async {
+                                onStartDateChanged: () async
+                                {
                                   DateTime? pickedDate = await showDatePicker(
                                     context: context,
                                     initialDate:

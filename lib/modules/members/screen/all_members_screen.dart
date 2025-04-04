@@ -283,7 +283,25 @@ class AllMembersScreenState
                   ),
             );
           },
-          onAddSubscriptionTapped: () {},
+          onAddSubscriptionTapped: () {
+            showDialog(
+              context: context,
+              builder:
+                  (context) => AddSubscriptionDialogue(
+                    onConfirmTapped: (editedMember) {
+                      print("Tapped");
+                      if (Member.toJson(expandedMember) !=
+                          Member.toJson(editedMember)) {
+                        expandedMember = editedMember;
+                        triggerRebuild();
+                        context.pop();
+                        bloc.add(EditMemberEvent(member: editedMember));
+                      }
+                    },
+                    member: expandedMember,
+                  ),
+            );
+          },
         ),
       );
     }

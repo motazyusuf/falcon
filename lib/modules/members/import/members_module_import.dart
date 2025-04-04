@@ -11,6 +11,7 @@ import 'package:opticore/opticore.dart';
 
 import '../../../core/enums/sport_enum.dart';
 import '../../../network/member_model.dart';
+import '../screen/widgets/dialogues/add_subscription_dialogue.dart';
 import '../screen/widgets/search_bar.dart';
 
 part '../bloc/members_module_bloc.dart';
