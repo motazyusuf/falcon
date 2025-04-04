@@ -80,7 +80,9 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                                 ),
                               );
                             }).toList(),
-                        onChanged: (sport) {},
+                        onChanged: (sport) {
+                          subscription.sport = sport;
+                        },
                       ),
                       SizedBox(height: 10.h),
                       // Subscription Start Date
@@ -215,7 +217,9 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                           hintText: MyStrings.paidAmount,
                         ),
                         keyboardType: TextInputType.number,
-                        // onChanged: onPaidAmountChanged,
+                        onChanged: (value) {
+                          subscription.paidAmount;
+                        },
                       ),
 
                       // Due Amount
@@ -227,7 +231,9 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                           hintText: MyStrings.dueAmount,
                         ),
                         keyboardType: TextInputType.number,
-                        // onChanged: onDueAmountChanged,
+                        onChanged: (value) {
+                          subscription.dueAmount;
+                        },
                       ),
                     ],
                   ),
