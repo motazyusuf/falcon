@@ -90,7 +90,6 @@ class EditMemberDialogue extends StatelessWidget {
                     if (notesController.text.isNotEmpty) {
                       member.extraNotes = notesController.text;
                     }
-                    print(member.name);
                     onConfirmTapped(member);
                   },
                 ),

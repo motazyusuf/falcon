@@ -273,7 +273,6 @@ class AllMembersScreenState
                     onConfirmTapped: (editedMember) {
                       if (Member.toJson(expandedMember) !=
                           Member.toJson(editedMember)) {
-                        print("Members don't match");
                         expandedMember = editedMember;
                         triggerRebuild();
                         context.pop();
