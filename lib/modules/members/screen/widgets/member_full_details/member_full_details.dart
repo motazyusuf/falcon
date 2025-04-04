@@ -25,7 +25,7 @@ class MemberFullDetails extends StatefulWidget {
 class MemberFullDetailsState extends State<MemberFullDetails> {
   bool isActive = false;
 
-  void memberFullDetails() {
+  void memberFullDetailsRebuild() {
     setState(() {
     });
   }
@@ -50,7 +50,7 @@ class MemberFullDetailsState extends State<MemberFullDetails> {
                   ),
                 ),
               ),
-              Icon(Icons.edit),
+              Icon(Icons.add),
             ],
           ),
           SizedBox(height: 1.h),
@@ -107,6 +107,10 @@ class MemberFullDetailsState extends State<MemberFullDetails> {
                   );
                 }).toList(),
           ),
+          SizedBox(height: 5.h),
+          CoreButton(title: "Edit Member Information",
+            onTap: widget.onDeleteTapped,
+            backgroundColor: context.colorScheme.secondaryContainer,),
           SizedBox(height: 5.h),
           CoreButton(title: "Delete Member", onTap: widget.onDeleteTapped,),
         ],

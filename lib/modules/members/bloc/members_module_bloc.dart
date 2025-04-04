@@ -20,26 +20,27 @@ class MembersModuleBloc extends BaseBloc {
       onData: (snapshot) {
         allMembers = snapshot.docs.map((doc) => doc.data()).toList();
         emit(EndLoadingStateNonRender());
-        return MembersLoaded();
+        return MembersLoaded(allMembers);
       },
     );
   }
 
-  Future<void> getSearchedMembers(
-    SearchForMembersEvent event,
+  getSearchedMembers(SearchForMembersEvent event,
     Emitter emit,
-  ) async {
-    searchedMembers = await membersModuleRepo.searchMembers(
-      event.searchedForValue,
-    );
-    emit(MembersLoaded());
+  ) async {earchedMembers =
+        allMembers.where((member) {
+          return member.name.toLowerCase().contains(
+            event.searchedForValue.toLowerCase(),
+          );
+        }).toList();
+    emit(MembersLoaded(searchedMembers));
   }
 
   filterMembers(FilterMembersEvent event, Emitter emit) async {
     emit(LoadingStateNonRender());
-    if (event.filterValue == "all") {
+    if (event.filterValue == null) {
       filteredMembers = allMembers;
-      emit(MembersFiltered());
+      emit(MembersFiltered(filteredMembers));
     } else {
       filteredMembers =
           allMembers
@@ -50,7 +51,7 @@ class MembersModuleBloc extends BaseBloc {
                 ),
               )
               .toList();
-      emit(MembersFiltered());
+      emit(MembersFiltered(filteredMembers));
     }
     emit(EndLoadingStateNonRender());
   }
@@ -96,5 +97,6 @@ class MembersModuleBloc extends BaseBloc {
     on<SettleSubscriptionEvent>(settleSubscription);
     on<DeleteMemberEvent>(deleteMember);
     on<ShowMemberDetailsEvent>(showMemberDetails);
+    add(GetMembersEvent());
   }
 }

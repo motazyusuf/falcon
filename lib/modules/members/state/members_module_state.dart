@@ -6,7 +6,9 @@ final class MembersInitialState extends RenderDataState {
 
 
 final class MembersLoaded extends RenderDataState {
-  MembersLoaded() : super(null);
+  List<Member> members;
+
+  MembersLoaded(this.members) : super(null);
 }
 
 final class SearchedMembersLoaded extends RenderDataState {
@@ -14,7 +16,9 @@ final class SearchedMembersLoaded extends RenderDataState {
 }
 
 final class MembersFiltered extends RenderDataState {
-  MembersFiltered() : super(null);
+  List<Member> filteredMembers;
+
+  MembersFiltered(this.filteredMembers) : super(null);
 }
 
 final class MemberDeleted extends NonRenderState {

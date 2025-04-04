@@ -12,8 +12,7 @@ class SearchForMembersEvent extends BaseEvent {
 }
 
 class FilterMembersEvent extends BaseEvent {
-  String filterValue;
-
+  String? filterValue;
   FilterMembersEvent(this.filterValue);
 }
 
