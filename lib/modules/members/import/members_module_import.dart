@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:falcon_project/modules/members/screen/widgets/all_members_screen_body.dart';
-import 'package:falcon_project/modules/members/screen/widgets/critical_action_dialogue.dart';
+import 'package:falcon_project/modules/members/screen/widgets/dialogues/critical_action_dialogue.dart';
+import 'package:falcon_project/modules/members/screen/widgets/dialogues/edit_member_dialogue.dart';
 import 'package:falcon_project/modules/members/screen/widgets/member_brief.dart';
 import 'package:falcon_project/modules/members/screen/widgets/member_full_details/member_full_details.dart';
 import 'package:falcon_project/network/members_module_repo.dart';

@@ -26,7 +26,8 @@ class MembersModuleBloc extends BaseBloc {
   }
 
   getSearchedMembers(SearchForMembersEvent event,
-    Emitter emit,) async {
+      Emitter emit,) async
+  {
     searchedMembers =
         allMembers.where((member) {
           return member.name.toLowerCase().contains(
@@ -73,6 +74,12 @@ class MembersModuleBloc extends BaseBloc {
     emit(MemberDeleted());
   }
 
+  Future<void> editMember(EditMemberEvent event, Emitter emit) async {
+    emit(LoadingStateNonRender());
+    await membersModuleRepo.editMember(event.member);
+    emit(EndLoadingStateNonRender());
+  }
+
   showMemberDetails(ShowMemberDetailsEvent event, Emitter emit) {
     emit(MemberDetails(event.index, event.list));
   }
@@ -96,6 +103,7 @@ class MembersModuleBloc extends BaseBloc {
     on<CancelSubscriptionEvent>(cancelSubscription);
     on<SettleSubscriptionEvent>(settleSubscription);
     on<DeleteMemberEvent>(deleteMember);
+    on<EditMemberEvent>(editMember);
     on<ShowMemberDetailsEvent>(showMemberDetails);
     add(GetMembersEvent());
   }

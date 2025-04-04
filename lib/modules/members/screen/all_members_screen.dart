@@ -149,21 +149,20 @@ class AllMembersScreenState
           SizedBox(height: 5.h),
           state is MembersLoaded
               ? AllMembersScreenBody(
-            builder:
-                (context, index) =>
-                MemberBrief(
-                  onTap: () {
-                    bloc.add(
-                      ShowMemberDetailsEvent(
-                        index: index,
-                        list: state.members,
-                      ),
-                    );
-                  },
-                  member: state.members[index],
-                ),
-            itemCount: state.members.length,
-          )
+                builder:
+                    (context, index) => MemberBrief(
+                      onTap: () {
+                        bloc.add(
+                          ShowMemberDetailsEvent(
+                            index: index,
+                            list: state.members,
+                          ),
+                        );
+                      },
+                      member: state.members[index],
+                    ),
+                itemCount: state.members.length,
+              )
               : state is MembersFiltered
               ? AllMembersScreenBody(
                 builder:
@@ -178,7 +177,7 @@ class AllMembersScreenState
                       },
                       member: state.filteredMembers[index],
                     ),
-            itemCount: state.filteredMembers.length,
+                itemCount: state.filteredMembers.length,
               )
               : SizedBox(),
         ],
@@ -193,38 +192,36 @@ class AllMembersScreenState
     }
 
     if (state is MemberDetails) {
+      var expandedMember = state.list[state.index];
+
       CoreSheet.showCupertino(
         expand: true,
         enableDrag: true,
         backgroundColor: context.colorScheme.secondary,
         child: MemberFullDetails(
           key: _key,
-          member: state.list[state.index],
+          member: expandedMember,
           onCancelTapped: (subscription) {
             showDialog(
               context: context,
               builder:
                   (context) => CriticalActionDialogue(
                     message:
-                        state.list[state.index].subscriptions.length == 1
+                        expandedMember.subscriptions.length == 1
                             ? "member will be deleted"
                             : "Amount will be deducted from revenue",
                     onConfirmTapped: () {
-                      if (state.list[state.index].subscriptions.length == 1) {
-                        bloc.add(
-                          DeleteMemberEvent(id: state.list[state.index].id!),
-                        );
+                      if (expandedMember.subscriptions.length == 1) {
+                        bloc.add(DeleteMemberEvent(id: expandedMember.id!));
                         context.pop();
                       } else {
                         bloc.add(
                           CancelSubscriptionEvent(
-                            id: state.list[state.index].id!,
+                            id: expandedMember.id!,
                             subscription: subscription,
                           ),
                         );
-                        state.list[state.index].subscriptions.remove(
-                          subscription,
-                        );
+                        expandedMember.subscriptions.remove(subscription);
                         triggerRebuild();
                       }
                       context.pop();
@@ -244,7 +241,7 @@ class AllMembersScreenState
                       subscription.dueAmount = 0;
                       bloc.add(
                         SettleSubscriptionEvent(
-                          id: state.list[state.index].id!,
+                          id: expandedMember.id!,
                           subscription: subscription,
                         ),
                       );
@@ -258,18 +255,36 @@ class AllMembersScreenState
             showDialog(
               context: context,
               builder:
-                  (context) =>
-                  CriticalActionDialogue(
-                    message: "Member will be deleted",
+                  (context) => CriticalActionDialogue(
+                    message: "member will be deleted",
                     onConfirmTapped: () {
                       context.pop();
-                      bloc.add(
-                          DeleteMemberEvent(id: state.list[state.index].id!));
+                      bloc.add(DeleteMemberEvent(id: expandedMember.id!));
                       context.pop();
                     },
                   ),
             );
           },
+          onEditTapped: () {
+            showDialog(
+              context: context,
+              builder:
+                  (context) => EditMemberDialogue(
+                    onConfirmTapped: (editedMember) {
+                      if (Member.toJson(expandedMember) !=
+                          Member.toJson(editedMember)) {
+                        print("Members don't match");
+                        expandedMember = editedMember;
+                        triggerRebuild();
+                        context.pop();
+                        bloc.add(EditMemberEvent(member: editedMember));
+                      }
+                    },
+                    member: expandedMember,
+                  ),
+            );
+          },
+          onAddSubscriptionTapped: () {},
         ),
       );
     }

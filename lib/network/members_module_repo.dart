@@ -78,7 +78,8 @@ class MembersModuleRepo extends BaseRepo {
   }
 
   Future<void> settleSubscription(String userId,
-      Subscription subscription) async {
+      Subscription subscription) async
+  {
     final docRef = FirebaseFirestore.instance.collection('Members').doc(userId);
 
     await FirebaseFirestore.instance.runTransaction((transaction) async {
@@ -105,6 +106,15 @@ class MembersModuleRepo extends BaseRepo {
       // Update the document
       transaction.update(docRef, {'subscriptions': updatedSubscriptions});
     });
+  }
+
+  Future<void> editMember(Member member) async
+  {
+    // reference the collection || create if !exist
+    var collectionRef = getCollection();
+
+    var documentRef = collectionRef.doc(member.id);
+    await documentRef.set(member, SetOptions(merge: true));
   }
 
 

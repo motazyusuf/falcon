@@ -7,7 +7,6 @@ class Member {
   String? extraNotes;
   num phoneNumber;
   List<Subscription> subscriptions;
-  List<String> searchKeywords; // 🔥 Used for Firestore search
 
   Member({
     this.id,
@@ -15,7 +14,7 @@ class Member {
     required this.phoneNumber,
     this.extraNotes,
     required this.subscriptions,
-  }) : searchKeywords = _generateSearchKeywords(name); // Auto-generate
+  });
 
   factory Member.fromJson(Map<String, dynamic> json) {
     return Member(
@@ -38,30 +37,11 @@ class Member {
       "subscriptions": member.subscriptions
           .map((subscription) => Subscription.toJson(subscription))
           .toList(),
-      "search_keywords": member.searchKeywords,
-      // 🔥 Store searchable substrings
     };
   }
 
-  /// 🔥 Generate searchable substrings for name & phone number
-  static List<String> _generateSearchKeywords(String name) {
-    Set<String> keywords = {};
 
-    void generateSubstrings(String text) {
-      text = text.toLowerCase();
-      for (int i = 0; i < text.length; i++) {
-        for (int j = i + 1; j <= text.length; j++) {
-          keywords.add(text.substring(i, j));
-        }
-      }
-    }
-
-    generateSubstrings(name);
-
-    return keywords.toList();
-  }
 }
-
 
 class Subscription {
   Sport? sport;

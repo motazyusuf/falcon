@@ -36,6 +36,12 @@ class DeleteMemberEvent extends BaseEvent {
   DeleteMemberEvent({required this.id});
 }
 
+class EditMemberEvent extends BaseEvent {
+  Member member;
+
+  EditMemberEvent({required this.member});
+}
+
 class ShowMemberDetailsEvent extends BaseEvent {
   List<Member> list;
   int index;

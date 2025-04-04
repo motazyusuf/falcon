@@ -12,11 +12,16 @@ class MemberFullDetails extends StatefulWidget {
     required this.onCancelTapped,
     required this.onSettleTapped,
     required this.onDeleteTapped,
+    required this.onEditTapped,
+    required this.onAddSubscriptionTapped,
   });
+
   final Member member;
   final Function(Subscription) onCancelTapped;
   final Function(Subscription) onSettleTapped;
   final Function() onDeleteTapped;
+  final Function() onEditTapped;
+  final Function() onAddSubscriptionTapped;
 
   @override
   State<MemberFullDetails> createState() => MemberFullDetailsState();
@@ -26,8 +31,7 @@ class MemberFullDetailsState extends State<MemberFullDetails> {
   bool isActive = false;
 
   void memberFullDetailsRebuild() {
-    setState(() {
-    });
+    setState(() {});
   }
 
   @override
@@ -37,21 +41,27 @@ class MemberFullDetailsState extends State<MemberFullDetails> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Text(
-                  textAlign: TextAlign.center,
-                  widget.member.name,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30.sp,
+          Padding(
+            padding: EdgeInsets.only(left: 30.w),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Text(
+                    textAlign: TextAlign.center,
+                    widget.member.name,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30.sp,
+                    ),
                   ),
                 ),
-              ),
-              Icon(Icons.add),
-            ],
+                GestureDetector(
+                  onTap: widget.onAddSubscriptionTapped,
+                  child: Icon(Icons.add),
+                ),
+              ],
+            ),
           ),
           SizedBox(height: 1.h),
           Padding(
@@ -72,13 +82,18 @@ class MemberFullDetailsState extends State<MemberFullDetails> {
           ),
           SizedBox(height: 10.h),
           Visibility(
-            visible: widget.member.extraNotes!.isNotEmpty ? true : false,
+            visible:
+            widget.member.extraNotes!.isNotEmpty &&
+                widget.member.extraNotes! != " "
+                ? true
+                : false,
             child: Text(
               "Extra Notes:  ${widget.member.extraNotes}",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp),
             ),
           ),
-          SizedBox(height: widget.member.extraNotes!.isNotEmpty ? 10.h : 0),
+          SizedBox(height: widget.member.extraNotes!.isNotEmpty &&
+              widget.member.extraNotes! != " " ? 10.h : 0),
           Text("Subscriptions history: "),
           SizedBox(height: 5.h),
           Column(
@@ -95,7 +110,7 @@ class MemberFullDetailsState extends State<MemberFullDetails> {
                     onCancelTapped:
                         isActive
                             ? () {
-                                widget.onCancelTapped(subscription);
+                          widget.onCancelTapped(subscription);
                             }
                             : null,
                     onSettleTapped:
@@ -108,11 +123,13 @@ class MemberFullDetailsState extends State<MemberFullDetails> {
                 }).toList(),
           ),
           SizedBox(height: 5.h),
-          CoreButton(title: "Edit Member Information",
-            onTap: widget.onDeleteTapped,
-            backgroundColor: context.colorScheme.secondaryContainer,),
+          CoreButton(
+            title: "Edit Member Information",
+            onTap: widget.onEditTapped,
+            backgroundColor: context.colorScheme.secondaryContainer,
+          ),
           SizedBox(height: 5.h),
-          CoreButton(title: "Delete Member", onTap: widget.onDeleteTapped,),
+          CoreButton(title: "Delete Member", onTap: widget.onDeleteTapped),
         ],
       ),
     );

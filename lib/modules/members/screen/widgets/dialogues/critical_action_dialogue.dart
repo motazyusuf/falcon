@@ -6,7 +6,7 @@ class CriticalActionDialogue extends StatelessWidget {
   CriticalActionDialogue(
       {super.key, required this.message, required this.onConfirmTapped});
 
-  String message;
+  final String message;
   Function() onConfirmTapped;
 
 
