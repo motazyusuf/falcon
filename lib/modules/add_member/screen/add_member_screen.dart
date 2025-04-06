@@ -96,7 +96,6 @@ class AddMemberScreenState
                       decoration: InputDecoration(
                         hintText: MyStrings.extraNotes,
                       ),
-                      keyboardType: TextInputType.phone,
                     ),
                     SizedBox(height: 10.h),
                     StatefulBuilder(

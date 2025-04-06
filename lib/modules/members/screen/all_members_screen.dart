@@ -195,113 +195,116 @@ class AllMembersScreenState
       var expandedMember = state.list[state.index];
 
       CoreSheet.showCupertino(
-        expand: true,
-        enableDrag: true,
+        expand: false,
+        enableDrag: false,
         backgroundColor: context.colorScheme.secondary,
-        child: MemberFullDetails(
-          key: _key,
-          member: expandedMember,
-          onCancelTapped: (subscription) {
-            showDialog(
-              context: context,
-              builder:
-                  (context) => CriticalActionDialogue(
-                    message:
-                        expandedMember.subscriptions.length == 1
-                            ? "member will be deleted"
-                            : "Amount will be deducted from revenue",
-                    onConfirmTapped: () {
-                      if (expandedMember.subscriptions.length == 1) {
-                        bloc.add(DeleteMemberEvent(id: expandedMember.id!));
+        child: SizedBox(
+          height: 550.h,
+          child: MemberFullDetails(
+            key: _key,
+            member: expandedMember,
+            onCancelTapped: (subscription) {
+              showDialog(
+                context: context,
+                builder:
+                    (context) => CriticalActionDialogue(
+                      message:
+                          expandedMember.subscriptions.length == 1
+                              ? "member will be deleted"
+                              : "Amount will be deducted from revenue",
+                      onConfirmTapped: () {
+                        if (expandedMember.subscriptions.length == 1) {
+                          bloc.add(DeleteMemberEvent(id: expandedMember.id!));
+                          context.pop();
+                        } else {
+                          bloc.add(
+                            CancelSubscriptionEvent(
+                              id: expandedMember.id!,
+                              subscription: subscription,
+                            ),
+                          );
+                          expandedMember.subscriptions.remove(subscription);
+                          triggerRebuild();
+                        }
                         context.pop();
-                      } else {
+                      },
+                    ),
+              );
+            },
+            onSettleTapped: (subscription) {
+              showDialog(
+                context: context,
+                builder:
+                    (context) => CriticalActionDialogue(
+                      message: "Amount will be added to revenue",
+                      onConfirmTapped: () {
+                        subscription.paidAmount =
+                            subscription.paidAmount + subscription.dueAmount!;
+                        subscription.dueAmount = 0;
                         bloc.add(
-                          CancelSubscriptionEvent(
+                          SettleSubscriptionEvent(
                             id: expandedMember.id!,
                             subscription: subscription,
                           ),
                         );
-                        expandedMember.subscriptions.remove(subscription);
-                        triggerRebuild();
-                      }
-                      context.pop();
-                    },
-                  ),
-            );
-          },
-          onSettleTapped: (subscription) {
-            showDialog(
-              context: context,
-              builder:
-                  (context) => CriticalActionDialogue(
-                    message: "Amount will be added to revenue",
-                    onConfirmTapped: () {
-                      subscription.paidAmount =
-                          subscription.paidAmount + subscription.dueAmount!;
-                      subscription.dueAmount = 0;
-                      bloc.add(
-                        SettleSubscriptionEvent(
-                          id: expandedMember.id!,
-                          subscription: subscription,
-                        ),
-                      );
-                      triggerRebuild();
-                      context.pop();
-                    },
-                  ),
-            );
-          },
-          onDeleteTapped: () {
-            showDialog(
-              context: context,
-              builder:
-                  (context) => CriticalActionDialogue(
-                    message: "member will be deleted",
-                    onConfirmTapped: () {
-                      context.pop();
-                      bloc.add(DeleteMemberEvent(id: expandedMember.id!));
-                      context.pop();
-                    },
-                  ),
-            );
-          },
-          onEditTapped: () {
-            showDialog(
-              context: context,
-              builder:
-                  (context) => EditMemberDialogue(
-                    onConfirmTapped: (editedMember) {
-                      if (Member.toJson(expandedMember) !=
-                          Member.toJson(editedMember)) {
-                        expandedMember = editedMember;
                         triggerRebuild();
                         context.pop();
-                        bloc.add(EditMemberEvent(member: editedMember));
-                      }
-                    },
-                    member: expandedMember,
-                  ),
-            );
-          },
-          onAddSubscriptionTapped: () {
-            showDialog(
-              context: context,
-              builder:
-                  (context) => AddSubscriptionDialogue(
-                    onConfirmTapped: (editedMember) {
-                      print("Tapped");
-                      if (Member.toJson(expandedMember) !=
-                          Member.toJson(editedMember)) {
-                        expandedMember = editedMember;
-                        triggerRebuild();
+                      },
+                    ),
+              );
+            },
+            onDeleteTapped: () {
+              showDialog(
+                context: context,
+                builder:
+                    (context) => CriticalActionDialogue(
+                      message: "member will be deleted",
+                      onConfirmTapped: () {
                         context.pop();
-                        bloc.add(EditMemberEvent(member: editedMember));
-                      }
-                    },
-                    member: expandedMember,
-                  ),
-            );
-          },
+                        bloc.add(DeleteMemberEvent(id: expandedMember.id!));
+                        context.pop();
+                      },
+                    ),
+              );
+            },
+            onEditTapped: () {
+              showDialog(
+                context: context,
+                builder:
+                    (context) => EditMemberDialogue(
+                      onConfirmTapped: (editedMember) {
+                        if (Member.toJson(expandedMember) !=
+                            Member.toJson(editedMember)) {
+                          expandedMember = editedMember;
+                          triggerRebuild();
+                          context.pop();
+                          bloc.add(EditMemberEvent(member: editedMember));
+                        }
+                      },
+                      member: expandedMember,
+                    ),
+              );
+            },
+            onAddSubscriptionTapped: () {
+              showDialog(
+                context: context,
+                builder:
+                    (context) => AddSubscriptionDialogue(
+                      onConfirmTapped: (editedMember) {
+                        print("Tapped");
+                        if (Member.toJson(expandedMember) !=
+                            Member.toJson(editedMember)) {
+                          expandedMember = editedMember;
+                          triggerRebuild();
+                          context.pop();
+                          bloc.add(EditMemberEvent(member: editedMember));
+                        }
+                      },
+                      member: expandedMember,
+                    ),
+              );
+            },
+          ),
         ),
       );
     }

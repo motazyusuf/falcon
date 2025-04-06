@@ -54,7 +54,7 @@ class EditMemberDialogue extends StatelessWidget {
                   style: context.textTheme.bodyLarge,
                   controller: phoneController,
                   decoration: InputDecoration(
-                    hintText: member.phoneNumber.toString(),
+                    hintText: "0${member.phoneNumber}",
                   ),
                   keyboardType: TextInputType.phone,
                 ),
@@ -69,17 +69,8 @@ class EditMemberDialogue extends StatelessWidget {
                             ? member.extraNotes
                             : MyStrings.extraNotes,
                   ),
-                  keyboardType: TextInputType.phone,
                 ),
                 SizedBox(height: 40.h),
-                CoreButton(
-                  title: "Cancel",
-                  backgroundColor: context.colorScheme.secondaryContainer,
-                  onTap: () {
-                    context.pop();
-                  },
-                ),
-                SizedBox(height: 10.h),
                 CoreButton(
                   title: "Confirm",
                   onTap: () {
@@ -91,6 +82,14 @@ class EditMemberDialogue extends StatelessWidget {
                       member.extraNotes = notesController.text;
                     }
                     onConfirmTapped(member);
+                  },
+                ),
+                SizedBox(height: 10.h),
+                CoreButton(
+                  title: "Cancel",
+                  backgroundColor: context.colorScheme.secondaryContainer,
+                  onTap: () {
+                    context.pop();
                   },
                 ),
               ],

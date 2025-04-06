@@ -239,14 +239,6 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                   ),
                   SizedBox(height: 40.h),
                   CoreButton(
-                    title: "Cancel",
-                    backgroundColor: context.colorScheme.secondaryContainer,
-                    onTap: () {
-                      context.pop();
-                    },
-                  ),
-                  SizedBox(height: 10.h),
-                  CoreButton(
                     title: "Confirm",
                     onTap: () {
                       if (key.currentState!.validate() && isEndDatePicked) {
@@ -258,6 +250,14 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                           type: ToastType.error,
                         );
                       }
+                    },
+                  ),
+                  SizedBox(height: 10.h),
+                  CoreButton(
+                    title: "Cancel",
+                    backgroundColor: context.colorScheme.secondaryContainer,
+                    onTap: () {
+                      context.pop();
                     },
                   ),
                 ],

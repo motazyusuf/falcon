@@ -3,12 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
 class CriticalActionDialogue extends StatelessWidget {
-  CriticalActionDialogue(
-      {super.key, required this.message, required this.onConfirmTapped});
+  CriticalActionDialogue({
+    super.key,
+    required this.message,
+    required this.onConfirmTapped,
+  });
 
   final String message;
   Function() onConfirmTapped;
-
 
   @override
   Widget build(BuildContext context) {
@@ -24,18 +26,22 @@ class CriticalActionDialogue extends StatelessWidget {
           padding: EdgeInsets.all(20.w),
           child: Column(
             children: [
-              Text("this action can not be undone $message",
-                textAlign: TextAlign.center,),
+              Text(
+                "this action can not be undone $message",
+                textAlign: TextAlign.center,
+              ),
               SizedBox(height: 20.h),
-              CoreButton(
-                  height: 30.h,
-                  backgroundColor: context.colorScheme.secondaryContainer,
-                  title: "Cancel", onTap: () => context.pop()),
-              SizedBox(height: 10.h),
               CoreButton(
                 height: 30.h,
                 title: "Confirm",
                 onTap: onConfirmTapped,
+              ),
+              SizedBox(height: 10.h),
+              CoreButton(
+                height: 30.h,
+                backgroundColor: context.colorScheme.secondaryContainer,
+                title: "Cancel",
+                onTap: () => context.pop(),
               ),
             ],
           ),
