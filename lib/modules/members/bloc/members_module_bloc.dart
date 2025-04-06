@@ -10,6 +10,7 @@ class MembersModuleBloc extends BaseBloc {
   List<Member> filteredMembers = [];
   List<Member> allMembers = [];
   List<Member> searchedMembers = [];
+  String? filterKeyword;
 
   Future<void> getMembers(GetMembersEvent event, Emitter emit) async {
     print("Get Members");
@@ -52,6 +53,7 @@ class MembersModuleBloc extends BaseBloc {
                 ),
               )
               .toList();
+      filterKeyword = event.filterValue;
       emit(MembersFiltered(filteredMembers));
     }
     emit(EndLoadingStateNonRender());
@@ -71,6 +73,7 @@ class MembersModuleBloc extends BaseBloc {
     emit(LoadingStateNonRender());
     await membersModuleRepo.deleteMember(event.id);
     emit(EndLoadingStateNonRender());
+    add(FilterMembersEvent(filterKeyword));
     emit(MemberDeleted());
   }
 
