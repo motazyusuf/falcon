@@ -29,7 +29,7 @@ class RevenueReport extends StatelessWidget {
               image: AssetImage("assets/images/chartRed.png"),
               opacity: 0.7,
             ),
-            color: context.colorScheme.secondaryContainer,
+            color: context.colorScheme.secondary,
             borderRadius: BorderRadius.circular(20.r),
           ),
           height: 100.h,

@@ -34,7 +34,7 @@ class ReportsDoubleContainers extends StatelessWidget {
                 margin: EdgeInsets.only(top: 10.h, right: 5.w),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.r),
-                  color: context.colorScheme.secondaryContainer,
+                  color: context.colorScheme.secondary,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,7 +61,7 @@ class ReportsDoubleContainers extends StatelessWidget {
                 margin: EdgeInsets.only(top: 10.h, left: 5.w),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.r),
-                  color: context.colorScheme.secondaryContainer,
+                  color: context.colorScheme.secondary,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
