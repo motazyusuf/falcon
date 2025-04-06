@@ -1,6 +1,7 @@
 import 'package:falcon_project/core/constants/my_assets.dart';
 import 'package:falcon_project/core/routes/pages_routes.dart';
 import 'package:falcon_project/main_layout/widgets/my_bottom_bar.dart';
+import 'package:falcon_project/modules/analytics/import/analytics_module_import.dart';
 import 'package:falcon_project/modules/members/import/members_module_import.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,14 +19,14 @@ class _MainLayoutState extends State<MainLayout> {
   List<Widget> modules = [
     AllMembersScreen(bloc: MembersModuleBloc()
     ),
-    Placeholder(),
+    AnalyticsModuleScreen(
+        bloc: AnalyticsModuleBloc(MembersModuleBloc.allMembers)),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      // 🔥 Prevents FAB from moving
       extendBodyBehindAppBar: false,
       appBar: AppBar(
         toolbarHeight: 70.h,

@@ -8,7 +8,7 @@ class MembersModuleBloc extends BaseBloc {
 
   final MembersModuleRepo membersModuleRepo = MembersModuleRepo();
   List<Member> filteredMembers = [];
-  List<Member> allMembers = [];
+  static List<Member> allMembers = [];
   List<Member> searchedMembers = [];
   String? filterKeyword;
 
