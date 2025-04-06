@@ -2,8 +2,18 @@ import 'package:falcon_project/modules/analytics/screen/widgets/reports_double_c
 import 'package:flutter/material.dart';
 import 'package:opticore/opticore.dart';
 
+import '../../../../network/member_model.dart';
+
 class MembersOverview extends StatelessWidget {
-  const MembersOverview({super.key});
+  const MembersOverview({
+    super.key,
+    required this.allMembers,
+    required this.dueMembers,
+    required this.activeMembers,
+    required this.inactiveMembers,
+  });
+
+  final List<Member> allMembers, dueMembers, inactiveMembers, activeMembers;
 
   @override
   Widget build(BuildContext context) {
@@ -12,17 +22,17 @@ class MembersOverview extends StatelessWidget {
       children: [
         Text("Members Overview:", style: context.textTheme.titleMedium),
         ReportsDoubleContainers(
-          firstNumber: 150,
+          firstNumber: allMembers.length,
           firstText: "Total Members",
-          secondNumber: 10,
+          secondNumber: dueMembers.length,
           secondText: "Members with dues",
           onFirstTapped: () {},
           onSecondTapped: () {},
         ),
         ReportsDoubleContainers(
-          firstNumber: 60,
+          firstNumber: activeMembers.length,
           firstText: "Active Members",
-          secondNumber: 90,
+          secondNumber: inactiveMembers.length,
           secondText: "Inactive Members",
           onFirstTapped: () {},
           onSecondTapped: () {},

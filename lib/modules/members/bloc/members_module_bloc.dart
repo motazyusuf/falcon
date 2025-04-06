@@ -1,9 +1,11 @@
 part of '../import/members_module_import.dart';
 
 class MembersModuleBloc extends BaseBloc {
+
+
   @override
   Future<void> close() async {
-    debugPrint(">>>>>>>>>>>MemberBloc will not be closed<<<<<<<<<<<");
+    debugPrint(">>>>>>>>>>>Member Bloc Will not be Closed<<<<<<<<<<<");
   }
 
   final MembersModuleRepo membersModuleRepo = MembersModuleRepo();
@@ -89,8 +91,8 @@ class MembersModuleBloc extends BaseBloc {
 
   Future<void> settleSubscription(
     SettleSubscriptionEvent event,
-    Emitter emit,
-  ) async {
+    Emitter emit,) async
+  {
     emit(LoadingStateNonRender());
     await membersModuleRepo.settleSubscription(event.id, event.subscription);
     emit(EndLoadingStateNonRender());

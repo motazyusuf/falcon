@@ -16,12 +16,14 @@ class MainLayout extends StatefulWidget {
 
 class _MainLayoutState extends State<MainLayout> {
   int currentIndex = 0;
-  List<Widget> modules = [
-    AllMembersScreen(bloc: MembersModuleBloc()
-    ),
-    AnalyticsModuleScreen(
-        bloc: AnalyticsModuleBloc(MembersModuleBloc.allMembers)),
-  ];
+  MembersModuleBloc membersBloc = MembersModuleBloc();
+
+  // List<Widget> modules = [
+  //   AllMembersScreen(bloc: MembersModuleBloc()),
+  //   AnalyticsModuleScreen(
+  //     bloc: AnalyticsModuleBloc()..add(PrepareAnalyticsEvent()),
+  //   ),
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +36,7 @@ class _MainLayoutState extends State<MainLayout> {
         title: CircleAvatar(
           radius: 45.r,
           backgroundColor: Colors.transparent,
-          backgroundImage: AssetImage(
-            MyAssets.logo,
-          ), // Replace with your logo
+          backgroundImage: AssetImage(MyAssets.logo), // Replace with your logo
         ),
         // actions: [
         //   IconButton(
@@ -47,10 +47,16 @@ class _MainLayoutState extends State<MainLayout> {
         // ],
         centerTitle: true,
       ),
-      body: IndexedStack(
-        index: currentIndex,
-        children: modules,
-      ),
+      body:
+          currentIndex == 0
+              ? AllMembersScreen(bloc: membersBloc)
+              : AnalyticsModuleScreen(
+                bloc: AnalyticsModuleBloc(MembersModuleBloc.allMembers),
+              ),
+      // IndexedStack(
+      //   index: currentIndex,
+      //   children: modules,
+      // ),
       extendBody: true,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(

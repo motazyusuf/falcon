@@ -4,7 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
 class RevenueReport extends StatelessWidget {
-  const RevenueReport({super.key});
+  RevenueReport(
+      {super.key, required this.monthlyRevenue, required this.weeklyRevenue});
+
+  int weeklyRevenue, monthlyRevenue;
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +16,9 @@ class RevenueReport extends StatelessWidget {
       children: [
         Text("Revenue Report:", style: context.textTheme.titleMedium),
         ReportsDoubleContainers(
-          firstNumber: 200000,
+          firstNumber: monthlyRevenue,
           firstText: "Monthly Revenue",
-          secondNumber: 15000,
+          secondNumber: weeklyRevenue,
           secondText: "Weekly Revenue",
           onFirstTapped: () {},
           onSecondTapped: () {},

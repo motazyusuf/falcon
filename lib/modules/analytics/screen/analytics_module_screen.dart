@@ -15,27 +15,40 @@ class AnalyticsModuleScreenState
 
   @override
   Widget buildWidget(BuildContext context, RenderDataState state) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.only(
-          left: 10.w,
-          right: 10.w,
-          bottom: 30.h,
-          top: 10.h,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 10.h),
-            UpcomingExpiry(),
-            SizedBox(height: 10.h),
-            MembersOverview(),
-            SizedBox(height: 10.h),
-            RevenueReport(),
-          ],
-        ),
-      ),
-    );
+    return state is AnalyticsLoaded
+        ? SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.only(
+              left: 10.w,
+              right: 10.w,
+              bottom: 30.h,
+              top: 10.h,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 10.h),
+                UpcomingExpiry(
+                  inThreeMembers: bloc.expireInThreeMembers,
+                  inWeekMembers: bloc.expireInWeekMembers,
+                ),
+                SizedBox(height: 10.h),
+                MembersOverview(
+                  activeMembers: bloc.activeMembers,
+                  allMembers: bloc.members,
+                  dueMembers: bloc.dueMembers,
+                  inactiveMembers: bloc.inactiveMembers,
+                ),
+                SizedBox(height: 10.h),
+                RevenueReport(
+                  monthlyRevenue: bloc.monthlyRevenue,
+                  weeklyRevenue: bloc.weeklyRevenue,
+                ),
+              ],
+            ),
+          ),
+        )
+        : SizedBox();
   }
 
   @override
