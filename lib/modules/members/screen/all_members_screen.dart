@@ -193,7 +193,6 @@ class AllMembersScreenState
 
     if (state is MemberDetails) {
       var expandedMember = state.list[state.index];
-
       CoreSheet.showCupertino(
         expand: false,
         enableDrag: false,

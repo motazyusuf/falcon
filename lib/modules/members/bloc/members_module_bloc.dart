@@ -72,6 +72,7 @@ class MembersModuleBloc extends BaseBloc {
   }
 
   Future<void> deleteMember(DeleteMemberEvent event, Emitter emit) async {
+    print("Delete Member");
     emit(LoadingStateNonRender());
     await membersModuleRepo.deleteMember(event.id);
     emit(EndLoadingStateNonRender());

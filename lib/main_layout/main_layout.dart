@@ -18,12 +18,16 @@ class _MainLayoutState extends State<MainLayout> {
   int currentIndex = 0;
   MembersModuleBloc membersBloc = MembersModuleBloc();
 
-  // List<Widget> modules = [
-  //   AllMembersScreen(bloc: MembersModuleBloc()),
-  //   AnalyticsModuleScreen(
-  //     bloc: AnalyticsModuleBloc()..add(PrepareAnalyticsEvent()),
-  //   ),
-  // ];
+  bool get isAnalyticsScreenActive => currentIndex == 1;
+
+  List<Widget> get modules =>
+      [
+        AllMembersScreen(bloc: membersBloc), // Always stays alive
+        isAnalyticsScreenActive
+            ? AnalyticsModuleScreen(
+            bloc: AnalyticsModuleBloc(MembersModuleBloc.allMembers))
+            : const SizedBox.shrink(), // Released when not active
+      ];
 
   @override
   Widget build(BuildContext context) {
@@ -38,25 +42,12 @@ class _MainLayoutState extends State<MainLayout> {
           backgroundColor: Colors.transparent,
           backgroundImage: AssetImage(MyAssets.logo), // Replace with your logo
         ),
-        // actions: [
-        //   IconButton(
-        //     padding: EdgeInsets.all(15.w),
-        //     onPressed: () {},
-        //     icon: Icon(Icons.menu_rounded, size: 30.r),
-        //   ),
-        // ],
         centerTitle: true,
       ),
-      body:
-          currentIndex == 0
-              ? AllMembersScreen(bloc: membersBloc)
-              : AnalyticsModuleScreen(
-                bloc: AnalyticsModuleBloc(MembersModuleBloc.allMembers),
-              ),
-      // IndexedStack(
-      //   index: currentIndex,
-      //   children: modules,
-      // ),
+
+      body: IndexedStack(
+          index: currentIndex,
+          children: modules),
       extendBody: true,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(

@@ -18,8 +18,7 @@ class AnalyticsModuleBloc extends BaseBloc {
   int weeklyRevenue = 0;
 
   void prepareAnalytics(PrepareAnalyticsEvent event, Emitter emit) {
-    print("Preparing Analytics");
-    print(members.length);
+    print("Got analytics");
     emit(LoadingStateNonRender());
     dueMembers.clear();
     activeMembers.clear();
