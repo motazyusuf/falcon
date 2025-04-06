@@ -37,13 +37,13 @@ class _MainLayoutState extends State<MainLayout> {
             MyAssets.logo,
           ), // Replace with your logo
         ),
-        actions: [
-          IconButton(
-            padding: EdgeInsets.all(15.w),
-            onPressed: () {},
-            icon: Icon(Icons.menu_rounded, size: 30.r),
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     padding: EdgeInsets.all(15.w),
+        //     onPressed: () {},
+        //     icon: Icon(Icons.menu_rounded, size: 30.r),
+        //   ),
+        // ],
         centerTitle: true,
       ),
       body: IndexedStack(
