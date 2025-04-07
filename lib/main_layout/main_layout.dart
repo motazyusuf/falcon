@@ -24,7 +24,7 @@ class _MainLayoutState extends State<MainLayout> {
       [
         AllMembersScreen(bloc: membersBloc), // Always stays alive
         isAnalyticsScreenActive
-            ? AnalyticsModuleScreen(
+            ? AnalyticsScreen(
             bloc: AnalyticsModuleBloc(MembersModuleBloc.allMembers))
             : const SizedBox.shrink(), // Released when not active
       ];
@@ -36,7 +36,6 @@ class _MainLayoutState extends State<MainLayout> {
       extendBodyBehindAppBar: false,
       appBar: AppBar(
         toolbarHeight: 70.h,
-        // Adjust height to fit the logo and search bar
         title: CircleAvatar(
           radius: 45.r,
           backgroundColor: Colors.transparent,
@@ -44,7 +43,6 @@ class _MainLayoutState extends State<MainLayout> {
         ),
         centerTitle: true,
       ),
-
       body: IndexedStack(
           index: currentIndex,
           children: modules),

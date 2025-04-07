@@ -1,17 +1,17 @@
 part of '../import/analytics_module_import.dart';
 
-class AnalyticsModuleScreen extends StatefulWidget {
+class AnalyticsScreen extends StatefulWidget {
   final AnalyticsModuleBloc bloc;
 
-  const AnalyticsModuleScreen({super.key, required this.bloc});
+  const AnalyticsScreen({super.key, required this.bloc});
 
   @override
-  AnalyticsModuleScreenState createState() => AnalyticsModuleScreenState(bloc);
+  AnalyticsScreenState createState() => AnalyticsScreenState(bloc);
 }
 
-class AnalyticsModuleScreenState
-    extends BaseScreen<AnalyticsModuleBloc, AnalyticsModuleScreen, dynamic> {
-  AnalyticsModuleScreenState(super.bloc);
+class AnalyticsScreenState
+    extends BaseScreen<AnalyticsModuleBloc, AnalyticsScreen, dynamic> {
+  AnalyticsScreenState(super.bloc);
 
   @override
   Widget buildWidget(BuildContext context, RenderDataState state) {
