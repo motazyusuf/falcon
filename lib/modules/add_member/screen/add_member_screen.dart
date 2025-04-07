@@ -128,12 +128,13 @@ class AddMemberScreenState
                       controller: lastNameController,
                       decoration: InputDecoration(
                         hintText: AppStrings.lastName,
-                      )),
+                      )), ,
                     SizedBox(height: 10.h),
-                    TextFormField((
-                      validator: AppHelper.validateNotEmptystyle: context.textTheme.bodyLarge,
-                      controller: phoneController,
-                      decoration: InputDecoration(
+              TextFormField(
+                validator: AppHelper.validateNotEmpty,
+                style: context.textTheme.bodyLarge,
+                controller: phoneController,
+                decoration: InputDecoration(
                         hintText: AppStrings.phoneNumber,
                       ),
                       keyboardType: TextInputType.phone,
