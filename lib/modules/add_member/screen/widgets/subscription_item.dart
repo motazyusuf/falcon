@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
-import '../../core/enums/sport_enum.dart';
-import '../../core/functions/my_functions.dart';
+import '../../../../core/enums/sport_enum.dart';
+import '../../../../core/functions/my_functions.dart';
 
 class SubscriptionItem extends StatelessWidget {
   final ValueChanged<Sport?> onSportChanged;
