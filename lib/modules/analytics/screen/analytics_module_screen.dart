@@ -52,5 +52,14 @@ class AnalyticsScreenState
   }
 
   @override
-  void listenToState(BuildContext context, BaseState state) {}
+  void listenToState(BuildContext context, BaseState state) {
+    CancelFunc? cancelFunc;
+    if (state is LoadingStateNonRender) {
+      cancelFunc = MyFunctions.showLoading();
+    }
+    if (state is EndLoadingStateNonRender) {
+      cancelFunc?.call();
+      context.pop();
+    }
+  }
 }
