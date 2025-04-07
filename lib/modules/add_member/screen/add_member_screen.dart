@@ -128,7 +128,7 @@ class AddMemberScreenState
                       controller: lastNameController,
                       decoration: InputDecoration(
                         hintText: AppStrings.lastName,
-                      )), ,
+                      )),
                     SizedBox(height: 10.h),
               TextFormField(
                 validator: AppHelper.validateNotEmpty,
