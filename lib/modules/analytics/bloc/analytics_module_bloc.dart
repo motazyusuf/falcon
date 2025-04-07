@@ -19,7 +19,6 @@ class AnalyticsModuleBloc extends BaseBloc {
 
   void prepareAnalytics(PrepareAnalyticsEvent event, Emitter emit) {
     print("Got analytics");
-    emit(LoadingStateNonRender());
     dueMembers.clear();
     activeMembers.clear();
     inactiveMembers.clear();
@@ -72,7 +71,6 @@ class AnalyticsModuleBloc extends BaseBloc {
       }
     }
 
-    emit(EndLoadingStateNonRender());
     emit(AnalyticsLoaded());
   }
 
