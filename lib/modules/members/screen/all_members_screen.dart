@@ -223,8 +223,8 @@ class AllMembersScreenState
                             ),
                           );
                           expandedMember.subscriptions.remove(subscription);
-                          triggerRebuild();
                         }
+                        triggerRebuild();
                         context.pop();
                       },
                     ),
@@ -290,12 +290,15 @@ class AllMembersScreenState
                 builder:
                     (context) => AddSubscriptionDialogue(
                       onConfirmTapped: (editedMember) {
-                        print("Tapped");
                         if (Member.toJson(expandedMember) !=
                             Member.toJson(editedMember)) {
                           expandedMember = editedMember;
                           triggerRebuild();
                           context.pop();
+                          ToastHelper.showToast(
+                            "Subscription Added",
+                            type: ToastType.success,
+                          );
                           bloc.add(EditMemberEvent(member: editedMember));
                         }
                       },

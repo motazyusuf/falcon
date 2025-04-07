@@ -64,7 +64,6 @@ class MemberFullDetailsState extends State<MemberFullDetails> {
                 ],
               ),
             ),
-            SizedBox(height: 1.h),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: AdvancedLine(
@@ -131,9 +130,7 @@ class MemberFullDetailsState extends State<MemberFullDetails> {
                 );
               }).toList(),
             ),
-            SizedBox(height: 5.h),
-
-            SizedBox(height: 5.h),
+            SizedBox(height: 10.h),
             CoreButton(title: "Delete Member", onTap: widget.onDeleteTapped),
           ],
         ),

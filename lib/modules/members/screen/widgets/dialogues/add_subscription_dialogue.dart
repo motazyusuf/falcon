@@ -105,7 +105,8 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                                   }
                                 },
                         child: Text(
-                          "${MyStrings.startDate}: ${subscription.subscriptionDate.toString().substring(0, 10)}",
+                          "${MyStrings.startDate}:"
+                          " ${subscription.subscriptionDate.toString().substring(0, 10)}",
                           style: context.textTheme.displaySmall?.copyWith(
                             fontSize: 12.sp,
                             color:
@@ -115,6 +116,7 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                           ),
                         ),
                       ),
+
                       SizedBox(height: 15.h),
                       DefaultTabController(
                         length: 4,
@@ -218,7 +220,7 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                         ),
                         keyboardType: TextInputType.number,
                         onChanged: (value) {
-                          subscription.paidAmount;
+                          subscription.paidAmount = value.toInt();
                         },
                       ),
 
@@ -232,7 +234,7 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                         ),
                         keyboardType: TextInputType.number,
                         onChanged: (value) {
-                          subscription.dueAmount;
+                          subscription.dueAmount = value.toInt();
                         },
                       ),
                     ],
@@ -250,6 +252,7 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                           type: ToastType.error,
                         );
                       }
+                      context.pop();
                     },
                   ),
                   SizedBox(height: 10.h),
