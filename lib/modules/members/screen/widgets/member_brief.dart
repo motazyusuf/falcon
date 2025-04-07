@@ -1,9 +1,9 @@
-import 'package:falcon_project/core/functions/my_functions.dart';
+import 'package:falcon_project/core/extensions/date_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
-import '../../../../network/member_model.dart';
+import '../../../../core/network/model/member_model.dart';
 
 class MemberBrief extends StatelessWidget {
   MemberBrief({super.key, required this.member, required this.onTap});
@@ -49,33 +49,42 @@ class MemberBrief extends StatelessWidget {
             Column(
               children: [
                 Column(
-                  children: member.subscriptions.isNotEmpty ?
-                  [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children:
-                          [
-                            Text(
-                              "${member.subscriptions[0].sport?.displayName}",
-                              style: TextStyle().copyWith(fontSize: 15.sp),
+                  children:
+                      member.subscriptions.isNotEmpty
+                          ? [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "${member.subscriptions[0].sport?.displayName}",
+                                      style: TextStyle().copyWith(
+                                        fontSize: 15.sp,
+                                      ),
+                                    ),
+                                    Text(
+                                      member
+                                          .subscriptions[0]
+                                          .endDate
+                                          .toDateOnlyString,
+                                    ),
+                                  ],
+                                ),
+                                member.subscriptions[0].endDate.isAfter(
+                                      DateTime.now(),
+                                    )
+                                    ? Icon(Icons.circle, color: Colors.green)
+                                    : Icon(
+                                      Icons.circle_outlined,
+                                      color: Colors.red,
+                                    ),
+                              ],
                             ),
-                            Text(
-                              MyFunctions.dateTimeToString(
-                                member.subscriptions[0].endDate,
-                              ),
-                            ),
-                          ],
-                        ),
-                        member.subscriptions[0].endDate.isAfter(DateTime.now())
-                            ? Icon(Icons.circle, color: Colors.green)
-                            : Icon(Icons.circle_outlined, color: Colors.red),
-                      ],
-                    ),
-                    SizedBox(height: 5.h),
-                  ] : [SizedBox()],
+                            SizedBox(height: 5.h),
+                          ]
+                          : [SizedBox()],
                 ),
               ],
             ),

@@ -24,6 +24,5 @@ class DeleteMemberEvent extends BaseEvent {
 
 class EditMemberEvent extends BaseEvent {
   Member member;
-
   EditMemberEvent({required this.member});
 }

@@ -1,10 +1,10 @@
-import 'package:falcon_project/network/member_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
-import '../../../core/functions/my_functions.dart';
-import '../../../network/members_module_repo.dart';
+import '../../../core/network/model/member_model.dart';
+import '../../../core/network/repo/members_module_repo.dart';
+import '../../../utils/helper/helper.dart';
 import '../screen/widgets/members_overview.dart';
 import '../screen/widgets/revenue_report.dart';
 import '../screen/widgets/upcoming_expiry.dart';

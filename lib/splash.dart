@@ -1,13 +1,13 @@
 import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:falcon_project/core/constants/my_assets.dart';
+import 'package:falcon_project/core/config/ui/assets.dart';
+import 'package:falcon_project/core/config/ui/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
-import 'core/constants/my_strings.dart';
-import 'core/routes/pages_routes.dart';
+import 'core/app/routes/pages_routes.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -31,22 +31,22 @@ class _SplashState extends State<Splash> {
     Timer(const Duration(seconds: 2), () {
       MaintenanceConfig.instantiate(
         MaintenanceConfig(
-          customMessage: MyStrings.appUnavailable.tr(),
-          customMessageButton: MyStrings.tryAgain.tr(),
-          customMessageRetryToast: MyStrings.retrying.tr(),
+          customMessage: AppStrings.appUnavailable.tr(),
+          customMessageButton: AppStrings.tryAgain.tr(),
+          customMessageRetryToast: AppStrings.retrying.tr(),
         ),
       );
       ApiResponseConfig.instantiate(
         ApiResponseConfig(
-          customErrorMessage: MyStrings.errorOccurred.tr(),
-          customNetworkIssuesMessage: MyStrings.networkIssueDetected.tr(),
-          customRequestTimeoutMessage: MyStrings.requestTimedOut.tr(),
+          customErrorMessage: AppStrings.errorOccurred.tr(),
+          customNetworkIssuesMessage: AppStrings.networkIssueDetected.tr(),
+          customRequestTimeoutMessage: AppStrings.requestTimedOut.tr(),
         ),
       );
       NoInternetConfig.instantiate(
         NoInternetConfig(
-          customMessage: MyStrings.noInternetMessage.tr(),
-          customMessageButton: MyStrings.retry.tr(),
+          customMessage: AppStrings.noInternetMessage.tr(),
+          customMessageButton: AppStrings.retry.tr(),
         ),
       );
       context.pushReplacementNamed(PagesRoutes.mainLayout);
@@ -69,10 +69,10 @@ class _SplashState extends State<Splash> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(MyAssets.logo),
+                Image.asset(AppAssets.logo),
                 Expanded(
                   child: Text(
-                    MyStrings.whereChampionsAreMade,
+                    AppStrings.whereChampionsAreMade,
                     style: TextStyle().copyWith(fontSize: 20.sp),
                   ),
                 ),

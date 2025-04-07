@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
-import 'core/routes/app_router.dart';
-import 'core/routes/pages_routes.dart';
-import 'core/themes/theme_manager.dart';
+import 'core/app/routes/app_router.dart';
+import 'core/app/routes/pages_routes.dart';
+import 'core/config/theme/theme_manager.dart';
 import 'firebase_options.dart';
 
 void main() async {

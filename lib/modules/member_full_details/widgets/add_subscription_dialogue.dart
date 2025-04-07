@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
-import '../../../../../core/constants/my_strings.dart';
-import '../../../../../core/enums/sport_enum.dart';
-import '../../../../../core/functions/my_functions.dart';
-import '../../../../../network/member_model.dart';
+import '../../../../../core/network/model/member_model.dart';
+import '../../../core/config/ui/strings.dart';
+import '../../../core/enums/sport_enum.dart';
+import '../../../utils/helper/helper.dart';
 
 class AddSubscriptionDialogue extends StatefulWidget {
   AddSubscriptionDialogue({
@@ -105,7 +105,7 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                                   }
                                 },
                         child: Text(
-                          "${MyStrings.startDate}:"
+                          "${AppStrings.startDate}:"
                           " ${subscription.subscriptionDate.toString().substring(0, 10)}",
                           style: context.textTheme.displaySmall?.copyWith(
                             fontSize: 12.sp,
@@ -211,12 +211,12 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
 
                       // Paid Amount
                       TextFormField(
-                        validator: MyFunctions.validateNotEmpty,
+                        validator: AppHelper.validateNotEmpty,
                         style: context.textTheme.displaySmall?.copyWith(
                           fontSize: 12.sp,
                         ),
                         decoration: InputDecoration(
-                          hintText: MyStrings.paidAmount,
+                          hintText: AppStrings.paidAmount,
                         ),
                         keyboardType: TextInputType.number,
                         onChanged: (value) {
@@ -230,7 +230,7 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                           fontSize: 12.sp,
                         ),
                         decoration: InputDecoration(
-                          hintText: MyStrings.dueAmount,
+                          hintText: AppStrings.dueAmount,
                         ),
                         keyboardType: TextInputType.number,
                         onChanged: (value) {

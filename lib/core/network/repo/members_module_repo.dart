@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:opticore/opticore.dart';
 
-import 'member_model.dart';
+import '../model/member_model.dart';
 
 class MembersModuleRepo extends BaseRepo {
   static CollectionReference<Member> getCollection() {

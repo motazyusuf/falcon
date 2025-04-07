@@ -2,7 +2,7 @@ import 'package:falcon_project/modules/analytics/screen/widgets/reports_double_c
 import 'package:flutter/material.dart';
 import 'package:opticore/opticore.dart';
 
-import '../../../../network/member_model.dart';
+import '../../../../core/network/model/member_model.dart';
 
 class MembersOverview extends StatelessWidget {
   const MembersOverview({

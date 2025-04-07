@@ -1,7 +1,7 @@
-import 'package:falcon_project/core/themes/color_scheme.dart';
 import 'package:flutter/material.dart';
 
-import 'my_font_weights.dart';
+import '../ui/color_scheme.dart';
+import '../ui/my_font_weights.dart';
 
 class ApplicationThemeManager {
   // static ThemeData lightTheme = ThemeData(

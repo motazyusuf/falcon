@@ -1,10 +1,10 @@
-import 'package:falcon_project/core/constants/my_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
+import '../../../../core/config/ui/strings.dart';
 import '../../../../core/enums/sport_enum.dart';
-import '../../../../core/functions/my_functions.dart';
+import '../../../../utils/helper/helper.dart';
 
 class SubscriptionItem extends StatelessWidget {
   final ValueChanged<Sport?> onSportChanged;
@@ -64,7 +64,7 @@ class SubscriptionItem extends StatelessWidget {
           GestureDetector(
             onTap: isEndDatePicked[index] ? null : onStartDateChanged,
             child: Text(
-              "${MyStrings.startDate}: ${pickedStartDate.toString().substring(
+              "${AppStrings.startDate}: ${pickedStartDate.toString().substring(
                   0, 10)}",
               style: context.textTheme.displaySmall?.copyWith(fontSize: 12.sp,
                   color: isEndDatePicked[index] ? context.colorScheme
@@ -147,9 +147,9 @@ class SubscriptionItem extends StatelessWidget {
 
           // Paid Amount
           TextFormField(
-            validator: MyFunctions.validateNotEmpty,
+            validator: AppHelper.validateNotEmpty,
             style: context.textTheme.displaySmall?.copyWith(fontSize: 12.sp),
-            decoration: InputDecoration(hintText: MyStrings.paidAmount),
+            decoration: InputDecoration(hintText: AppStrings.paidAmount),
             keyboardType: TextInputType.number,
             onChanged: onPaidAmountChanged,
           ),
@@ -157,7 +157,7 @@ class SubscriptionItem extends StatelessWidget {
           // Due Amount
           TextFormField(
             style: context.textTheme.displaySmall?.copyWith(fontSize: 12.sp),
-            decoration: InputDecoration(hintText: MyStrings.dueAmount),
+            decoration: InputDecoration(hintText: AppStrings.dueAmount),
             keyboardType: TextInputType.number,
             onChanged: onDueAmountChanged,
           ),
@@ -168,7 +168,7 @@ class SubscriptionItem extends StatelessWidget {
             child: TextButton(
               onPressed: onSubscriptionRemoved,
               child: Text(
-                MyStrings.remove,
+                AppStrings.remove,
                 style: context.textTheme.displaySmall?.copyWith(
                   fontSize: 12.sp,
                   color: context.colorScheme.primary,

@@ -2,13 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
-class MyFunctions {
-  MyFunctions._();
-
-  static DateTime extractDate(DateTime date) {
-    return DateTime(date.year, date.month, date.day);
-  }
-
+class AppHelper {
   static CancelFunc showLoading() {
     return BotToast.showCustomLoading(
       toastBuilder: (cancelFunc) {
@@ -46,10 +40,6 @@ class MyFunctions {
     );
   }
 
-  static String dateTimeToString(DateTime date) {
-    return date.toString().substring(0, 10);
-  }
-
   static String? validateNotEmpty(String? value) {
     if (value == null || value.trim().isEmpty) {
       return "";
@@ -57,12 +47,5 @@ class MyFunctions {
     return null;
   }
 
-  static String getFirstName(String fullName) {
-    return fullName.split(" ").first;
-  }
 
-  static String getLastName(String fullName) {
-    List<String> parts = fullName.split(" ");
-    return parts.length > 1 ? parts.last : "";
-  }
 }

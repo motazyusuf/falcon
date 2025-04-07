@@ -55,7 +55,7 @@ class AnalyticsScreenState
   void listenToState(BuildContext context, BaseState state) {
     CancelFunc? cancelFunc;
     if (state is LoadingStateNonRender) {
-      cancelFunc = MyFunctions.showLoading();
+      cancelFunc = AppHelper.showLoading();
     }
     if (state is EndLoadingStateNonRender) {
       cancelFunc?.call();

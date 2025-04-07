@@ -1,11 +1,12 @@
-import 'package:falcon_project/core/constants/my_assets.dart';
-import 'package:falcon_project/core/routes/pages_routes.dart';
 import 'package:falcon_project/main_layout/widgets/my_bottom_bar.dart';
 import 'package:falcon_project/modules/analytics/import/analytics_module_import.dart';
 import 'package:falcon_project/modules/members/import/members_module_import.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
+
+import '../core/app/routes/pages_routes.dart';
+import '../core/config/ui/assets.dart';
 
 class MainLayout extends StatefulWidget {
   const MainLayout({super.key});
@@ -39,7 +40,7 @@ class _MainLayoutState extends State<MainLayout> {
         title: CircleAvatar(
           radius: 45.r,
           backgroundColor: Colors.transparent,
-          backgroundImage: AssetImage(MyAssets.logo), // Replace with your logo
+          backgroundImage: AssetImage(AppAssets.logo), // Replace with your logo
         ),
         centerTitle: true,
       ),

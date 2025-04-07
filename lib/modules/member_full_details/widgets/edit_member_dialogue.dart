@@ -1,10 +1,10 @@
+import 'package:falcon_project/core/extensions/string_extentions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
-import '../../../../../core/constants/my_strings.dart';
-import '../../../../../core/functions/my_functions.dart';
-import '../../../../../network/member_model.dart';
+import '../../../core/config/ui/strings.dart';
+import '../../../core/network/model/member_model.dart';
 
 class EditMemberDialogue extends StatelessWidget {
   EditMemberDialogue({
@@ -38,7 +38,7 @@ class EditMemberDialogue extends StatelessWidget {
                   style: context.textTheme.bodyLarge,
                   controller: firstNameController,
                   decoration: InputDecoration(
-                    hintText: MyFunctions.getFirstName(member.name),
+                    hintText: member.name.firstNameOnly,
                   ),
                 ),
                 SizedBox(height: 10.h),
@@ -46,7 +46,7 @@ class EditMemberDialogue extends StatelessWidget {
                   style: context.textTheme.bodyLarge,
                   controller: lastNameController,
                   decoration: InputDecoration(
-                    hintText: MyFunctions.getLastName(member.name),
+                    hintText: member.name.lastNameOnly,
                   ),
                 ),
                 SizedBox(height: 10.h),
@@ -67,7 +67,7 @@ class EditMemberDialogue extends StatelessWidget {
                         member.extraNotes!.isNotEmpty &&
                                 member.extraNotes! != " "
                             ? member.extraNotes
-                            : MyStrings.extraNotes,
+                            : AppStrings.extraNotes,
                   ),
                 ),
                 SizedBox(height: 40.h),
@@ -101,8 +101,8 @@ class EditMemberDialogue extends StatelessWidget {
   }
 
   void updateMemberName(Member member) {
-    String originalFirst = MyFunctions.getFirstName(member.name);
-    String originalLast = MyFunctions.getLastName(member.name);
+    String originalFirst = member.name.firstNameOnly;
+    String originalLast = member.name.lastNameOnly;
 
     String updatedFirst = firstNameController.text.trim();
     String updatedLast = lastNameController.text.trim();

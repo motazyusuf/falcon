@@ -114,27 +114,27 @@ class AddMemberScreenState
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextFormField(
-                      validator: MyFunctions.validateNotEmpty,
+                      validator: AppHelper.validateNotEmpty,
                       style: context.textTheme.bodyLarge,
                       controller: firstNameController,
                       decoration: InputDecoration(
-                        hintText: MyStrings.firstName,
+                        hintText: AppStrings.firstName,
                       ),
                     ),
                     SizedBox(height: 10.h),
                     TextFormField(
-                      validator: MyFunctions.validateNotEmpty,
+                      validator: AppHelper.validateNotEmpty,
                       style: context.textTheme.bodyLarge,
                       controller: lastNameController,
-                      decoration: InputDecoration(hintText: MyStrings.lastName),
-                    ),
+                      decoration: InputDecoration(
+                        hintText: AppStrings.lastName,
+                      )),
                     SizedBox(height: 10.h),
-                    TextFormField(
-                      validator: MyFunctions.validateNotEmpty,
-                      style: context.textTheme.bodyLarge,
+                    TextFormField((
+                      validator: AppHelper.validateNotEmptystyle: context.textTheme.bodyLarge,
                       controller: phoneController,
                       decoration: InputDecoration(
-                        hintText: MyStrings.phoneNumber,
+                        hintText: AppStrings.phoneNumber,
                       ),
                       keyboardType: TextInputType.phone,
                     ),
@@ -143,7 +143,7 @@ class AddMemberScreenState
                       style: context.textTheme.bodyLarge,
                       controller: notesController,
                       decoration: InputDecoration(
-                        hintText: MyStrings.extraNotes,
+                        hintText: AppStrings.extraNotes,
                       ),
                     ),
                     SizedBox(height: 10.h),
@@ -226,7 +226,7 @@ class AddMemberScreenState
                     ),
                     SizedBox(height: 40.h),
                     CoreButton(
-                      title: MyStrings.addAnotherSubscription,
+                      title: AppStrings.addAnotherSubscription,
                       backgroundColor: context.colorScheme.secondaryContainer,
                       onTap: () {
                         newState(() {
@@ -245,7 +245,7 @@ class AddMemberScreenState
                     ),
                     SizedBox(height: 10.h),
                     CoreButton(
-                      title: MyStrings.addMember,
+                      title: AppStrings.addMember,
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
                           if (isEndDatePicked.contains(false)) {

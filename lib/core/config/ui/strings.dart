@@ -1,6 +1,4 @@
-class MyStrings {
-  MyStrings._();
-
+class AppStrings {
   static const String noInternetMessage = 'No internet connection!';
   static const String retry = 'Retry';
   static const String retrying = 'Retrying...';

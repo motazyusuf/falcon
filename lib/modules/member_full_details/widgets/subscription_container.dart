@@ -1,9 +1,9 @@
+import 'package:falcon_project/core/extensions/date_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
-import '../../../../../core/functions/my_functions.dart';
-import '../../../../../network/member_model.dart';
+import '../../../core/network/model/member_model.dart';
 
 class SubscriptionContainer extends StatelessWidget {
   SubscriptionContainer({
@@ -52,7 +52,7 @@ class SubscriptionContainer extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "Start date: ${MyFunctions.dateTimeToString(subscription.subscriptionDate)}",
+                    "Start date: ${subscription.subscriptionDate.toDateOnlyString}",
                     style: TextStyle().copyWith(
                       color:
                           !isActive
@@ -61,7 +61,7 @@ class SubscriptionContainer extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "End date: ${MyFunctions.dateTimeToString(subscription.endDate)}",
+                    "End date: ${subscription.endDate.toDateOnlyString}",
                     style: TextStyle().copyWith(
                       color:
                           !isActive

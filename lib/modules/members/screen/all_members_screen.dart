@@ -71,12 +71,6 @@ class AllMembersScreenState
 
   bool canSearch = true;
 
-  final GlobalKey<MemberFullDetailsState> _key = GlobalKey();
-
-  void triggerRebuild() {
-    _key.currentState
-        ?.memberFullDetailsRebuild(); // Triggering setState in the child widget
-  }
 
   @override
   Widget buildWidget(BuildContext context, RenderDataState state) {
