@@ -61,44 +61,44 @@ class MembersModuleBloc extends BaseBloc {
     emit(EndLoadingStateNonRender());
   }
 
-  Future<void> cancelSubscription(
-    CancelSubscriptionEvent event,
-    Emitter emit,) async
-  {
-    emit(LoadingStateNonRender());
-    await membersModuleRepo.cancelSubscription(event.id, event.subscription);
-    emit(EndLoadingStateNonRender());
-    // emit(MembersLoaded());
-  }
+  // Future<void> cancelSubscription(
+  //   CancelSubscriptionEvent event,
+  //   Emitter emit,) async
+  // {
+  //   emit(LoadingStateNonRender());
+  //   await membersModuleRepo.cancelSubscription(event.id, event.subscription);
+  //   emit(EndLoadingStateNonRender());
+  //   // emit(MembersLoaded());
+  // }
 
-  Future<void> deleteMember(DeleteMemberEvent event, Emitter emit) async {
-    print("Delete Member");
-    emit(LoadingStateNonRender());
-    await membersModuleRepo.deleteMember(event.id);
-    emit(EndLoadingStateNonRender());
-    add(FilterMembersEvent(filterKeyword));
-    emit(MemberDeleted());
-  }
-
-  Future<void> editMember(EditMemberEvent event, Emitter emit) async {
-    emit(LoadingStateNonRender());
-    await membersModuleRepo.editMember(event.member);
-    emit(EndLoadingStateNonRender());
-  }
+  // Future<void> deleteMember(DeleteMemberEvent event, Emitter emit) async {
+  //   print("Delete Member");
+  //   emit(LoadingStateNonRender());
+  //   await membersModuleRepo.deleteMember(event.id);
+  //   emit(EndLoadingStateNonRender());
+  //   add(FilterMembersEvent(filterKeyword));
+  //   emit(MemberDeleted());
+  // }
+  //
+  // Future<void> editMember(EditMemberEvent event, Emitter emit) async {
+  //   emit(LoadingStateNonRender());
+  //   await membersModuleRepo.editMember(event.member);
+  //   emit(EndLoadingStateNonRender());
+  // }
 
   showMemberDetails(ShowMemberDetailsEvent event, Emitter emit) {
     emit(MemberDetails(event.index, event.list));
   }
 
-  Future<void> settleSubscription(
-    SettleSubscriptionEvent event,
-    Emitter emit,) async
-  {
-    emit(LoadingStateNonRender());
-    await membersModuleRepo.settleSubscription(event.id, event.subscription);
-    emit(EndLoadingStateNonRender());
-    // emit(MembersLoaded());
-  }
+  // Future<void> settleSubscription(
+  //   SettleSubscriptionEvent event,
+  //   Emitter emit,) async
+  // {
+  //   emit(LoadingStateNonRender());
+  //   await membersModuleRepo.settleSubscription(event.id, event.subscription);
+  //   emit(EndLoadingStateNonRender());
+  //   // emit(MembersLoaded());
+  // }
 
   MembersModuleBloc()
     : super(MembersModuleStateFactory(), initialState: MembersInitialState()) {
@@ -106,10 +106,10 @@ class MembersModuleBloc extends BaseBloc {
     on<GetMembersEvent>(getMembers);
     on<FilterMembersEvent>(filterMembers);
     on<SearchForMembersEvent>(getSearchedMembers);
-    on<CancelSubscriptionEvent>(cancelSubscription);
-    on<SettleSubscriptionEvent>(settleSubscription);
-    on<DeleteMemberEvent>(deleteMember);
-    on<EditMemberEvent>(editMember);
+    // on<CancelSubscriptionEvent>(cancelSubscription);
+    // on<SettleSubscriptionEvent>(settleSubscription);
+    // on<DeleteMemberEvent>(deleteMember);
+    // on<EditMemberEvent>(editMember);
     on<ShowMemberDetailsEvent>(showMemberDetails);
     add(GetMembersEvent());
   }
