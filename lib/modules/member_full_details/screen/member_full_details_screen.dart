@@ -85,12 +85,12 @@ class _MemberFullDetailsScreenState
                         ..strokeWidth = 2.h,
                 ),
               ),
-              SizedBox(height: 10.h),
+              10.ph,
               Text(
                 "Phone number:  0${widget.member.phoneNumber}",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23.sp),
               ),
-              SizedBox(height: 10.h),
+              10.ph,
               Visibility(
                 visible:
                     widget.member.extraNotes!.isNotEmpty &&
@@ -143,7 +143,7 @@ class _MemberFullDetailsScreenState
                   ),
                 ],
               ),
-              SizedBox(height: 5.h),
+              5.ph,
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children:
@@ -229,7 +229,7 @@ class _MemberFullDetailsScreenState
                       );
                     }).toList(),
               ),
-              SizedBox(height: 10.h),
+              10.ph,
               CoreButton(
                 title: "Delete Member",
                 onTap: () {

@@ -75,19 +75,19 @@ class AnalyticsScreenState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 10.h),
+                10.ph,
                 UpcomingExpiry(
                   inThreeMembers: bloc.expireInThreeMembers,
                   inWeekMembers: bloc.expireInWeekMembers,
                 ),
-                SizedBox(height: 10.h),
+                10.ph,
                 MembersOverview(
                   activeMembers: bloc.activeMembers,
                   allMembers: bloc.members,
                   dueMembers: bloc.dueMembers,
                   inactiveMembers: bloc.inactiveMembers,
                 ),
-                SizedBox(height: 10.h),
+                10.ph,
                 RevenueReport(
                   monthlyRevenue: bloc.monthlyRevenue,
                   weeklyRevenue: bloc.weeklyRevenue,

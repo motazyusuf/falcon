@@ -41,7 +41,7 @@ class EditMemberDialogue extends StatelessWidget {
                     hintText: member.name.firstNameOnly,
                   ),
                 ),
-                SizedBox(height: 10.h),
+                10.ph,
                 TextFormField(
                   style: context.textTheme.bodyLarge,
                   controller: lastNameController,
@@ -49,7 +49,7 @@ class EditMemberDialogue extends StatelessWidget {
                     hintText: member.name.lastNameOnly,
                   ),
                 ),
-                SizedBox(height: 10.h),
+                10.ph,
                 TextFormField(
                   style: context.textTheme.bodyLarge,
                   controller: phoneController,
@@ -58,7 +58,7 @@ class EditMemberDialogue extends StatelessWidget {
                   ),
                   keyboardType: TextInputType.phone,
                 ),
-                SizedBox(height: 10.h),
+                10.ph,
                 TextFormField(
                   style: context.textTheme.bodyLarge,
                   controller: notesController,
@@ -70,7 +70,7 @@ class EditMemberDialogue extends StatelessWidget {
                             : AppStrings.extraNotes,
                   ),
                 ),
-                SizedBox(height: 40.h),
+                40.ph,
                 CoreButton(
                   title: "Confirm",
                   onTap: () {
@@ -84,7 +84,7 @@ class EditMemberDialogue extends StatelessWidget {
                     onConfirmTapped(member);
                   },
                 ),
-                SizedBox(height: 10.h),
+                10.ph,
                 CoreButton(
                   title: "Cancel",
                   backgroundColor: context.colorScheme.secondaryContainer,

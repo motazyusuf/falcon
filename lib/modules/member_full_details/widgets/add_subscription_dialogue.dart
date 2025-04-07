@@ -84,7 +84,7 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                           subscription.sport = sport;
                         },
                       ),
-                      SizedBox(height: 10.h),
+                      10.ph,
                       // Subscription Start Date
                       GestureDetector(
                         onTap:
@@ -117,7 +117,7 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                         ),
                       ),
 
-                      SizedBox(height: 15.h),
+                      15.ph,
                       DefaultTabController(
                         length: 4,
                         child: TabBar(
@@ -239,7 +239,7 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 40.h),
+                  40.ph,
                   CoreButton(
                     title: "Confirm",
                     onTap: () {
@@ -255,7 +255,7 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                       context.pop();
                     },
                   ),
-                  SizedBox(height: 10.h),
+                  10.ph,
                   CoreButton(
                     title: "Cancel",
                     backgroundColor: context.colorScheme.secondaryContainer,

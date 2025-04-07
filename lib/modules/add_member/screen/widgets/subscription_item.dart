@@ -59,7 +59,7 @@ class SubscriptionItem extends StatelessWidget {
             }).toList(),
             onChanged: onSportChanged,
           ),
-          SizedBox(height: 10.h),
+          10.ph,
           // Subscription Start Date
           GestureDetector(
             onTap: isEndDatePicked[index] ? null : onStartDateChanged,
@@ -71,7 +71,7 @@ class SubscriptionItem extends StatelessWidget {
                       .secondaryContainer : null),
             ),
           ),
-          SizedBox(height: 15.h),
+          15.ph,
           DefaultTabController(
             length: 4,
             child: TabBar(

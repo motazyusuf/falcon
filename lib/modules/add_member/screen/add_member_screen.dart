@@ -121,7 +121,7 @@ class AddMemberScreenState
                         hintText: AppStrings.firstName,
                       ),
                     ),
-                    SizedBox(height: 10.h),
+                    10.ph,
                     TextFormField(
                       validator: AppHelper.validateNotEmpty,
                       style: context.textTheme.bodyLarge,
@@ -129,7 +129,7 @@ class AddMemberScreenState
                       decoration: InputDecoration(
                         hintText: AppStrings.lastName,
                       )),
-                    SizedBox(height: 10.h),
+                    10.ph,
               TextFormField(
                 validator: AppHelper.validateNotEmpty,
                 style: context.textTheme.bodyLarge,
@@ -139,7 +139,7 @@ class AddMemberScreenState
                       ),
                       keyboardType: TextInputType.phone,
                     ),
-                    SizedBox(height: 10.h),
+                    10.ph,
                     TextFormField(
                       style: context.textTheme.bodyLarge,
                       controller: notesController,
@@ -147,7 +147,7 @@ class AddMemberScreenState
                         hintText: AppStrings.extraNotes,
                       ),
                     ),
-                    SizedBox(height: 10.h),
+                    10.ph,
                     StatefulBuilder(
                       builder: (context, newState) {
                         return SizedBox(
@@ -220,12 +220,12 @@ class AddMemberScreenState
                               );
                             },
                             separatorBuilder:
-                                (context, index) => SizedBox(width: 10.w),
+                                (context, index) => 10.pw,
                           ),
                         );
                       },
                     ),
-                    SizedBox(height: 40.h),
+                    40.ph,
                     CoreButton(
                       title: AppStrings.addAnotherSubscription,
                       backgroundColor: context.colorScheme.secondaryContainer,
@@ -244,7 +244,7 @@ class AddMemberScreenState
                         });
                       },
                     ),
-                    SizedBox(height: 10.h),
+                    10.ph,
                     CoreButton(
                       title: AppStrings.addMember,
                       onTap: () {

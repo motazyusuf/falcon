@@ -30,13 +30,13 @@ class CriticalActionDialogue extends StatelessWidget {
                 "this action can not be undone $message",
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 20.h),
+              20.ph,
               CoreButton(
                 height: 30.h,
                 title: "Confirm",
                 onTap: onConfirmTapped,
               ),
-              SizedBox(height: 10.h),
+              10.ph,
               CoreButton(
                 height: 30.h,
                 backgroundColor: context.colorScheme.secondaryContainer,

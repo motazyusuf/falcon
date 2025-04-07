@@ -89,7 +89,7 @@ class SubscriptionContainer extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(width: 20.w),
+              20.pw,
               Column(
                 children: [
                   ElevatedButton(
@@ -119,7 +119,7 @@ class SubscriptionContainer extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10.h),
+                  10.ph,
                   ElevatedButton(
                     onPressed: onCancelTapped,
                     style: ElevatedButton.styleFrom(
@@ -148,7 +148,7 @@ class SubscriptionContainer extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 5.h),
+          5.ph,
         ],
       ),
     );

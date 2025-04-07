@@ -23,7 +23,7 @@ class RevenueReport extends StatelessWidget {
           onFirstTapped: () {},
           onSecondTapped: () {},
         ),
-        SizedBox(height: 10.h),
+        10.ph,
         Container(
           padding: EdgeInsets.all(10.w),
 

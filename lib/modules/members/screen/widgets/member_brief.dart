@@ -33,7 +33,7 @@ class MemberBrief extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 1.h),
+            1.ph,
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: AdvancedLine(
@@ -45,7 +45,7 @@ class MemberBrief extends StatelessWidget {
                       ..strokeWidth = 2.h,
               ),
             ),
-            SizedBox(height: 5.h),
+            5.ph,
             Column(
               children: [
                 Column(
@@ -82,7 +82,7 @@ class MemberBrief extends StatelessWidget {
                                     ),
                               ],
                             ),
-                            SizedBox(height: 5.h),
+                        5.ph,
                           ]
                           : [SizedBox()],
                 ),
