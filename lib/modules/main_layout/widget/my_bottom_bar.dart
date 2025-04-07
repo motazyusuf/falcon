@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
-import '../../core/config/ui/strings.dart';
+import '../../../core/config/ui/strings.dart';
 
 class MyBottomBar extends StatelessWidget {
   const MyBottomBar({

@@ -7,8 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
-import 'core/app/routes/pages_routes.dart';
-
 class Splash extends StatefulWidget {
   const Splash({super.key});
 
@@ -49,7 +47,7 @@ class _SplashState extends State<Splash> {
           customMessageButton: AppStrings.retry.tr(),
         ),
       );
-      context.pushReplacementNamed(PagesRoutes.mainLayout);
+
     });
     super.initState();
   }
