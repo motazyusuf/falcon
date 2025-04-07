@@ -16,31 +16,31 @@ class FilterMembersEvent extends BaseEvent {
   FilterMembersEvent(this.filterValue);
 }
 
-class CancelSubscriptionEvent extends BaseEvent {
-  String id;
-  Subscription subscription;
-
-  CancelSubscriptionEvent({required this.id, required this.subscription});
-}
-
-class SettleSubscriptionEvent extends BaseEvent {
-  String id;
-  Subscription subscription;
-
-  SettleSubscriptionEvent({required this.id, required this.subscription});
-}
-
-class DeleteMemberEvent extends BaseEvent {
-  String id;
-
-  DeleteMemberEvent({required this.id});
-}
-
-class EditMemberEvent extends BaseEvent {
-  Member member;
-
-  EditMemberEvent({required this.member});
-}
+// class CancelSubscriptionEvent extends BaseEvent {
+//   String id;
+//   Subscription subscription;
+//
+//   CancelSubscriptionEvent({required this.id, required this.subscription});
+// }
+//
+// class SettleSubscriptionEvent extends BaseEvent {
+//   String id;
+//   Subscription subscription;
+//
+//   SettleSubscriptionEvent({required this.id, required this.subscription});
+// }
+//
+// class DeleteMemberEvent extends BaseEvent {
+//   String id;
+//
+//   DeleteMemberEvent({required this.id});
+// }
+//
+// class EditMemberEvent extends BaseEvent {
+//   Member member;
+//
+//   EditMemberEvent({required this.member});
+// }
 
 class ShowMemberDetailsEvent extends BaseEvent {
   List<Member> list;

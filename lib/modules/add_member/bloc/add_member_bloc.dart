@@ -6,6 +6,7 @@ class AddMemberBloc extends BaseBloc {
   Future<void> addMember(AddMemberEvent event, Emitter emit) async {
     emit(LoadingStateNonRender());
     await membersModuleRepo.addMember(event.member);
+    print(">>>>>>>>>>Member Added<<<<<<<<<<<<<");
     emit(EndLoadingStateNonRender());
   }
 

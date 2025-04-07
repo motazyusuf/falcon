@@ -36,6 +36,55 @@ class AddMemberScreenState
   List<bool> isEndDatePicked = [false];
   final _formKey = GlobalKey<FormState>();
 
+  CancelFunc? cancelFunc;
+
+  @override
+  void showLoading() {
+    super.closeKeyboard();
+    cancelFunc?.call();
+    cancelFunc = BotToast.showCustomLoading(
+      toastBuilder: (cancelFunc) {
+        this.cancelFunc = cancelFunc; // Store the cancel function here
+        return Center(
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(
+                // Full-screen overlay
+                width: double.infinity,
+                height: double.infinity,
+                color: Colors.black54,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    "assets/images/falcon_logo.png",
+                    fit: BoxFit.cover,
+                    height: 200.h,
+                  ),
+                  SizedBox(
+                    width: 80.w,
+                    child: LinearProgressIndicator(color: Colors.red),
+                  ),
+                  // Custom color
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+      backgroundColor: Colors.transparent, // Remove default overlay
+      allowClick: false, // Prevent taps
+    );
+  }
+
+  @override
+  void hideLoading() {
+    cancelFunc?.call();
+    context.pop();
+  }
+
   @override
   ScaffoldConfig get scaffoldConfig => ScaffoldConfig(
     appBar: AppBar(
@@ -65,39 +114,40 @@ class AddMemberScreenState
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextFormField(
-                      validator: MyFunctions.validateNotEmpty,
+                      validator: AppHelper.validateNotEmpty,
                       style: context.textTheme.bodyLarge,
                       controller: firstNameController,
                       decoration: InputDecoration(
-                        hintText: MyStrings.firstName,
+                        hintText: AppStrings.firstName,
                       ),
                     ),
-                    SizedBox(height: 10.h),
+                    10.ph,
                     TextFormField(
-                      validator: MyFunctions.validateNotEmpty,
+                      validator: AppHelper.validateNotEmpty,
                       style: context.textTheme.bodyLarge,
                       controller: lastNameController,
-                      decoration: InputDecoration(hintText: MyStrings.lastName),
-                    ),
-                    SizedBox(height: 10.h),
-                    TextFormField(
-                      validator: MyFunctions.validateNotEmpty,
-                      style: context.textTheme.bodyLarge,
-                      controller: phoneController,
                       decoration: InputDecoration(
-                        hintText: MyStrings.phoneNumber,
+                        hintText: AppStrings.lastName,
+                      )),
+                    10.ph,
+              TextFormField(
+                validator: AppHelper.validateNotEmpty,
+                style: context.textTheme.bodyLarge,
+                controller: phoneController,
+                decoration: InputDecoration(
+                        hintText: AppStrings.phoneNumber,
                       ),
                       keyboardType: TextInputType.phone,
                     ),
-                    SizedBox(height: 10.h),
+                    10.ph,
                     TextFormField(
                       style: context.textTheme.bodyLarge,
                       controller: notesController,
                       decoration: InputDecoration(
-                        hintText: MyStrings.extraNotes,
+                        hintText: AppStrings.extraNotes,
                       ),
                     ),
-                    SizedBox(height: 10.h),
+                    10.ph,
                     StatefulBuilder(
                       builder: (context, newState) {
                         return SizedBox(
@@ -170,14 +220,14 @@ class AddMemberScreenState
                               );
                             },
                             separatorBuilder:
-                                (context, index) => SizedBox(width: 10.w),
+                                (context, index) => 10.pw,
                           ),
                         );
                       },
                     ),
-                    SizedBox(height: 40.h),
+                    40.ph,
                     CoreButton(
-                      title: MyStrings.addAnotherSubscription,
+                      title: AppStrings.addAnotherSubscription,
                       backgroundColor: context.colorScheme.secondaryContainer,
                       onTap: () {
                         newState(() {
@@ -194,9 +244,9 @@ class AddMemberScreenState
                         });
                       },
                     ),
-                    SizedBox(height: 10.h),
+                    10.ph,
                     CoreButton(
-                      title: MyStrings.addMember,
+                      title: AppStrings.addMember,
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
                           if (isEndDatePicked.contains(false)) {
@@ -228,20 +278,15 @@ class AddMemberScreenState
 
   @override
   void listenToState(BuildContext context, BaseState state) {
-    CancelFunc? cancelFunc;
-    if (state is LoadingStateNonRender) {
-      cancelFunc = MyFunctions.showLoading();
-    }
-    if (state is EndLoadingStateNonRender) {
-      cancelFunc?.call();
-      ToastHelper.showToast("Member Added", type: ToastType.success);
-      context.pop();
-    }
     if (state is NoEndDate) {
       ToastHelper.showToast(
         "Months required",
         type: ToastType.error,
       );
+    }
+
+    if (state is MemberAdded) {
+      ToastHelper.showToast("Member added", type: ToastType.success);
     }
   }
 }
