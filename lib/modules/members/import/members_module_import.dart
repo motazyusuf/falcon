@@ -9,6 +9,7 @@ import 'package:opticore/opticore.dart';
 import '../../../core/enums/sport_enum.dart';
 import '../../../core/network/model/member_model.dart';
 import '../../../core/network/repo/members_module_repo.dart';
+import '../../../utils/helper/helper.dart';
 import '../screen/widgets/search_bar.dart';
 
 part '../bloc/members_module_bloc.dart';

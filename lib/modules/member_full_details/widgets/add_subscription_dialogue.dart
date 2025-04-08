@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
 import '../../../../../core/network/model/member_model.dart';
-import '../../../core/config/ui/strings.dart';
 import '../../../core/enums/sport_enum.dart';
 import '../../../utils/helper/helper.dart';
 
@@ -105,7 +104,7 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                                   }
                                 },
                         child: Text(
-                          "${AppStrings.startDate}:"
+                          "Start Date:"
                           " ${subscription.subscriptionDate.toString().substring(0, 10)}",
                           style: context.textTheme.displaySmall?.copyWith(
                             fontSize: 12.sp,
@@ -216,7 +215,7 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                           fontSize: 12.sp,
                         ),
                         decoration: InputDecoration(
-                          hintText: AppStrings.paidAmount,
+                          hintText: "Paid Amount",
                         ),
                         keyboardType: TextInputType.number,
                         onChanged: (value) {
@@ -230,7 +229,7 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                           fontSize: 12.sp,
                         ),
                         decoration: InputDecoration(
-                          hintText: AppStrings.dueAmount,
+                          hintText: "Due amount",
                         ),
                         keyboardType: TextInputType.number,
                         onChanged: (value) {

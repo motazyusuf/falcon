@@ -5,22 +5,22 @@ class SplashBloc extends BaseBloc {
     initializeApp(SplashInitialEvent event , Emitter emit) async {
         MaintenanceConfig.instantiate(
             MaintenanceConfig(
-                customMessage: AppStrings.appUnavailable.tr(),
-                customMessageButton: AppStrings.tryAgain.tr(),
-                customMessageRetryToast: AppStrings.retrying.tr(),
+                customMessage: "App Unavailable".tr(),
+                customMessageButton: "Try Again".tr(),
+                customMessageRetryToast: "Retrying".tr(),
             ),
         );
         ApiResponseConfig.instantiate(
             ApiResponseConfig(
-                customErrorMessage: AppStrings.errorOccurred.tr(),
-                customNetworkIssuesMessage: AppStrings.networkIssueDetected.tr(),
-                customRequestTimeoutMessage: AppStrings.requestTimedOut.tr(),
+                customErrorMessage: "Error Occurred".tr(),
+                customNetworkIssuesMessage: "Network Issue".tr(),
+                customRequestTimeoutMessage: "Request Timed Out".tr(),
             ),
         );
         NoInternetConfig.instantiate(
             NoInternetConfig(
-                customMessage: AppStrings.noInternetMessage.tr(),
-                customMessageButton: AppStrings.retry.tr(),
+                customMessage: "No Internet".tr(),
+                customMessageButton: "Retry".tr(),
             ),
         );
         await Future.delayed(Duration(milliseconds: 1500));

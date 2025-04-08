@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
-import '../../../../core/config/ui/strings.dart';
 
 class MySearchBar extends StatelessWidget {
   MySearchBar({
@@ -32,7 +31,7 @@ class MySearchBar extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
             borderSide: BorderSide.none,
           ),
-          hintText: AppStrings.searchForMember,
+          hintText: "Search For Member",
           hintStyle: context.textTheme.bodyLarge?.copyWith(
             color: canSearch ? null : context.colorScheme.secondaryContainer,
           ),

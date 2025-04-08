@@ -29,7 +29,7 @@ class _SplashScreenState extends BaseScreen<SplashBloc, SplashScreen, dynamic> {
                 Image.asset(AppAssets.logo),
                 Expanded(
                   child: Text(
-                    AppStrings.whereChampionsAreMade,
+                    "Where Champions Are Made",
                     style: TextStyle().copyWith(fontSize: 20.sp),
                   ),
                 ),

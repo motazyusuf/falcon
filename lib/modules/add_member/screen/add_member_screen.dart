@@ -118,7 +118,7 @@ class AddMemberScreenState
                       style: context.textTheme.bodyLarge,
                       controller: firstNameController,
                       decoration: InputDecoration(
-                        hintText: AppStrings.firstName,
+                        hintText: "First Name",
                       ),
                     ),
                     10.ph,
@@ -127,7 +127,7 @@ class AddMemberScreenState
                       style: context.textTheme.bodyLarge,
                       controller: lastNameController,
                       decoration: InputDecoration(
-                        hintText: AppStrings.lastName,
+                        hintText: "Last Name",
                       )),
                     10.ph,
               TextFormField(
@@ -135,7 +135,7 @@ class AddMemberScreenState
                 style: context.textTheme.bodyLarge,
                 controller: phoneController,
                 decoration: InputDecoration(
-                        hintText: AppStrings.phoneNumber,
+                        hintText: "Phone Number",
                       ),
                       keyboardType: TextInputType.phone,
                     ),
@@ -144,7 +144,7 @@ class AddMemberScreenState
                       style: context.textTheme.bodyLarge,
                       controller: notesController,
                       decoration: InputDecoration(
-                        hintText: AppStrings.extraNotes,
+                        hintText: "Extra Notes",
                       ),
                     ),
                     10.ph,
@@ -227,7 +227,7 @@ class AddMemberScreenState
                     ),
                     40.ph,
                     CoreButton(
-                      title: AppStrings.addAnotherSubscription,
+                      title: "Add Another Subscription",
                       backgroundColor: context.colorScheme.secondaryContainer,
                       onTap: () {
                         newState(() {
@@ -246,7 +246,7 @@ class AddMemberScreenState
                     ),
                     10.ph,
                     CoreButton(
-                      title: AppStrings.addMember,
+                      title: "Add Member",
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
                           if (isEndDatePicked.contains(false)) {

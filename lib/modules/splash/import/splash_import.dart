@@ -8,7 +8,6 @@ import 'package:opticore/opticore.dart';
 
 import '../../../core/app/routes/pages_routes.dart';
 import '../../../core/config/ui/assets.dart';
-import '../../../core/config/ui/strings.dart';
 
 part '../bloc/splash_bloc.dart';
 part '../event/splash_event.dart';

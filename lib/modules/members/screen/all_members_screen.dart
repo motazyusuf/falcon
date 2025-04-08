@@ -27,41 +27,42 @@ class AllMembersScreenState
   void showLoading() {
     super.closeKeyboard();
     cancelFunc?.call();
-    cancelFunc = BotToast.showCustomLoading(
-      toastBuilder: (cancelFunc) {
-        this.cancelFunc = cancelFunc; // Store the cancel function here
-        return Center(
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Container(
-                // Full-screen overlay
-                width: double.infinity,
-                height: double.infinity,
-                color: Colors.black54,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    "assets/images/falcon_logo.png",
-                    fit: BoxFit.cover,
-                    height: 200.h,
-                  ),
-                  SizedBox(
-                    width: 80.w,
-                    child: LinearProgressIndicator(color: Colors.red),
-                  ),
-                  // Custom color
-                ],
-              ),
-            ],
-          ),
-        );
-      },
-      backgroundColor: Colors.transparent, // Remove default overlay
-      allowClick: false, // Prevent taps
-    );
+    cancelFunc =  AppHelper.showCustomLoading();
+    // cancelFunc = BotToast.showCustomLoading(
+    //   toastBuilder: (cancelFunc) {
+    //     this.cancelFunc = cancelFunc; // Store the cancel function here
+    //     return Center(
+    //       child: Stack(
+    //         alignment: Alignment.center,
+    //         children: [
+    //           Container(
+    //             // Full-screen overlay
+    //             width: double.infinity,
+    //             height: double.infinity,
+    //             color: Colors.black54,
+    //           ),
+    //           Column(
+    //             mainAxisAlignment: MainAxisAlignment.center,
+    //             children: [
+    //               Image.asset(
+    //                 "assets/images/falcon_logo.png",
+    //                 fit: BoxFit.cover,
+    //                 height: 200.h,
+    //               ),
+    //               SizedBox(
+    //                 width: 80.w,
+    //                 child: LinearProgressIndicator(color: Colors.red),
+    //               ),
+    //               // Custom color
+    //             ],
+    //           ),
+    //         ],
+    //       ),
+    //     );
+    //   },
+    //   backgroundColor: Colors.transparent, // Remove default overlay
+    //   allowClick: false, // Prevent taps
+    // );
   }
 
   @override

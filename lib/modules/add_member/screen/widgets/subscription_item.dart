@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
-import '../../../../core/config/ui/strings.dart';
 import '../../../../core/enums/sport_enum.dart';
 import '../../../../utils/helper/helper.dart';
 
@@ -64,7 +63,7 @@ class SubscriptionItem extends StatelessWidget {
           GestureDetector(
             onTap: isEndDatePicked[index] ? null : onStartDateChanged,
             child: Text(
-              "${AppStrings.startDate}: ${pickedStartDate.toString().substring(
+              "Start Date: ${pickedStartDate.toString().substring(
                   0, 10)}",
               style: context.textTheme.displaySmall?.copyWith(fontSize: 12.sp,
                   color: isEndDatePicked[index] ? context.colorScheme
@@ -149,7 +148,7 @@ class SubscriptionItem extends StatelessWidget {
           TextFormField(
             validator: AppHelper.validateNotEmpty,
             style: context.textTheme.displaySmall?.copyWith(fontSize: 12.sp),
-            decoration: InputDecoration(hintText: AppStrings.paidAmount),
+            decoration: InputDecoration(hintText: "Paid Amount"),
             keyboardType: TextInputType.number,
             onChanged: onPaidAmountChanged,
           ),
@@ -157,7 +156,7 @@ class SubscriptionItem extends StatelessWidget {
           // Due Amount
           TextFormField(
             style: context.textTheme.displaySmall?.copyWith(fontSize: 12.sp),
-            decoration: InputDecoration(hintText: AppStrings.dueAmount),
+            decoration: InputDecoration(hintText: "Due Amount"),
             keyboardType: TextInputType.number,
             onChanged: onDueAmountChanged,
           ),
@@ -168,7 +167,7 @@ class SubscriptionItem extends StatelessWidget {
             child: TextButton(
               onPressed: onSubscriptionRemoved,
               child: Text(
-                AppStrings.remove,
+                "Remove",
                 style: context.textTheme.displaySmall?.copyWith(
                   fontSize: 12.sp,
                   color: context.colorScheme.primary,

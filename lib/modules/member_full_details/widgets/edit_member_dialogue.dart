@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
-import '../../../core/config/ui/strings.dart';
 import '../../../core/network/model/member_model.dart';
 
 class EditMemberDialogue extends StatelessWidget {
@@ -67,7 +66,7 @@ class EditMemberDialogue extends StatelessWidget {
                         member.extraNotes!.isNotEmpty &&
                                 member.extraNotes! != " "
                             ? member.extraNotes
-                            : AppStrings.extraNotes,
+                            : "Extra Notes",
                   ),
                 ),
                 40.ph,
