@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
+import '../../../translations/codegen_loader.g.dart';
+
+
 class MyBottomBar extends StatelessWidget {
   const MyBottomBar({
     super.key,
@@ -28,9 +31,9 @@ class MyBottomBar extends StatelessWidget {
           onTap: onTap,
           items: const [
             BottomNavigationBarItem(
-                label: "Members", icon: Icon(Icons.people)),
+                label: LocaleKeys.members, icon: Icon(Icons.people)),
             BottomNavigationBarItem(
-              label: "Analytics",
+              label: LocaleKeys.analytics,
               icon: Icon(Icons.bar_chart),
             ),
           ],

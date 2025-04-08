@@ -23,8 +23,9 @@ dependencies:
 
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
+  easy_localization_generator: ^0.3.3
+  build_runner: ^2.4.6
+
 
   flutter_lints: ^5.0.0
 
