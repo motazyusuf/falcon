@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         appConfig: AppConfig(
           theme: ApplicationThemeManager.myAppTheme,
           onGenerateRoute: AppRouter.onGenerateRoute,
-          initialRoute: PagesRoutes.splash,
+          initialRoute: PagesRoutes.task,
           supportedLocales: context.supportedLocales,
           localizationsDelegates: context.localizationDelegates,
           locale: context.locale,

@@ -2,6 +2,7 @@ import 'package:falcon_project/core/app/routes/pages_routes.dart';
 import 'package:falcon_project/modules/add_member/import/add_member_import.dart';
 import 'package:falcon_project/modules/main_layout/main_layout.dart';
 import 'package:falcon_project/modules/splash/import/splash_import.dart';
+import 'package:falcon_project/task/task/import/task_import.dart';
 import 'package:flutter/material.dart';
 
 import '../../../modules/members/import/members_module_import.dart';
@@ -30,6 +31,12 @@ class AppRouter {
       case PagesRoutes.mainLayout:
         return MaterialPageRoute(
           builder: (context) => MainLayout(),
+          settings: settings,
+        );
+
+      case PagesRoutes.task:
+        return MaterialPageRoute(
+          builder: (context) => TaskScreen(bloc: TaskBloc()),
           settings: settings,
         );
 

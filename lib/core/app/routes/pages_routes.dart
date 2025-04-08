@@ -5,4 +5,5 @@ class PagesRoutes {
   static const String mainLayout = "/mainLayout";
   static const String home = "/home";
   static const String addMember = "/addMember";
+  static const String task = "/task";
 }
