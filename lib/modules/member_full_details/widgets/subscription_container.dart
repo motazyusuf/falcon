@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:falcon_project/core/extensions/date_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
+import '../../../core/config/translations/codegen_loader.g.dart';
 import '../../../core/network/model/member_model.dart';
 
 class SubscriptionContainer extends StatelessWidget {
@@ -43,7 +45,7 @@ class SubscriptionContainer extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Class: ${subscription.sport?.displayName}",
+                    "${LocaleKeys.gym_class.tr()}: ${subscription.sport?.localeKey.tr()}",
                     style: TextStyle().copyWith(
                       color:
                           !isActive
@@ -52,7 +54,7 @@ class SubscriptionContainer extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "Start date: ${subscription.subscriptionDate.toDateOnlyString}",
+                    "${LocaleKeys.sub_date.tr()}: ${subscription.subscriptionDate.toDateOnlyString}",
                     style: TextStyle().copyWith(
                       color:
                           !isActive
@@ -61,7 +63,7 @@ class SubscriptionContainer extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "End date: ${subscription.endDate.toDateOnlyString}",
+                    "${LocaleKeys.end_date.tr()}: ${subscription.endDate.toDateOnlyString}",
                     style: TextStyle().copyWith(
                       color:
                           !isActive
@@ -70,7 +72,7 @@ class SubscriptionContainer extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "Paid Amount: ${subscription.paidAmount}",
+                    "${LocaleKeys.paid.tr()}: ${subscription.paidAmount}",
                     style: TextStyle().copyWith(
                       color:
                           !isActive
@@ -79,7 +81,7 @@ class SubscriptionContainer extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "Due Amount:  ${subscription.dueAmount}",
+                    "${LocaleKeys.due.tr()}:  ${subscription.dueAmount}",
                     style: TextStyle().copyWith(
                       color:
                           !isActive
@@ -110,7 +112,7 @@ class SubscriptionContainer extends StatelessWidget {
                       ), // Button size
                     ),
                     child: Text(
-                      "Settle",
+                      LocaleKeys.settle.tr(),
                       style: TextStyle(
                         color:
                             isActive && subscription.dueAmount != 0
@@ -138,7 +140,7 @@ class SubscriptionContainer extends StatelessWidget {
                       ), // Button size
                     ),
                     child: Text(
-                      "Cancel",
+                      LocaleKeys.cancel.tr(),
                       style: TextStyle(
                         color: isActive ? Colors.red : Color(0xFF616161),
                       ),

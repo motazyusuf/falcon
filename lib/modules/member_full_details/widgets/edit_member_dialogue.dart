@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:falcon_project/core/extensions/string_extentions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
+import '../../../core/config/translations/codegen_loader.g.dart';
 import '../../../core/network/model/member_model.dart';
 
 class EditMemberDialogue extends StatelessWidget {
@@ -66,12 +68,12 @@ class EditMemberDialogue extends StatelessWidget {
                         member.extraNotes!.isNotEmpty &&
                                 member.extraNotes! != " "
                             ? member.extraNotes
-                            : "Extra Notes",
+                            : LocaleKeys.extra_notes.tr(),
                   ),
                 ),
                 40.ph,
                 CoreButton(
-                  title: "Confirm",
+                  title: LocaleKeys.confirm.tr(),
                   onTap: () {
                     updateMemberName(member);
                     if (phoneController.text.isNotEmpty) {
@@ -85,7 +87,7 @@ class EditMemberDialogue extends StatelessWidget {
                 ),
                 10.ph,
                 CoreButton(
-                  title: "Cancel",
+                  title: LocaleKeys.cancel.tr(),
                   backgroundColor: context.colorScheme.secondaryContainer,
                   onTap: () {
                     context.pop();

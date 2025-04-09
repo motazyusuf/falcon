@@ -1,6 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
+
+import '../../../core/config/translations/codegen_loader.g.dart';
 
 
 class MySearchBar extends StatelessWidget {
@@ -31,7 +34,7 @@ class MySearchBar extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
             borderSide: BorderSide.none,
           ),
-          hintText: "Search For Member",
+          hintText: LocaleKeys.search.tr(),
           hintStyle: context.textTheme.bodyLarge?.copyWith(
             color: canSearch ? null : context.colorScheme.secondaryContainer,
           ),

@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:falcon_project/modules/members/import/members_module_import.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
-import '../../../../core/enums/sport_enum.dart';
+import '../../../core/config/translations/codegen_loader.g.dart';
+import '../../../core/enums/sport_enum.dart';
 
 class SportsTabBar extends StatefulWidget {
   const SportsTabBar({super.key});
@@ -26,7 +28,7 @@ class _SportsTabBarState extends State<SportsTabBar> {
             context.read<MembersModuleBloc>().add(GetMembersEvent());
           } else {
             context.read<MembersModuleBloc>().add(
-              FilterMembersEvent(Sport.values[index - 1].displayName),
+              FilterMembersEvent(Sport.values[index - 1].localeKey),
             );
           }
         },
@@ -44,7 +46,7 @@ class _SportsTabBarState extends State<SportsTabBar> {
               borderRadius: BorderRadius.circular(25.r),
             ),
             child: Text(
-              "All Sports",
+              LocaleKeys.all_sports.tr(),
               style: TextStyle().copyWith(
                 fontFamily: "Anton_SC",
                 fontSize: 13.sp,
@@ -59,7 +61,7 @@ class _SportsTabBarState extends State<SportsTabBar> {
                 borderRadius: BorderRadius.circular(25.r),
               ),
               child: Text(
-                sport.displayName,
+                sport.localeKey,
                 style: TextStyle().copyWith(
                   fontFamily: "Anton_SC",
                   fontSize: 13.sp,

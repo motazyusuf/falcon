@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
 import '../../../../../core/network/model/member_model.dart';
+import '../../../core/config/translations/codegen_loader.g.dart';
 import '../../../core/enums/sport_enum.dart';
 import '../../../utils/helper/helper.dart';
 
@@ -27,7 +29,7 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
 
   final TextEditingController dueAmountController = TextEditingController();
 
-  Sport selectedSport = Sport.muayThaiAdvanced;
+  Sport selectedSport = Sport.mt_advanced;
 
   DateTime subscriptionDate = DateTime.now();
 
@@ -52,8 +54,7 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
     return Form(
       key: key,
       child: Dialog(
-        child: Container(
-          color: context.secondaryColor,
+        child: Container(decoration: BoxDecoration(color: context.secondaryColor, borderRadius: BorderRadius.circular(20)),
           child: SingleChildScrollView(
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             child: Padding(
@@ -74,7 +75,7 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                               return DropdownMenuItem(
                                 value: sport,
                                 child: Text(
-                                  sport.displayName,
+                                  sport.localeKey.tr(),
                                   style: TextStyle().copyWith(fontSize: 15.sp),
                                 ),
                               );
@@ -104,7 +105,7 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                                   }
                                 },
                         child: Text(
-                          "Start Date:"
+                          "${LocaleKeys.sub_date.tr()}:"
                           " ${subscription.subscriptionDate.toString().substring(0, 10)}",
                           style: context.textTheme.displaySmall?.copyWith(
                             fontSize: 12.sp,
@@ -168,7 +169,7 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                                 borderRadius: BorderRadius.circular(25.r),
                               ),
                               child: Text(
-                                "Month",
+                                LocaleKeys.month.tr(),
                                 style: TextStyle().copyWith(
                                   fontFamily: "Anton_SC",
                                   fontSize: 10.sp,
@@ -182,7 +183,7 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                                 borderRadius: BorderRadius.circular(25.r),
                               ),
                               child: Text(
-                                "2 Months",
+                                "2 ${LocaleKeys.months.tr()}",
                                 style: TextStyle().copyWith(
                                   fontFamily: "Anton_SC",
                                   fontSize: 10.sp,
@@ -197,7 +198,7 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                                 borderRadius: BorderRadius.circular(25.r),
                               ),
                               child: Text(
-                                "3 months",
+                                "3 ${LocaleKeys.months.tr()}",
                                 style: TextStyle().copyWith(
                                   fontFamily: "Anton_SC",
                                   fontSize: 10.sp,
@@ -215,7 +216,7 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                           fontSize: 12.sp,
                         ),
                         decoration: InputDecoration(
-                          hintText: "Paid Amount",
+                          hintText: LocaleKeys.paid.tr(),
                         ),
                         keyboardType: TextInputType.number,
                         onChanged: (value) {
@@ -229,7 +230,7 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                           fontSize: 12.sp,
                         ),
                         decoration: InputDecoration(
-                          hintText: "Due amount",
+                          hintText: LocaleKeys.due.tr(),
                         ),
                         keyboardType: TextInputType.number,
                         onChanged: (value) {
@@ -240,7 +241,7 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                   ),
                   40.ph,
                   CoreButton(
-                    title: "Confirm",
+                    title: LocaleKeys.confirm.tr(),
                     onTap: () {
                       if (key.currentState!.validate() && isEndDatePicked) {
                         widget.member.subscriptions.add(subscription);
@@ -256,7 +257,7 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                   ),
                   10.ph,
                   CoreButton(
-                    title: "Cancel",
+                    title: LocaleKeys.cancel.tr(),
                     backgroundColor: context.colorScheme.secondaryContainer,
                     onTap: () {
                       context.pop();

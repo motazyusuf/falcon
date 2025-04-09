@@ -28,41 +28,6 @@ class AllMembersScreenState
     super.closeKeyboard();
     cancelFunc?.call();
     cancelFunc =  AppHelper.showCustomLoading();
-    // cancelFunc = BotToast.showCustomLoading(
-    //   toastBuilder: (cancelFunc) {
-    //     this.cancelFunc = cancelFunc; // Store the cancel function here
-    //     return Center(
-    //       child: Stack(
-    //         alignment: Alignment.center,
-    //         children: [
-    //           Container(
-    //             // Full-screen overlay
-    //             width: double.infinity,
-    //             height: double.infinity,
-    //             color: Colors.black54,
-    //           ),
-    //           Column(
-    //             mainAxisAlignment: MainAxisAlignment.center,
-    //             children: [
-    //               Image.asset(
-    //                 "assets/images/falcon_logo.png",
-    //                 fit: BoxFit.cover,
-    //                 height: 200.h,
-    //               ),
-    //               SizedBox(
-    //                 width: 80.w,
-    //                 child: LinearProgressIndicator(color: Colors.red),
-    //               ),
-    //               // Custom color
-    //             ],
-    //           ),
-    //         ],
-    //       ),
-    //     );
-    //   },
-    //   backgroundColor: Colors.transparent, // Remove default overlay
-    //   allowClick: false, // Prevent taps
-    // );
   }
 
   @override
@@ -97,7 +62,7 @@ class AllMembersScreenState
                 } else {
                   canSearch = false;
                   bloc.add(
-                    FilterMembersEvent(Sport.values[index - 1].displayName),
+                    FilterMembersEvent(Sport.values[index - 1].localeKey),
                   );
                 }
               },
@@ -115,7 +80,7 @@ class AllMembersScreenState
                     borderRadius: BorderRadius.circular(25.r),
                   ),
                   child: Text(
-                    "All Sports",
+                    LocaleKeys.all_sports.tr(),
                     style: TextStyle().copyWith(
                       fontFamily: "Anton_SC",
                       fontSize: 13.sp,
@@ -130,7 +95,7 @@ class AllMembersScreenState
                       borderRadius: BorderRadius.circular(25.r),
                     ),
                     child: Text(
-                      sport.displayName,
+                      sport.localeKey.tr(),
                       style: TextStyle().copyWith(
                         fontFamily: "Anton_SC",
                         fontSize: 13.sp,

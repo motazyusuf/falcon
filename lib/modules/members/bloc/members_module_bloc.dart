@@ -23,6 +23,7 @@ class MembersModuleBloc extends BaseBloc {
       onData: (snapshot) {
         allMembers = snapshot.docs.map((doc) => doc.data()).toList();
         emit(EndLoadingStateNonRender());
+
         return MembersLoaded(allMembers);
       },
     );
@@ -51,7 +52,7 @@ class MembersModuleBloc extends BaseBloc {
               .where(
                 (member) => member.subscriptions.any(
                   (subscription) =>
-                      subscription.sport?.displayName == event.filterValue,
+                      subscription.sport?.localeKey == event.filterValue,
                 ),
               )
               .toList();

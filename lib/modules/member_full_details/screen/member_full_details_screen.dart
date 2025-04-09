@@ -87,7 +87,7 @@ class _MemberFullDetailsScreenState
               ),
               10.ph,
               Text(
-                "Phone number:  0${widget.member.phoneNumber}",
+                "${LocaleKeys.phone_number.tr()}:  0${widget.member.phoneNumber}",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23.sp),
               ),
               10.ph,
@@ -98,7 +98,7 @@ class _MemberFullDetailsScreenState
                         ? true
                         : false,
                 child: Text(
-                  "Extra Notes:  ${widget.member.extraNotes}",
+                  "${LocaleKeys.extra_notes.tr()}:  ${widget.member.extraNotes}",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 15.sp,
@@ -114,7 +114,7 @@ class _MemberFullDetailsScreenState
               ),
               Row(
                 children: [
-                  Expanded(child: Text("Subscriptions history: ")),
+                  Expanded(child: Text("${LocaleKeys.sub_history.tr()}: ")),
                   GestureDetector(
                     onTap: () {
                       showDialog(
@@ -231,7 +231,7 @@ class _MemberFullDetailsScreenState
               ),
               10.ph,
               CoreButton(
-                title: "Delete Member",
+                title: LocaleKeys.delete_member.tr(),
                 onTap: () {
                   showDialog(
                     context: context,

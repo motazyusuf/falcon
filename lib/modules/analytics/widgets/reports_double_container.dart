@@ -31,7 +31,7 @@ class ReportsDoubleContainers extends StatelessWidget {
               onTap: () {},
               child: Container(
                 padding: EdgeInsets.all(10.w),
-                margin: EdgeInsets.only(top: 10.h, right: 5.w),
+                margin: EdgeInsets.only(top: 10.h),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.r),
                   color: context.colorScheme.secondary,
@@ -53,12 +53,13 @@ class ReportsDoubleContainers extends StatelessWidget {
               ),
             ),
           ),
+          10.pw,
           Expanded(
             child: GestureDetector(
               onTap: () {},
               child: Container(
                 padding: EdgeInsets.all(10.w),
-                margin: EdgeInsets.only(top: 10.h, left: 5.w),
+                margin: EdgeInsets.only(top: 10.h),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.r),
                   color: context.colorScheme.secondary,

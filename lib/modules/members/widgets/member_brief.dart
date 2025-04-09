@@ -1,9 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:falcon_project/core/extensions/date_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
-import '../../../../core/network/model/member_model.dart';
+import '../../../core/network/model/member_model.dart';
 
 class MemberBrief extends StatelessWidget {
   MemberBrief({super.key, required this.member, required this.onTap});
@@ -59,7 +60,7 @@ class MemberBrief extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "${member.subscriptions[0].sport?.displayName}",
+                                      "${member.subscriptions[0].sport?.localeKey.tr()}",
                                       style: TextStyle().copyWith(
                                         fontSize: 15.sp,
                                       ),

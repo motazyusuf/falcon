@@ -4,10 +4,9 @@ import 'package:opticore/opticore.dart';
 
 import '../../../core/network/model/member_model.dart';
 import '../../../core/network/repo/members_module_repo.dart';
-import '../../../utils/helper/helper.dart';
-import '../screen/widgets/members_overview.dart';
-import '../screen/widgets/revenue_report.dart';
-import '../screen/widgets/upcoming_expiry.dart';
+import '../widgets/members_overview.dart';
+import '../widgets/revenue_report.dart';
+import '../widgets/upcoming_expiry.dart';
 
 part '../bloc/analytics_module_bloc.dart';
 part '../event/analytics_module_event.dart';

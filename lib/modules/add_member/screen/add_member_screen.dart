@@ -19,7 +19,7 @@ class AddMemberScreenState
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController paidAmountController = TextEditingController();
   final TextEditingController dueAmountController = TextEditingController();
-  Sport selectedSport = Sport.muayThaiAdvanced;
+  Sport selectedSport = Sport.mt_advanced;
   DateTime subscriptionDate = DateTime.now();
   DateTime endDate = DateTime.now().add(Duration(days: 30));
   List<Subscription> subscriptions = [
@@ -88,7 +88,7 @@ class AddMemberScreenState
   @override
   ScaffoldConfig get scaffoldConfig => ScaffoldConfig(
     appBar: AppBar(
-      title: Text("Add Member"),
+      title: Text(LocaleKeys.add_member.tr()),
       centerTitle: true,
       leading: IconButton(
         onPressed: () => Navigator.pop(context),
@@ -118,7 +118,7 @@ class AddMemberScreenState
                       style: context.textTheme.bodyLarge,
                       controller: firstNameController,
                       decoration: InputDecoration(
-                        hintText: "First Name",
+                        hintText: LocaleKeys.first_name.tr(),
                       ),
                     ),
                     10.ph,
@@ -127,7 +127,7 @@ class AddMemberScreenState
                       style: context.textTheme.bodyLarge,
                       controller: lastNameController,
                       decoration: InputDecoration(
-                        hintText: "Last Name",
+                        hintText: LocaleKeys.last_name.tr(),
                       )),
                     10.ph,
               TextFormField(
@@ -135,7 +135,7 @@ class AddMemberScreenState
                 style: context.textTheme.bodyLarge,
                 controller: phoneController,
                 decoration: InputDecoration(
-                        hintText: "Phone Number",
+                        hintText: LocaleKeys.phone_number.tr(),
                       ),
                       keyboardType: TextInputType.phone,
                     ),
@@ -144,7 +144,7 @@ class AddMemberScreenState
                       style: context.textTheme.bodyLarge,
                       controller: notesController,
                       decoration: InputDecoration(
-                        hintText: "Extra Notes",
+                        hintText: LocaleKeys.extra_notes.tr(),
                       ),
                     ),
                     10.ph,
@@ -227,7 +227,7 @@ class AddMemberScreenState
                     ),
                     40.ph,
                     CoreButton(
-                      title: "Add Another Subscription",
+                      title: LocaleKeys.add_sub.tr(),
                       backgroundColor: context.colorScheme.secondaryContainer,
                       onTap: () {
                         newState(() {
@@ -246,7 +246,7 @@ class AddMemberScreenState
                     ),
                     10.ph,
                     CoreButton(
-                      title: "Add Member",
+                      title: LocaleKeys.add_member.tr(),
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
                           if (isEndDatePicked.contains(false)) {

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:falcon_project/modules/analytics/import/analytics_module_import.dart';
 import 'package:falcon_project/modules/main_layout/widget/my_bottom_bar.dart';
 import 'package:falcon_project/modules/members/import/members_module_import.dart';
@@ -21,14 +22,14 @@ class _MainLayoutState extends State<MainLayout> {
 
   bool get isAnalyticsScreenActive => currentIndex == 1;
 
-  List<Widget> get modules =>
-      [
-        AllMembersScreen(bloc: membersBloc), // Always stays alive
-        isAnalyticsScreenActive
-            ? AnalyticsScreen(
-            bloc: AnalyticsModuleBloc(MembersModuleBloc.allMembers))
-            : const SizedBox.shrink(), // Released when not active
-      ];
+  List<Widget> get modules => [
+    AllMembersScreen(bloc: membersBloc), // Always stays alive
+    isAnalyticsScreenActive
+        ? AnalyticsScreen(
+          bloc: AnalyticsModuleBloc(MembersModuleBloc.allMembers),
+        )
+        : const SizedBox.shrink(), // Released when not active
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -43,10 +44,24 @@ class _MainLayoutState extends State<MainLayout> {
           backgroundImage: AssetImage(AppAssets.logo), // Replace with your logo
         ),
         centerTitle: true,
+        actions: [
+          InkWell(
+            onTap: () {
+              Locale currentLocale = context.locale;
+              Locale newLocale =
+                  currentLocale.languageCode == 'en'
+                      ? Locale('ar')
+                      : Locale('en');
+              EasyLocalization.of(context)!.setLocale(newLocale);
+            },
+            child: Padding(
+              padding: EdgeInsets.all(8.w),
+              child: Icon(Icons.language, size: 25.r, color: context.colorScheme.secondaryContainer,),
+            ),
+          ),
+        ],
       ),
-      body: IndexedStack(
-          index: currentIndex,
-          children: modules),
+      body: IndexedStack(index: currentIndex, children: modules),
       extendBody: true,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(

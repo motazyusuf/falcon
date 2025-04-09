@@ -1,8 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
-import '../../../translations/codegen_loader.g.dart';
+import '../../../core/config/translations/codegen_loader.g.dart';
 
 
 class MyBottomBar extends StatelessWidget {
@@ -29,11 +30,11 @@ class MyBottomBar extends StatelessWidget {
           selectedLabelStyle: TextStyle(fontSize: 7.sp),
           currentIndex: currentIndex,
           onTap: onTap,
-          items: const [
+          items:  [
             BottomNavigationBarItem(
-                label: LocaleKeys.members, icon: Icon(Icons.people)),
+                label: LocaleKeys.members.tr(), icon: Icon(Icons.people)),
             BottomNavigationBarItem(
-              label: LocaleKeys.analytics,
+              label: LocaleKeys.analytics.tr(),
               icon: Icon(Icons.bar_chart),
             ),
           ],

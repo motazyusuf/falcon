@@ -1,8 +1,10 @@
-import 'package:falcon_project/modules/analytics/screen/widgets/reports_double_container.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:falcon_project/modules/analytics/widgets/reports_double_container.dart';
 import 'package:flutter/material.dart';
 import 'package:opticore/opticore.dart';
 
-import '../../../../core/network/model/member_model.dart';
+import '../../../core/config/translations/codegen_loader.g.dart';
+import '../../../core/network/model/member_model.dart';
 
 
 class UpcomingExpiry extends StatelessWidget {
@@ -16,12 +18,12 @@ class UpcomingExpiry extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Upcoming Expiry Report:", style: context.textTheme.titleMedium),
+        Text("${LocaleKeys.upcmng_exp.tr()}:", style: context.textTheme.titleMedium),
         ReportsDoubleContainers(
           firstNumber: inThreeMembers.length,
-          firstText: "Expiry in 1-3 days",
+          firstText: LocaleKeys.exp_3.tr(),
           secondNumber: inWeekMembers.length,
-          secondText: "Expiry in 4-7 days",
+          secondText: LocaleKeys.exp_7.tr(),
           onFirstTapped: () {},
           onSecondTapped: () {},
         ),

@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../translations/codegen_loader.g.dart';
 import 'app.dart';
 
 class LocalizedApp extends StatelessWidget {
@@ -13,8 +12,7 @@ class LocalizedApp extends StatelessWidget {
       path: 'assets/languages',
       supportedLocales: [Locale('en'), Locale('ar')],
       fallbackLocale: Locale("en"),
-      startLocale: Locale('en'),
-      assetLoader: const CodegenLoader(), // use the generated file
+      startLocale: Locale('ar'),
       child: MyApp(),
     );
   }

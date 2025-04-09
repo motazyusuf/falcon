@@ -31,7 +31,7 @@ abstract class  LocaleKeys {
   static const SC = 'SC';
   static const phone_number = 'phone_number';
   static const sub_history = 'sub_history';
-  static const gym_class = 'class';
+  static const gym_class = 'gym_class';
   static const sub_date = 'sub_date';
   static const end_date = 'end_date';
   static const paid = 'paid';

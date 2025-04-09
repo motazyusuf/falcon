@@ -68,7 +68,7 @@ class MembersModuleRepo extends BaseRepo {
             subscription.endDate.millisecondsSinceEpoch.toString(),
           ),
           'paid_amount': int.parse(subscription.paidAmount.toString()),
-          'sport': subscription.sport?.displayName.toString(),
+          'sport': subscription.sport?.localeKey,
           'subscription_date': int.parse(
             subscription.subscriptionDate.millisecondsSinceEpoch.toString(),
           ),
@@ -90,7 +90,7 @@ class MembersModuleRepo extends BaseRepo {
 
       // Create a modified list
       List<dynamic> updatedSubscriptions = subscriptions.map((sub) {
-        if (sub['sport'] == subscription.sport?.displayName &&
+        if (sub['sport'] == subscription.sport?.localeKey &&
             sub['subscription_date'] ==
                 subscription.subscriptionDate.millisecondsSinceEpoch &&
             sub['end_date'] == subscription.endDate.millisecondsSinceEpoch) {

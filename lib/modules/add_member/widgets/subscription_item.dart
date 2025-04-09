@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
-import '../../../../core/enums/sport_enum.dart';
-import '../../../../utils/helper/helper.dart';
+import '../../../core/config/translations/codegen_loader.g.dart';
+import '../../../core/enums/sport_enum.dart';
+import '../../../utils/helper/helper.dart';
 
 class SubscriptionItem extends StatelessWidget {
   final ValueChanged<Sport?> onSportChanged;
@@ -51,7 +53,7 @@ class SubscriptionItem extends StatelessWidget {
               return DropdownMenuItem(
                 value: sport,
                 child: Text(
-                  sport.displayName,
+                  sport.localeKey.tr(),
                   style: TextStyle().copyWith(fontSize: 15.sp),
                 ),
               );
@@ -63,7 +65,7 @@ class SubscriptionItem extends StatelessWidget {
           GestureDetector(
             onTap: isEndDatePicked[index] ? null : onStartDateChanged,
             child: Text(
-              "Start Date: ${pickedStartDate.toString().substring(
+              "${LocaleKeys.sub_date.tr()}: ${pickedStartDate.toString().substring(
                   0, 10)}",
               style: context.textTheme.displaySmall?.copyWith(fontSize: 12.sp,
                   color: isEndDatePicked[index] ? context.colorScheme
@@ -104,7 +106,7 @@ class SubscriptionItem extends StatelessWidget {
                     borderRadius: BorderRadius.circular(25.r),
                   ),
                   child: Text(
-                    "Month",
+                    LocaleKeys.month.tr(),
                     style: TextStyle().copyWith(
                       fontFamily: "Anton_SC",
                       fontSize: 10.sp,
@@ -118,7 +120,7 @@ class SubscriptionItem extends StatelessWidget {
                     borderRadius: BorderRadius.circular(25.r),
                   ),
                   child: Text(
-                    "2 Months",
+                    "2 ${LocaleKeys.months.tr()}",
                     style: TextStyle().copyWith(
                       fontFamily: "Anton_SC",
                       fontSize: 10.sp,
@@ -133,7 +135,7 @@ class SubscriptionItem extends StatelessWidget {
                     borderRadius: BorderRadius.circular(25.r),
                   ),
                   child: Text(
-                    "3 months",
+                    "3 ${LocaleKeys.months.tr()}",
                     style: TextStyle().copyWith(
                       fontFamily: "Anton_SC",
                       fontSize: 10.sp,
@@ -148,7 +150,7 @@ class SubscriptionItem extends StatelessWidget {
           TextFormField(
             validator: AppHelper.validateNotEmpty,
             style: context.textTheme.displaySmall?.copyWith(fontSize: 12.sp),
-            decoration: InputDecoration(hintText: "Paid Amount"),
+            decoration: InputDecoration(hintText: LocaleKeys.paid.tr()),
             keyboardType: TextInputType.number,
             onChanged: onPaidAmountChanged,
           ),
@@ -156,7 +158,7 @@ class SubscriptionItem extends StatelessWidget {
           // Due Amount
           TextFormField(
             style: context.textTheme.displaySmall?.copyWith(fontSize: 12.sp),
-            decoration: InputDecoration(hintText: "Due Amount"),
+            decoration: InputDecoration(hintText: LocaleKeys.due.tr()),
             keyboardType: TextInputType.number,
             onChanged: onDueAmountChanged,
           ),
@@ -167,7 +169,7 @@ class SubscriptionItem extends StatelessWidget {
             child: TextButton(
               onPressed: onSubscriptionRemoved,
               child: Text(
-                "Remove",
+                LocaleKeys.remove.tr(),
                 style: context.textTheme.displaySmall?.copyWith(
                   fontSize: 12.sp,
                   color: context.colorScheme.primary,

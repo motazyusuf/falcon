@@ -1,7 +1,10 @@
-import 'package:falcon_project/modules/analytics/screen/widgets/reports_double_container.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:falcon_project/modules/analytics/widgets/reports_double_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
+
+import '../../../core/config/translations/codegen_loader.g.dart';
 
 class RevenueReport extends StatelessWidget {
   RevenueReport(
@@ -14,12 +17,12 @@ class RevenueReport extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Revenue Report:", style: context.textTheme.titleMedium),
+        Text("${LocaleKeys.rvn_report.tr()}:", style: context.textTheme.titleMedium),
         ReportsDoubleContainers(
           firstNumber: monthlyRevenue,
-          firstText: "Monthly Revenue",
+          firstText: LocaleKeys.mnthly_rvn.tr(),
           secondNumber: weeklyRevenue,
-          secondText: "Weekly Revenue",
+          secondText: LocaleKeys.wkly_rvn.tr(),
           onFirstTapped: () {},
           onSecondTapped: () {},
         ),
@@ -39,7 +42,7 @@ class RevenueReport extends StatelessWidget {
           width: double.infinity,
           child: Align(
             alignment: Alignment.center,
-            child: Text("Yearly Chart", style: context.textTheme.bodyLarge),
+            child: Text(LocaleKeys.yrly_chart.tr(), style: context.textTheme.bodyLarge),
           ),
         ),
       ],

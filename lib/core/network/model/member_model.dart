@@ -75,7 +75,7 @@ class Subscription {
     return {
       "paid_amount": subscription.paidAmount,
       "due_amount": subscription.dueAmount ?? 0,
-      "sport": subscription.sport?.displayName,
+      "sport": subscription.sport?.localeKey,
       "subscription_date":
           subscription.subscriptionDate.dateOnly.millisecondsSinceEpoch,
       "end_date": subscription.endDate.dateOnly.millisecondsSinceEpoch,
