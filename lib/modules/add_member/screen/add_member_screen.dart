@@ -250,10 +250,10 @@ class AddMemberScreenState
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
                           if (isEndDatePicked.contains(false)) {
-                            bloc.add(AddMemberWithNoEndDateEvent());
+                            postEvent(AddMemberWithNoEndDateEvent());
                             return;
                           }
-                          bloc.add(
+                          postEvent(
                             AddMemberEvent(
                               Member(
                                 id: "",

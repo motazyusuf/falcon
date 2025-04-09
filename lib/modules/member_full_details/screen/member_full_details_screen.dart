@@ -60,7 +60,7 @@ class _MemberFullDetailsScreenState
                                       Member.toJson(editedMember)) {
                                     widget.member = editedMember;
                                     context.pop();
-                                    bloc.add(
+                                    postEvent(
                                       EditMemberEvent(member: editedMember),
                                     );
                                   }
@@ -130,7 +130,7 @@ class _MemberFullDetailsScreenState
                                     "Subscription Added",
                                     type: ToastType.success,
                                   );
-                                  bloc.add(
+                                  postEvent(
                                     EditMemberEvent(member: editedMember),
                                   );
                                 }
@@ -176,14 +176,14 @@ class _MemberFullDetailsScreenState
                                                     .subscriptions
                                                     .length ==
                                                 1) {
-                                              bloc.add(
+                                              postEvent(
                                                 DeleteMemberEvent(
                                                   id: widget.member.id!,
                                                 ),
                                               );
                                               context.pop();
                                             } else {
-                                              bloc.add(
+                                              postEvent(
                                                 CancelSubscriptionEvent(
                                                   id: widget.member.id!,
                                                   subscription: subscription,
@@ -213,7 +213,7 @@ class _MemberFullDetailsScreenState
                                                   subscription.paidAmount +
                                                   subscription.dueAmount!;
                                               subscription.dueAmount = 0;
-                                              bloc.add(
+                                              postEvent(
                                                 SettleSubscriptionEvent(
                                                   id: widget.member.id!,
                                                   subscription: subscription,
@@ -240,7 +240,7 @@ class _MemberFullDetailsScreenState
                           message: "member will be deleted",
                           onConfirmTapped: () {
                             context.pop();
-                            bloc.add(DeleteMemberEvent(id: widget.member.id!));
+                            postEvent(DeleteMemberEvent(id: widget.member.id!));
                             context.pop();
                           },
                         ),

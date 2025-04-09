@@ -47,7 +47,7 @@ class AllMembersScreenState
         children: [
           MySearchBar(
             canSearch: canSearch,
-            onChanged: (value) => bloc.add(SearchForMembersEvent(value)),
+            onChanged: (value) => postEvent(SearchForMembersEvent(value)),
             searchController: searchController,
           ),
           DefaultTabController(
@@ -57,11 +57,11 @@ class AllMembersScreenState
               onTap: (index) {
                 if (index == 0) {
                   canSearch = true;
-                  // bloc.add(GetMembersEvent());
-                  bloc.add(FilterMembersEvent(null));
+                  // postEvent(GetMembersEvent());
+                  postEvent(FilterMembersEvent(null));
                 } else {
                   canSearch = false;
-                  bloc.add(
+                  postEvent(
                     FilterMembersEvent(Sport.values[index - 1].localeKey),
                   );
                 }
@@ -112,7 +112,7 @@ class AllMembersScreenState
                 builder:
                     (context, index) => MemberBrief(
                       onTap: () {
-                        bloc.add(
+                        postEvent(
                           ShowMemberDetailsEvent(
                             index: index,
                             list: state.members,
@@ -128,7 +128,7 @@ class AllMembersScreenState
                 builder:
                     (context, index) => MemberBrief(
                       onTap: () {
-                        bloc.add(
+                        postEvent(
                           ShowMemberDetailsEvent(
                             index: index,
                             list: state.filteredMembers,
