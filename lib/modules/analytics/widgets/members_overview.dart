@@ -15,7 +15,8 @@ class MembersOverview extends StatelessWidget {
     required this.inactiveMembers,
   });
 
-  final List<Member> allMembers, dueMembers, inactiveMembers, activeMembers;
+  final List<Member> allMembers, dueMembers;
+    final int inactiveMembers, activeMembers;
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +33,9 @@ class MembersOverview extends StatelessWidget {
           onSecondTapped: () {},
         ),
         ReportsDoubleContainers(
-          firstNumber: activeMembers.length,
+          firstNumber: activeMembers,
           firstText: LocaleKeys.active_members.tr(),
-          secondNumber: inactiveMembers.length,
+          secondNumber: inactiveMembers,
           secondText: LocaleKeys.inactive_members.tr(),
           onFirstTapped: () {},
           onSecondTapped: () {},

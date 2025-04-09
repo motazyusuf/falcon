@@ -10,8 +10,8 @@ class AnalyticsModuleBloc extends BaseBloc {
   final MembersModuleRepo membersModuleRepo = MembersModuleRepo();
   List<Member> members;
   List<Member> dueMembers = [];
-  List<Member> activeMembers = [];
-  List<Member> inactiveMembers = [];
+  int activeMembers = 0;
+  int inactiveMembers = 0;
   List<Member> expireInThreeMembers = [];
   List<Member> expireInWeekMembers = [];
   int monthlyRevenue = 0;
@@ -20,8 +20,8 @@ class AnalyticsModuleBloc extends BaseBloc {
   void prepareAnalytics(PrepareAnalyticsEvent event, Emitter emit) {
     print("Got analytics");
     dueMembers.clear();
-    activeMembers.clear();
-    inactiveMembers.clear();
+    activeMembers=0;
+    inactiveMembers=0;
     expireInThreeMembers.clear();
     expireInWeekMembers.clear();
     monthlyRevenue = 0;
@@ -65,9 +65,9 @@ class AnalyticsModuleBloc extends BaseBloc {
 
       if (hasDue) dueMembers.add(member);
       if (hasActive) {
-        activeMembers.add(member);
+        activeMembers+=1;
       } else {
-        inactiveMembers.add(member);
+        inactiveMembers+=1;
       }
     }
 
