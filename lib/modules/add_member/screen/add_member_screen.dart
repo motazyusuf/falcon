@@ -22,7 +22,8 @@ class AddMemberScreenState
   Sport selectedSport = Sport.mt_advanced;
   DateTime subscriptionDate = DateTime.now();
   DateTime endDate = DateTime.now().add(Duration(days: 30));
-  List<Subscription> subscriptions = [
+  List<Subscription> subscriptions =
+  [
     Subscription(
       sport: Sport.values.first,
       // Default sport
@@ -67,7 +68,7 @@ class AddMemberScreenState
   Widget buildWidget(BuildContext context, RenderDataState state) {
     return StatefulBuilder(
       builder:
-          (context, newState) =>
+          (context, setState) =>
           Form(
             key: _formKey,
             child: SingleChildScrollView(
@@ -125,19 +126,19 @@ class AddMemberScreenState
                                 pickedStartDate:
                                 subscriptions[index].subscriptionDate,
                                 onSportChanged: (newSport) {
-                                  setState(() {
+                                  newState(() {
                                     subscriptions[index].sport = newSport!;
                                   });
                                 },
                                 onEndDateChanged: (tabIndex) {
                                   newState(() {
                                     isEndDatePicked[index] = true;
-                                    if (tabIndex == 0) {
+                                    if (tabIndex == 1) {
                                       subscriptions[index]
                                           .endDate = subscriptions[index]
                                           .subscriptionDate
                                           .add(Duration(days: 30));
-                                    } else if (tabIndex == 1) {
+                                    } else if (tabIndex == 2) {
                                       subscriptions[index]
                                           .endDate = subscriptions[index]
                                           .subscriptionDate
@@ -160,7 +161,7 @@ class AddMemberScreenState
                                     lastDate: DateTime(2101),
                                   );
                                   if (pickedDate != null) {
-                                    setState(() {
+                                    newState(() {
                                       subscriptions[index].subscriptionDate =
                                           pickedDate;
                                     });
@@ -195,7 +196,7 @@ class AddMemberScreenState
                       title: LocaleKeys.add_sub.tr(),
                       backgroundColor: context.colorScheme.secondaryContainer,
                       onTap: () {
-                        newState(() {
+                        setState(() {
                           subscriptions.add(
                             Subscription(
                               sport: Sport.values.first,
@@ -215,10 +216,10 @@ class AddMemberScreenState
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
                           if (isEndDatePicked.contains(false)) {
-                            postEvent(AddMemberWithNoEndDateEvent());
+                            bloc.add(AddMemberWithNoEndDateEvent());
                             return;
                           }
-                          postEvent(
+                          bloc.add(
                             AddMemberEvent(
                               Member(
                                 id: "",

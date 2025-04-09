@@ -1,12 +1,6 @@
 part of '../import/analytics_module_import.dart';
 
 class AnalyticsModuleBloc extends BaseBloc {
-  @override
-  Future<void> close() async {
-    super.close();
-    debugPrint(">>>>>>>>>>>Analytics Bloc closed<<<<<<<<<<<");
-  }
-
   final MembersModuleRepo membersModuleRepo = MembersModuleRepo();
   List<Member> members;
   List<Member> dueMembers = [];
@@ -16,6 +10,24 @@ class AnalyticsModuleBloc extends BaseBloc {
   List<Member> expireInWeekMembers = [];
   int monthlyRevenue = 0;
   int weeklyRevenue = 0;
+
+  AnalyticsModuleBloc(this.members)
+      : super(
+    AnalyticsModuleStateFactory(),
+    initialState: AnalyticsModuleInitialState(),
+  ) {
+    print(">>>>>>>>>>>>>>>Analytics Bloc<<<<<<<<<<<<<<<<<<<<<<");
+    on<PrepareAnalyticsEvent>(prepareAnalytics);
+    on<AnalyticsSectionTappedEvent>(showAnalyticsSection);
+    add(PrepareAnalyticsEvent());
+  }
+
+  @override
+  Future<void> close() async {
+    super.close();
+    debugPrint(">>>>>>>>>>>Analytics Bloc closed<<<<<<<<<<<");
+  }
+
 
   void prepareAnalytics(PrepareAnalyticsEvent event, Emitter emit) {
     print("Got analytics");
@@ -52,7 +64,7 @@ class AnalyticsModuleBloc extends BaseBloc {
         if (daysLeft <= 3 && daysLeft >= 0) {
           expireInThreeMembers.add(member);
         }
-        if (daysLeft <= 7 && daysLeft >= 0) {
+        if (daysLeft <= 7 && daysLeft >= 4) {
           expireInWeekMembers.add(member);
         }
 
@@ -74,13 +86,10 @@ class AnalyticsModuleBloc extends BaseBloc {
     emit(AnalyticsLoaded());
   }
 
-  AnalyticsModuleBloc(this.members)
-    : super(
-        AnalyticsModuleStateFactory(),
-        initialState: AnalyticsModuleInitialState(),
-      ) {
-    print(">>>>>>>>>>>>>>>Analytics Bloc<<<<<<<<<<<<<<<<<<<<<<");
-    on<PrepareAnalyticsEvent>(prepareAnalytics);
-    add(PrepareAnalyticsEvent());
+  Future<void> showAnalyticsSection(AnalyticsSectionTappedEvent event, Emitter emit) async{
+    print("Tapped");
+    emit(AnalyticsSectionLoaded(members: event.members));
   }
+
+
 }

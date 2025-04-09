@@ -7,3 +7,8 @@ class AnalyticsModuleInitialState extends RenderDataState {
 class AnalyticsLoaded extends RenderDataState {
   AnalyticsLoaded() : super(null);
 }
+
+class AnalyticsSectionLoaded extends NonRenderState {
+  List<Member> members;
+  AnalyticsSectionLoaded({required this.members});
+}

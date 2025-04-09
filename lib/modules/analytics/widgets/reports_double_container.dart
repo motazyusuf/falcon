@@ -9,16 +9,16 @@ class ReportsDoubleContainers extends StatelessWidget {
     required this.firstText,
     required this.secondNumber,
     required this.secondText,
-    required this.onFirstTapped,
-    required this.onSecondTapped,
+     this.onFirstTapped,
+     this.onSecondTapped,
   });
 
   final int firstNumber;
   final int secondNumber;
   final String firstText;
   final String secondText;
-  final Function() onFirstTapped;
-  final Function() onSecondTapped;
+  final Function()? onFirstTapped;
+  final Function()? onSecondTapped;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class ReportsDoubleContainers extends StatelessWidget {
         children: [
           Expanded(
             child: GestureDetector(
-              onTap: () {},
+              onTap: onFirstTapped,
               child: Container(
                 padding: EdgeInsets.all(10.w),
                 margin: EdgeInsets.only(top: 10.h),
@@ -56,7 +56,7 @@ class ReportsDoubleContainers extends StatelessWidget {
           10.pw,
           Expanded(
             child: GestureDetector(
-              onTap: () {},
+              onTap: onSecondTapped,
               child: Container(
                 padding: EdgeInsets.all(10.w),
                 margin: EdgeInsets.only(top: 10.h),

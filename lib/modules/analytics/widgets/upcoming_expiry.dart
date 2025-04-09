@@ -4,28 +4,37 @@ import 'package:flutter/material.dart';
 import 'package:opticore/opticore.dart';
 
 import '../../../core/config/translations/codegen_loader.g.dart';
-import '../../../core/network/model/member_model.dart';
-
 
 class UpcomingExpiry extends StatelessWidget {
-  const UpcomingExpiry(
-      {super.key, required this.inThreeMembers, required this.inWeekMembers});
+  const UpcomingExpiry({
+    super.key,
+    required this.inThreeMembersLength,
+    required this.inWeekMembersLength,
+     this.onThreeTapped,
+     this.onWeekTapped,
+  });
 
-  final List<Member> inThreeMembers;
-  final List<Member> inWeekMembers;
+  final int inThreeMembersLength;
+  final int inWeekMembersLength;
+  final Function()? onThreeTapped;
+  final Function()? onWeekTapped;
+
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("${LocaleKeys.upcmng_exp.tr()}:", style: context.textTheme.titleMedium),
+        Text(
+          "${LocaleKeys.upcmng_exp.tr()}:",
+          style: context.textTheme.titleMedium,
+        ),
         ReportsDoubleContainers(
-          firstNumber: inThreeMembers.length,
+          firstNumber: inThreeMembersLength,
           firstText: LocaleKeys.exp_3.tr(),
-          secondNumber: inWeekMembers.length,
+          secondNumber: inWeekMembersLength,
           secondText: LocaleKeys.exp_7.tr(),
-          onFirstTapped: () {},
-          onSecondTapped: () {},
+          onFirstTapped: onThreeTapped,
+          onSecondTapped: onWeekTapped,
         ),
       ],
     );

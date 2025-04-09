@@ -10,7 +10,6 @@ class AnalyticsScreen extends StatefulWidget {
 }
 
 
-
 class AnalyticsScreenState
     extends BaseScreen<AnalyticsModuleBloc, AnalyticsScreen, dynamic> {
   AnalyticsScreenState(super.bloc);
@@ -24,7 +23,7 @@ class AnalyticsScreenState
   void showLoading() {
     super.closeKeyboard();
     cancelFunc?.call();
-    cancelFunc =  AppHelper.showCustomLoading();
+    cancelFunc = AppHelper.showCustomLoading();
   }
 
   @override
@@ -36,42 +35,50 @@ class AnalyticsScreenState
   Widget buildWidget(BuildContext context, RenderDataState state) {
     return state is AnalyticsLoaded
         ? SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.only(
-              left: 10.w,
-              right: 10.w,
-              bottom: 30.h,
-              top: 10.h,
+      child: Padding(
+        padding: EdgeInsets.only(
+          left: 10.w,
+          right: 10.w,
+          bottom: 30.h,
+          top: 10.h,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            10.ph,
+            UpcomingExpiry(
+              inThreeMembersLength: bloc.expireInThreeMembers.length,
+              inWeekMembersLength: bloc.expireInWeekMembers.length,
+              onThreeTapped: () =>
+                  postEvent(AnalyticsSectionTappedEvent(
+                      members: bloc.expireInThreeMembers)),
+              onWeekTapped:() =>
+                  postEvent(AnalyticsSectionTappedEvent(
+                      members: bloc.expireInWeekMembers)),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                10.ph,
-                UpcomingExpiry(
-                  inThreeMembers: bloc.expireInThreeMembers,
-                  inWeekMembers: bloc.expireInWeekMembers,
-                ),
-                10.ph,
-                MembersOverview(
-                  activeMembers: bloc.activeMembers,
-                  allMembers: bloc.members,
-                  dueMembers: bloc.dueMembers,
-                  inactiveMembers: bloc.inactiveMembers,
-                ),
-                10.ph,
-                RevenueReport(
-                  monthlyRevenue: bloc.monthlyRevenue,
-                  weeklyRevenue: bloc.weeklyRevenue,
-                ),
-              ],
+            10.ph,
+            MembersOverview(
+              activeMembers: bloc.activeMembers,
+              allMembers: bloc.members,
+              dueMembers: bloc.dueMembers,
+              inactiveMembers: bloc.inactiveMembers,
             ),
-          ),
-        )
+            10.ph,
+            RevenueReport(
+              monthlyRevenue: bloc.monthlyRevenue,
+              weeklyRevenue: bloc.weeklyRevenue,
+            ),
+          ],
+        ),
+      ),
+    )
         : SizedBox();
   }
 
   @override
   void listenToState(BuildContext context, BaseState state) {
-
+    if (state is AnalyticsSectionLoaded && state.members.isNotEmpty){
+     CoreSheet.showCupertino(child: Container(color: Colors.red, height: 200,));
+    }
   }
 }
