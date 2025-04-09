@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
-import '../../../core/network/model/member_model.dart';
+import '../core/network/model/member_model.dart';
 
 class MemberBrief extends StatelessWidget {
   MemberBrief({super.key, required this.member, required this.onTap});

@@ -231,6 +231,7 @@ class AddMemberScreenState
                               ),
                             ),
                           );
+                          context.pop();
                         }
                       },
                     ),

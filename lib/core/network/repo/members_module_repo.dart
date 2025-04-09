@@ -14,8 +14,10 @@ class MembersModuleRepo extends BaseRepo {
   }
 
   Future<void> addMember(Member member) async {
+
     // reference the collection || create if !exist
     var collectionRef = getCollection();
+    print("Created collection if it was not there");
 
     // create empty document with id
     var documentRef = collectionRef.doc();
@@ -34,6 +36,7 @@ class MembersModuleRepo extends BaseRepo {
 
     // stream snapshots
     var stream = collectionRef.snapshots();
+    print("Opened Stream");
     return stream;
   }
 

@@ -23,7 +23,24 @@ class _MemberFullDetailsScreenState
   bool isActive = false;
 
   @override
-  bool get ignoreScaffold => true;
+  bool get ignoreScaffold => false;
+
+  CancelFunc? cancelFunc;
+
+  @override
+  void showLoading() {
+    super.closeKeyboard();
+    cancelFunc?.call();
+    cancelFunc =  AppHelper.showCustomLoading();
+  }
+
+  @override
+  void hideLoading() {
+    cancelFunc?.call();
+  }
+
+  @override
+  ScaffoldConfig get scaffoldConfig => ScaffoldConfig(backgroundColor: context.colorScheme.secondary);
 
   @override
   Widget buildWidget(BuildContext context, RenderDataState state) {
@@ -37,8 +54,10 @@ class _MemberFullDetailsScreenState
               Padding(
                 padding: EdgeInsets.only(left: 30.w),
                 child: Row(
+
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    InkWell(child: Icon(Icons.arrow_back_ios),onTap: ()=> context.pop(),),
                     Expanded(
                       child: Text(
                         textAlign: TextAlign.center,
@@ -125,7 +144,6 @@ class _MemberFullDetailsScreenState
                                 if (Member.toJson(widget.member) !=
                                     Member.toJson(editedMember)) {
                                   widget.member = editedMember;
-                                  context.pop();
                                   ToastHelper.showToast(
                                     "Subscription Added",
                                     type: ToastType.success,
@@ -147,14 +165,14 @@ class _MemberFullDetailsScreenState
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children:
-                    widget.member.subscriptions.map((subscription) {
+                    widget.member.subscriptions.map((sub) {
                       isActive = false;
-                      if (subscription.endDate.isAfter(DateTime.now())) {
+                      if (sub.endDate.isAfter(DateTime.now())) {
                         isActive = true;
                       }
                       return SubscriptionContainer(
                         isActive: isActive,
-                        subscription: subscription,
+                        subscription: sub,
                         onCancelTapped:
                             isActive
                                 ? () {
@@ -186,11 +204,11 @@ class _MemberFullDetailsScreenState
                                               postEvent(
                                                 CancelSubscriptionEvent(
                                                   id: widget.member.id!,
-                                                  subscription: subscription,
+                                                  subscription: sub,
                                                 ),
                                               );
                                               widget.member.subscriptions
-                                                  .remove(subscription);
+                                                  .remove(sub);
                                             }
                                             context.pop();
                                           },
@@ -199,31 +217,32 @@ class _MemberFullDetailsScreenState
                                 }
                                 : null,
                         onSettleTapped:
-                            isActive && subscription.dueAmount != 0
+                            isActive && sub.dueAmount != 0
                                 ? () {
-                                  (subscription) {
+                              print("Settle Tapped");
                                     showDialog(
                                       context: context,
                                       builder:
-                                          (context) => CriticalActionDialogue(
+                                          (context) =>
+                                              CriticalActionDialogue(
                                             message:
                                                 "Amount will be added to revenue",
-                                            onConfirmTapped: () {
-                                              subscription.paidAmount =
-                                                  subscription.paidAmount +
-                                                  subscription.dueAmount!;
-                                              subscription.dueAmount = 0;
+                                            onConfirmTapped: ()
+                                            {
+                                              sub.paidAmount =
+                                                  sub.paidAmount +
+                                                  sub.dueAmount!;
+                                              sub.dueAmount = 0;
                                               postEvent(
                                                 SettleSubscriptionEvent(
                                                   id: widget.member.id!,
-                                                  subscription: subscription,
+                                                  subscription: sub,
                                                 ),
                                               );
                                               context.pop();
                                             },
                                           ),
                                     );
-                                  };
                                 }
                                 : null,
                       );
