@@ -8,6 +8,10 @@ class AnalyticsModuleBloc extends BaseBloc {
   int inactiveMembers = 0;
   List<Member> expireInThreeMembers = [];
   List<Member> expireInWeekMembers = [];
+  List<Subscription> expireInThreeSubscriptions = [];
+  List<Subscription> expireInWeekSubscriptions = [];
+  bool memberHasThreeExpiry= false;
+  bool memberHasWeekExpiry= false;
   int monthlyRevenue = 0;
   int weeklyRevenue = 0;
 
@@ -46,9 +50,10 @@ class AnalyticsModuleBloc extends BaseBloc {
     for (Member member in members) {
       bool hasActive = false;
       bool hasDue = false;
+      memberHasThreeExpiry= false;
+       memberHasWeekExpiry= false;
 
       for (Subscription subscription in member.subscriptions) {
-        // Revenue tracking
         if (subscription.subscriptionDate.isAfter(startOfWeek)) {
           weeklyRevenue += subscription.paidAmount.toInt();
         }
@@ -63,9 +68,17 @@ class AnalyticsModuleBloc extends BaseBloc {
         final daysLeft = subscription.endDate.difference(now).inDays;
         if (daysLeft <= 3 && daysLeft >= 0) {
           expireInThreeMembers.add(member);
+          if(!memberHasThreeExpiry) {
+            expireInThreeSubscriptions.add(subscription);
+            memberHasThreeExpiry=true;
+          }
         }
         if (daysLeft <= 7 && daysLeft >= 4) {
           expireInWeekMembers.add(member);
+          if(!memberHasWeekExpiry) {
+            expireInWeekSubscriptions.add(subscription);
+            memberHasWeekExpiry=true;
+          }
         }
 
         // Active

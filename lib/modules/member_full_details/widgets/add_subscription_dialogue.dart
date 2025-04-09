@@ -54,7 +54,11 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
     return Form(
       key: key,
       child: Dialog(
-        child: Container(decoration: BoxDecoration(color: context.secondaryColor, borderRadius: BorderRadius.circular(20)),
+        child: Container(
+          decoration: BoxDecoration(
+            color: context.secondaryColor,
+            borderRadius: BorderRadius.circular(20),
+          ),
           child: SingleChildScrollView(
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             child: Padding(

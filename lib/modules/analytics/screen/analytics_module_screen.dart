@@ -90,17 +90,13 @@ class AnalyticsScreenState
           width: screenWidth * 0.85,
           child: ListView.builder(
             itemBuilder:
-                (context, index) => MemberBrief(
-                  member: state.members[index],
-                  onTap:
-                      () {
-                        context.push(maintainState: false,
-                          MemberFullDetailsScreen(
-                            bloc: MemberFullDetailsBloc(),
-                            member: state.members[index],
-                          ),
-                        );
-                      }
+                (context, index) => Padding(
+                  padding:  EdgeInsets.all(5.w),
+                  child: MemberBrief(
+                    member: state.members[index],
+                    onTap: () {
+                    },
+                  ),
                 ),
             itemCount: state.members.length,
           ),

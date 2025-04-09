@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:falcon_project/core/extensions/date_extensions.dart';
+import 'package:falcon_project/widgets/red_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
@@ -11,6 +12,7 @@ class MemberBrief extends StatelessWidget {
 
   Member member;
   Function() onTap;
+  Subscription? expiringSubscription;
 
   @override
   Widget build(BuildContext context) {
@@ -35,59 +37,49 @@ class MemberBrief extends StatelessWidget {
               ),
             ),
             1.ph,
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: AdvancedLine(
-                direction: Axis.horizontal,
-                line: SolidLine(),
-                paintDef:
-                    Paint()
-                      ..color = context.colorScheme.primary
-                      ..strokeWidth = 2.h,
-              ),
-            ),
+            RedLine(),
             5.ph,
             Column(
-              children: [
-                Column(
-                  children:
-                      member.subscriptions.isNotEmpty
-                          ? [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children:
+                  member.subscriptions.isNotEmpty
+                      ? [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "${member.subscriptions[0].sport?.localeKey.tr()}",
-                                      style: TextStyle().copyWith(
-                                        fontSize: 15.sp,
-                                      ),
-                                    ),
-                                    Text(
-                                      member
+                                Text(
+                                  expiringSubscription != null
+                                      ? "${expiringSubscription?.sport?.localeKey.tr()}"
+                                      : "${member.subscriptions[0].sport?.localeKey.tr()}",
+                                  style: TextStyle().copyWith(fontSize: 15.sp),
+                                ),
+                                Text(
+                                  expiringSubscription != null
+                                      ? expiringSubscription!
+                                          .endDate
+                                          .toDateOnlyString
+                                      : member
                                           .subscriptions[0]
                                           .endDate
                                           .toDateOnlyString,
-                                    ),
-                                  ],
                                 ),
-                                member.subscriptions[0].endDate.isAfter(
-                                      DateTime.now(),
-                                    )
-                                    ? Icon(Icons.circle, color: Colors.green)
-                                    : Icon(
-                                      Icons.circle_outlined,
-                                      color: Colors.red,
-                                    ),
                               ],
                             ),
+                            member.subscriptions[0].endDate.isAfter(
+                                  DateTime.now(),
+                                )
+                                ? Icon(Icons.circle, color: Colors.green)
+                                : Icon(
+                                  Icons.circle_outlined,
+                                  color: Colors.red,
+                                ),
+                          ],
+                        ),
                         5.ph,
-                          ]
-                          : [SizedBox()],
-                ),
-              ],
+                      ]
+                      : [SizedBox()],
             ),
           ],
         ),
