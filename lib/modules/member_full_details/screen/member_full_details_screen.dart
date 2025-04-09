@@ -44,6 +44,7 @@ class _MemberFullDetailsScreenState
 
   @override
   Widget buildWidget(BuildContext context, RenderDataState state) {
+    print(state.toString());
     if (state is DetailsLoaded) {
       return SingleChildScrollView(
         child: Padding(
@@ -54,7 +55,6 @@ class _MemberFullDetailsScreenState
               Padding(
                 padding: EdgeInsets.only(left: 30.w),
                 child: Row(
-
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     InkWell(child: Icon(Icons.arrow_back_ios),onTap: ()=> context.pop(),),
@@ -276,5 +276,7 @@ class _MemberFullDetailsScreenState
   }
 
   @override
-  void listenToState(BuildContext context, BaseState state) {}
+  void listenToState(BuildContext context, BaseState state) {
+    print(state.toString());
+  }
 }

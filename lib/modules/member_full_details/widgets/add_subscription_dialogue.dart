@@ -124,11 +124,11 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                           onTap: (tabIndex) {
                             setState(() {
                               isEndDatePicked = true;
-                              if (tabIndex == 0) {
+                              if (tabIndex == 1) {
                                 subscription.endDate = subscription
                                     .subscriptionDate
                                     .add(Duration(days: 30));
-                              } else if (tabIndex == 1) {
+                              } else if (tabIndex == 2) {
                                 subscription.endDate = subscription
                                     .subscriptionDate
                                     .add(Duration(days: 60));
