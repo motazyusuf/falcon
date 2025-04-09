@@ -66,7 +66,7 @@ class AnalyticsModuleBloc extends BaseBloc {
 
         // Expiry check
         final daysLeft = subscription.endDate.difference(now).inDays;
-        if (daysLeft <= 3 && daysLeft >= 0) {
+        if (daysLeft <= 3 && daysLeft > 0) {
           expireInThreeMembers.add(member);
           if(!memberHasThreeExpiry) {
             expireInThreeSubscriptions.add(subscription);
