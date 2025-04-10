@@ -33,6 +33,7 @@ class MemberFullDetailsBloc extends BaseBloc {
   {
     emit(LoadingStateNonRender());
     await membersModuleRepo.cancelSubscription(event.id, event.subscription);
+    debugPrint("Sub deleted");
     emit(EndLoadingStateNonRender());
     emit(DetailsLoaded());
   }

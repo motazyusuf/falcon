@@ -67,6 +67,9 @@ class MembersModuleRepo extends BaseRepo {
             subscription.endDate.millisecondsSinceEpoch.toString(),
           ),
           'paid_amount': int.parse(subscription.paidAmount.toString()),
+          'payment_date': int.parse(
+            subscription.paymentDate.millisecondsSinceEpoch.toString(),
+          ),
           'sport': subscription.sport?.localeKey,
           'subscription_date': int.parse(
             subscription.subscriptionDate.millisecondsSinceEpoch.toString(),
@@ -74,6 +77,7 @@ class MembersModuleRepo extends BaseRepo {
         },
       ]),
     });
+    print("Deleted from repo");
   }
 
   Future<void> settleSubscription(String userId,
@@ -115,7 +119,7 @@ class MembersModuleRepo extends BaseRepo {
     var documentRef = collectionRef.doc(member.id);
 
     member.subscriptions.sort((b, a) => a.endDate.compareTo(b.endDate));
-
+    member.subscriptions.map((subscription)=> print(subscription.sport?.localeKey));
     await documentRef.set(member, SetOptions(merge: true));
   }
 

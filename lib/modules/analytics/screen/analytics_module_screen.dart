@@ -30,7 +30,6 @@ class AnalyticsScreenState
     cancelFunc?.call();
   }
 
-
   @override
   Widget buildWidget(BuildContext context, RenderDataState state) {
     return state is AnalyticsLoaded
@@ -88,7 +87,7 @@ class AnalyticsScreenState
                 10.ph,
                 RevenueReport(
                   monthlyRevenue: bloc.monthlyRevenue,
-                  onChartTapped: ()=> postEvent(AnalyticsChartTappedEvent()),
+                  onChartTapped: () => postEvent(AnalyticsChartTappedEvent()),
                 ),
               ],
             ),
@@ -96,7 +95,6 @@ class AnalyticsScreenState
         )
         : SizedBox();
   }
-
 
   @override
   void listenToState(BuildContext context, BaseState state) {
@@ -109,19 +107,19 @@ class AnalyticsScreenState
           width: screenWidth * 0.9,
           child: MembersBriefGrid(
             builder:
-                (context, index) => MemberBrief(member: state.members[index], onTap: (){}),
+                (context, index) =>
+                    MemberBrief(member: state.members[index], onTap: () {}),
             itemCount: state.members.length,
           ),
         ),
       );
-    }
-    else if(state is AnalyticsChartLoaded){
+    } else if (state is AnalyticsChartLoaded) {
       CoreSheet.showCupertino(
         enableDrag: false,
         backgroundColor: context.colorScheme.secondary,
         child: SizedBox(
           height: screenHeight * 0.8,
-          width: screenWidth ,
+          width: screenWidth,
           child: YearlyChart(),
         ),
       );
