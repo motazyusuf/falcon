@@ -36,6 +36,7 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
   DateTime endDate = DateTime.now().add(Duration(days: 30));
 
   Subscription subscription = Subscription(
+    paymentDate: DateTime.now(),
     sport: Sport.values.first,
     // Default sport
     subscriptionDate: DateTime.now(),

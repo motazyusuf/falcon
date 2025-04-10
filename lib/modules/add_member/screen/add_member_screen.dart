@@ -24,6 +24,7 @@ class AddMemberScreenState
   DateTime endDate = DateTime.now().add(Duration(days: 30));
   List<Subscription> subscriptions = [
     Subscription(
+      paymentDate: DateTime.now(),
       sport: Sport.values.first,
       // Default sport
       subscriptionDate: DateTime.now(),
@@ -195,6 +196,7 @@ class AddMemberScreenState
                         setState(() {
                           subscriptions.add(
                             Subscription(
+                              paymentDate: DateTime.now(),
                               sport: Sport.values.first,
                               subscriptionDate: DateTime.now(),
                               endDate: DateTime.now().add(Duration(days: 30)),

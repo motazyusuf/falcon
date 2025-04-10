@@ -50,6 +50,7 @@ class Subscription {
   DateTime endDate;
   num paidAmount;
   num? dueAmount;
+  DateTime paymentDate;
 
   Subscription({
     this.sport,
@@ -57,6 +58,7 @@ class Subscription {
     required this.endDate,
     required this.paidAmount,
     this.dueAmount,
+    required this.paymentDate
   });
 
   factory Subscription.fromJson(Map<String, dynamic> json) {
@@ -68,6 +70,7 @@ class Subscription {
         json["subscription_date"] ?? 0,
       ),
       endDate: DateTime.fromMillisecondsSinceEpoch(json["end_date"] ?? 0),
+      paymentDate: DateTime.fromMillisecondsSinceEpoch(json["payment_date"])
     );
   }
 
@@ -79,6 +82,7 @@ class Subscription {
       "subscription_date":
           subscription.subscriptionDate.dateOnly.millisecondsSinceEpoch,
       "end_date": subscription.endDate.dateOnly.millisecondsSinceEpoch,
+      "payment_date": subscription.paymentDate.dateOnly.millisecondsSinceEpoch
     };
   }
 }
