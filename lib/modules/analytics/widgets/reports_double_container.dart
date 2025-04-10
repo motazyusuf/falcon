@@ -27,7 +27,7 @@ class TwoReportsContainers extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: GestureDetector(
+            child: InkWell(
               onTap: onFirstTapped,
               child: Container(
                 padding: EdgeInsets.all(10.w),
@@ -55,7 +55,7 @@ class TwoReportsContainers extends StatelessWidget {
           ),
           10.pw,
           Expanded(
-            child: GestureDetector(
+            child: InkWell(
               onTap: onSecondTapped,
               child: Container(
                 padding: EdgeInsets.all(10.w),

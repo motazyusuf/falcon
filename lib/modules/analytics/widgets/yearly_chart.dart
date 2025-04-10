@@ -124,7 +124,7 @@ class YearlyChartState extends State<YearlyChart> {
       maxY: 160000,
       barTouchData: BarTouchData(
         touchTooltipData: BarTouchTooltipData(
-          getTooltipColor: (_) => Colors.grey,
+          getTooltipColor: (_) => context.colorScheme.secondary,
           tooltipHorizontalAlignment: FLHorizontalAlignment.center,
           tooltipMargin: 10,
           getTooltipItem: (group, groupIndex, rod, rodIndex) {
@@ -172,15 +172,13 @@ class YearlyChartState extends State<YearlyChart> {
             return BarTooltipItem(
               '$month\n',
               const TextStyle(
-                color: Colors.white,
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
               children: <TextSpan>[
                 TextSpan(
-                  text: (rod.toY - 1).toString(),
+                  text: (rod.toY.toInt()).toString(),
                   style: const TextStyle(
-                    color: Colors.white, //widget.touchedBarColor,
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                   ),
@@ -223,7 +221,6 @@ class YearlyChartState extends State<YearlyChart> {
 
   Widget getTitles(double value, TitleMeta meta) {
     final style = TextStyle(
-      color: Colors.white,
       fontWeight: FontWeight.bold,
       fontSize: 12.sp,
     );

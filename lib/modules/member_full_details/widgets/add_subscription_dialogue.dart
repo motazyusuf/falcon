@@ -90,7 +90,7 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                       ),
                       10.ph,
                       // Subscription Start Date
-                      GestureDetector(
+                      InkWell(
                         onTap:
                             isEndDatePicked
                                 ? null

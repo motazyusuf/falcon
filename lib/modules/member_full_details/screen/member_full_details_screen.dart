@@ -69,7 +69,7 @@ class _MemberFullDetailsScreenState
                         ),
                       ),
                     ),
-                    GestureDetector(
+                    InkWell(
                       onTap: () {
                         showDialog(
                           context: context,
@@ -135,7 +135,7 @@ class _MemberFullDetailsScreenState
               Row(
                 children: [
                   Expanded(child: Text("${LocaleKeys.sub_history.tr()}: ")),
-                  GestureDetector(
+                  InkWell(
                     onTap: () {
                       showDialog(
                         context: context,

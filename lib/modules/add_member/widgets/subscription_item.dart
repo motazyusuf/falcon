@@ -62,7 +62,7 @@ class SubscriptionItem extends StatelessWidget {
           ),
           10.ph,
           // Subscription Start Date
-          GestureDetector(
+          InkWell(
             onTap: isEndDatePicked[index] ? null : onStartDateChanged,
             child: Text(
               "${LocaleKeys.sub_date.tr()}: ${pickedStartDate.toString().substring(
