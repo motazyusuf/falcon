@@ -12,7 +12,7 @@ class LocalizedApp extends StatelessWidget {
       path: 'assets/languages',
       supportedLocales: [Locale('en'), Locale('ar')],
       fallbackLocale: Locale("en"),
-      startLocale: Locale('ar'),
+      startLocale: Locale('en'),
       child: MyApp(),
     );
   }

@@ -1,5 +1,5 @@
-import 'package:falcon_project/modules/member_full_details/import/member_full_details_import.dart';
 import 'package:falcon_project/widgets/member_brief.dart';
+import 'package:falcon_project/widgets/members_brief_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';

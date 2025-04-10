@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
-class ReportsDoubleContainers extends StatelessWidget {
-  const ReportsDoubleContainers({
+class TwoReportsContainers extends StatelessWidget {
+  const TwoReportsContainers({
     super.key,
     required this.firstNumber,
     required this.firstText,

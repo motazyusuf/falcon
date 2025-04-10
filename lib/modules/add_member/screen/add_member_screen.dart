@@ -242,7 +242,6 @@ class AddMemberScreenState
 
   @override
   void listenToState(BuildContext context, BaseState state) {
-    print(state.toString());
     if (state is NoEndDate) {
       ToastHelper.showToast("Months required", type: ToastType.error);
     }

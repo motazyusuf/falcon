@@ -108,7 +108,7 @@ class AllMembersScreenState
           ),
           5.ph,
           state is MembersLoaded
-              ? AllMembersScreenBody(
+              ? MembersBriefGrid(
                 builder:
                     (context, index) => MemberBrief(
                       onTap: () {
@@ -124,7 +124,7 @@ class AllMembersScreenState
                 itemCount: state.members.length,
               )
               : state is MembersFiltered
-              ? AllMembersScreenBody(
+              ? MembersBriefGrid(
                 builder:
                     (context, index) => MemberBrief(
                       onTap: () {

@@ -28,7 +28,7 @@ class UpcomingExpiry extends StatelessWidget {
           "${LocaleKeys.upcmng_exp.tr()}:",
           style: context.textTheme.titleMedium,
         ),
-        ReportsDoubleContainers(
+        TwoReportsContainers(
           firstNumber: inThreeMembersLength,
           firstText: LocaleKeys.exp_3.tr(),
           secondNumber: inWeekMembersLength,

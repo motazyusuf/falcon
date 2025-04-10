@@ -4,8 +4,8 @@ class AnalyticsModuleBloc extends BaseBloc {
   final MembersModuleRepo membersModuleRepo = MembersModuleRepo();
   List<Member> members;
   List<Member> dueMembers = [];
-  int activeMembers = 0;
-  int inactiveMembers = 0;
+  List<Member> activeMembers = [];
+  List<Member> inactiveMembers = [];
   List<Member> expireInThreeMembers = [];
   List<Member> expireInWeekMembers = [];
   List<Subscription> expireInThreeSubscriptions = [];
@@ -36,15 +36,13 @@ class AnalyticsModuleBloc extends BaseBloc {
   void prepareAnalytics(PrepareAnalyticsEvent event, Emitter emit) {
     print("Got analytics");
     dueMembers.clear();
-    activeMembers=0;
-    inactiveMembers=0;
+    activeMembers.clear();
+    inactiveMembers.clear();
     expireInThreeMembers.clear();
     expireInWeekMembers.clear();
     monthlyRevenue = 0;
-    weeklyRevenue = 0;
 
     final now = DateTime.now();
-    final startOfWeek = now.subtract(Duration(days: now.weekday - 1));
     final startOfMonth = DateTime(now.year, now.month);
 
     for (Member member in members) {
@@ -54,9 +52,6 @@ class AnalyticsModuleBloc extends BaseBloc {
        memberHasWeekExpiry= false;
 
       for (Subscription subscription in member.subscriptions) {
-        if (subscription.subscriptionDate.isAfter(startOfWeek)) {
-          weeklyRevenue += subscription.paidAmount.toInt();
-        }
         if (subscription.subscriptionDate.isAfter(startOfMonth)) {
           monthlyRevenue += subscription.paidAmount.toInt();
         }
@@ -90,9 +85,9 @@ class AnalyticsModuleBloc extends BaseBloc {
 
       if (hasDue) dueMembers.add(member);
       if (hasActive) {
-        activeMembers+=1;
+        activeMembers.add(member);
       } else {
-        inactiveMembers+=1;
+        inactiveMembers.add(member);
       }
     }
 

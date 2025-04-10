@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
-class AllMembersScreenBody extends StatelessWidget {
-  AllMembersScreenBody({
+class MembersBriefGrid extends StatelessWidget {
+  MembersBriefGrid({
     super.key,
     required this.builder,
     required this.itemCount,
   });
 
-  Widget Function(BuildContext, int) builder;
+  final Widget Function(BuildContext, int) builder;
   int itemCount;
 
   @override

@@ -9,14 +9,20 @@ import '../../../core/network/model/member_model.dart';
 class MembersOverview extends StatelessWidget {
   const MembersOverview({
     super.key,
-    required this.allMembers,
+    required this.allMembersLength,
     required this.dueMembers,
     required this.activeMembers,
     required this.inactiveMembers,
+    required this.onActiveMembersTaped,
+    required this.onDueMembersTaped,
+    required this.onInactiveMembersTaped
   });
 
-  final List<Member> allMembers, dueMembers;
-    final int inactiveMembers, activeMembers;
+  final List<Member> dueMembers,inactiveMembers, activeMembers;
+    final int allMembersLength;
+    final Function() onDueMembersTaped;
+    final Function() onActiveMembersTaped;
+    final Function() onInactiveMembersTaped;
 
   @override
   Widget build(BuildContext context) {
@@ -24,21 +30,21 @@ class MembersOverview extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("${LocaleKeys.members_overview.tr()}:", style: context.textTheme.titleMedium),
-        ReportsDoubleContainers(
-          firstNumber: allMembers.length,
+        TwoReportsContainers(
+          firstNumber: allMembersLength,
           firstText: LocaleKeys.total_members.tr(),
           secondNumber: dueMembers.length,
           secondText: LocaleKeys.members_dues.tr(),
           onFirstTapped: () {},
-          onSecondTapped: () {},
+          onSecondTapped: onDueMembersTaped,
         ),
-        ReportsDoubleContainers(
-          firstNumber: activeMembers,
+        TwoReportsContainers(
+          firstNumber: activeMembers.length,
           firstText: LocaleKeys.active_members.tr(),
-          secondNumber: inactiveMembers,
+          secondNumber: inactiveMembers.length,
           secondText: LocaleKeys.inactive_members.tr(),
-          onFirstTapped: () {},
-          onSecondTapped: () {},
+          onFirstTapped: onActiveMembersTaped,
+          onSecondTapped: onInactiveMembersTaped,
         ),
       ],
     );

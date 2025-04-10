@@ -64,9 +64,25 @@ class AnalyticsScreenState
                 10.ph,
                 MembersOverview(
                   activeMembers: bloc.activeMembers,
-                  allMembers: bloc.members,
+                  allMembersLength: bloc.members.length,
                   dueMembers: bloc.dueMembers,
                   inactiveMembers: bloc.inactiveMembers,
+                  onActiveMembersTaped:
+                      () => postEvent(
+                        AnalyticsSectionTappedEvent(
+                          members: bloc.activeMembers,
+                        ),
+                      ),
+                  onDueMembersTaped:
+                      () => postEvent(
+                        AnalyticsSectionTappedEvent(members: bloc.dueMembers),
+                      ),
+                  onInactiveMembersTaped:
+                      () => postEvent(
+                        AnalyticsSectionTappedEvent(
+                          members: bloc.inactiveMembers,
+                        ),
+                      ),
                 ),
                 10.ph,
                 RevenueReport(
@@ -84,20 +100,14 @@ class AnalyticsScreenState
   void listenToState(BuildContext context, BaseState state) {
     if (state is AnalyticsSectionLoaded && state.members.isNotEmpty) {
       CoreSheet.showCupertino(
+        enableDrag: false,
         backgroundColor: context.colorScheme.secondary,
         child: SizedBox(
           height: screenHeight * 0.8,
-          width: screenWidth * 0.85,
-          child: ListView.builder(
-            itemBuilder:
-                (context, index) => Padding(
-                  padding:  EdgeInsets.all(5.w),
-                  child: MemberBrief(
-                    member: state.members[index],
-                    onTap: () {
-                    },
-                  ),
-                ),
+          width: screenWidth * 0.9,
+          child: MembersBriefGrid(
+            builder:
+                (context, index) => MemberBrief(member: state.members[index], onTap: (){}),
             itemCount: state.members.length,
           ),
         ),
