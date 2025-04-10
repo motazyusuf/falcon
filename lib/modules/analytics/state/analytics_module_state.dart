@@ -14,6 +14,7 @@ class AnalyticsSectionLoaded extends NonRenderState {
 }
 
 class AnalyticsChartLoaded extends NonRenderState {
-
+  List<int> revenueList;
+  AnalyticsChartLoaded(this.revenueList);
 }
 

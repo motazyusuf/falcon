@@ -4,19 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
 class YearlyChart extends StatefulWidget {
-  YearlyChart({super.key});
+  YearlyChart({super.key, required this.revenueList});
 
-  // List<Color> get availableColors => const <Color>[
-  //   AppColors.contentColorPurple,
-  //   AppColors.contentColorYellow,
-  //   AppColors.contentColorBlue,
-  //   AppColors.contentColorOrange,
-  //   AppColors.contentColorPink,
-  //   AppColors.contentColorRed,
-  // ];
-
+  final revenueList;
   final Color barBackgroundColor = Colors.grey;
-
   final Color barColor = Colors.red;
   final Color touchedBarColor = Colors.red;
 
@@ -84,31 +75,29 @@ class YearlyChartState extends State<YearlyChart> {
   List<BarChartGroupData> showingGroups() => List.generate(12, (i) {
     switch (i) {
       case 0:
-        return makeGroupData(0, 70000);
+        return makeGroupData(0, widget.revenueList[0].toDouble());
       case 1:
-        return makeGroupData(1, 100000);
+        return makeGroupData(1, widget.revenueList[1].toDouble());
       case 2:
-        return makeGroupData(2, 50000);
+        return makeGroupData(2, widget.revenueList[2].toDouble());
       case 3:
-        return makeGroupData(3, 40000);
+        return makeGroupData(3, widget.revenueList[3].toDouble());
       case 4:
-        return makeGroupData(4, 90000);
+        return makeGroupData(4, widget.revenueList[4].toDouble());
       case 5:
-        return makeGroupData(5, 67000);
+        return makeGroupData(5, widget.revenueList[5].toDouble());
       case 6:
-        return makeGroupData(6, 54500);
+        return makeGroupData(6, widget.revenueList[6].toDouble());
       case 7:
-        return makeGroupData(7, 30000);
+        return makeGroupData(7, widget.revenueList[7].toDouble());
       case 8:
-        return makeGroupData(8, 160000);
+        return makeGroupData(8, widget.revenueList[8].toDouble());
       case 9:
-        return makeGroupData(9, 145000);
+        return makeGroupData(9, widget.revenueList[9].toDouble());
       case 10:
-        return makeGroupData(10, 37000);
+        return makeGroupData(10, widget.revenueList[10].toDouble());
       case 11:
-        return makeGroupData(11, 150000);
-      case 12:
-        return makeGroupData(12, 100000);
+        return makeGroupData(11, widget.revenueList[11].toDouble());
       default:
         return throw Error();
     }

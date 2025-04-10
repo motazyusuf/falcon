@@ -129,24 +129,30 @@ class MembersModuleRepo extends BaseRepo {
     await docRef.delete();
   }
 
-  Future<void> incrementMonthlyRevenue(int value) async {
+  Future<void> setMonthlyRevenue(int value) async {
     final now = DateTime.now();
     final month = DateFormat('MMM').format(now).toLowerCase();
 
     await FirebaseFirestore.instance
-        .collection('Revenue')
-        .doc(month)
-        .update({'revenue': FieldValue.increment(value)});
+        .collection('revenue')
+        .doc('rve1piG2xD6umTd03oGf')
+        .update({month: value});
   }
 
-  Future<void> decrementMonthlyRevenue(int value) async {
-    final now = DateTime.now();
-    final month = DateFormat('MMM').format(now).toLowerCase();
+  Future<List<int>> getMonthlyRevenue() async {
+    final doc = await FirebaseFirestore.instance
+        .collection('revenue')
+        .doc('rve1piG2xD6umTd03oGf')
+        .get();
 
-    await FirebaseFirestore.instance
-        .collection('Revenue')
-        .doc(month)
-        .update({'revenue': FieldValue.increment((-value))});
+    final data = doc.data()!;
+    const orderedMonths = [
+      'jan', 'feb', 'mar', 'apr', 'may', 'jun',
+      'jul', 'aug', 'sep', 'oct', 'nov', 'dec'
+    ];
+
+    return orderedMonths.map((m) => data[m] as int).toList();
   }
+
 
 }

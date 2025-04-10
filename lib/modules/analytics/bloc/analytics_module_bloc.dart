@@ -13,7 +13,6 @@ class AnalyticsModuleBloc extends BaseBloc {
   bool memberHasThreeExpiry = false;
   bool memberHasWeekExpiry = false;
   int monthlyRevenue = 0;
-  int weeklyRevenue = 0;
 
   AnalyticsModuleBloc(this.members)
     : super(
@@ -24,6 +23,7 @@ class AnalyticsModuleBloc extends BaseBloc {
     on<PrepareAnalyticsEvent>(prepareAnalytics);
     on<AnalyticsSectionTappedEvent>(showAnalyticsSection);
     on<AnalyticsChartTappedEvent>(showChart);
+    on<SetRevenueEvent>(setRevenue);
     add(PrepareAnalyticsEvent());
   }
 
@@ -90,6 +90,7 @@ class AnalyticsModuleBloc extends BaseBloc {
       }
     }
 
+    add(SetRevenueEvent());
     emit(AnalyticsLoaded());
   }
 
@@ -100,7 +101,17 @@ class AnalyticsModuleBloc extends BaseBloc {
     emit(AnalyticsSectionLoaded(members: event.members));
   }
 
-  Future<void> showChart(AnalyticsChartTappedEvent event, Emitter emit) async{
-    emit(AnalyticsChartLoaded());
+  Future<void> setRevenue(SetRevenueEvent event, Emitter emit)async {
+    emit(LoadingStateNonRender());
+    await membersModuleRepo.setMonthlyRevenue(monthlyRevenue);
+    emit(EndLoadingStateNonRender());
   }
+
+  Future<void> showChart(AnalyticsChartTappedEvent event, Emitter emit) async{
+    emit(LoadingStateNonRender());
+    final monthsRevenue = await membersModuleRepo.getMonthlyRevenue();
+    emit(EndLoadingStateNonRender());
+    emit(AnalyticsChartLoaded(monthsRevenue));
+  }
+
 }

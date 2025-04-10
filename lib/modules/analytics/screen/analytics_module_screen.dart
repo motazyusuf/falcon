@@ -120,7 +120,7 @@ class AnalyticsScreenState
         child: SizedBox(
           height: screenHeight * 0.8,
           width: screenWidth,
-          child: YearlyChart(),
+          child: YearlyChart(revenueList: state.revenueList,),
         ),
       );
     }
