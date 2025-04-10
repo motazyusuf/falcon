@@ -12,3 +12,8 @@ class AnalyticsSectionLoaded extends NonRenderState {
   List<Member> members;
   AnalyticsSectionLoaded({required this.members});
 }
+
+class AnalyticsChartLoaded extends NonRenderState {
+
+}
+

@@ -10,19 +10,20 @@ class AnalyticsModuleBloc extends BaseBloc {
   List<Member> expireInWeekMembers = [];
   List<Subscription> expireInThreeSubscriptions = [];
   List<Subscription> expireInWeekSubscriptions = [];
-  bool memberHasThreeExpiry= false;
-  bool memberHasWeekExpiry= false;
+  bool memberHasThreeExpiry = false;
+  bool memberHasWeekExpiry = false;
   int monthlyRevenue = 0;
   int weeklyRevenue = 0;
 
   AnalyticsModuleBloc(this.members)
-      : super(
-    AnalyticsModuleStateFactory(),
-    initialState: AnalyticsModuleInitialState(),
-  ) {
+    : super(
+        AnalyticsModuleStateFactory(),
+        initialState: AnalyticsModuleInitialState(),
+      ) {
     print(">>>>>>>>>>>>>>>Analytics Bloc<<<<<<<<<<<<<<<<<<<<<<");
     on<PrepareAnalyticsEvent>(prepareAnalytics);
     on<AnalyticsSectionTappedEvent>(showAnalyticsSection);
+    on<AnalyticsChartTappedEvent>(showChart);
     add(PrepareAnalyticsEvent());
   }
 
@@ -31,7 +32,6 @@ class AnalyticsModuleBloc extends BaseBloc {
     super.close();
     debugPrint(">>>>>>>>>>>Analytics Bloc closed<<<<<<<<<<<");
   }
-
 
   void prepareAnalytics(PrepareAnalyticsEvent event, Emitter emit) {
     print("Got analytics");
@@ -48,8 +48,8 @@ class AnalyticsModuleBloc extends BaseBloc {
     for (Member member in members) {
       bool hasActive = false;
       bool hasDue = false;
-      memberHasThreeExpiry= false;
-       memberHasWeekExpiry= false;
+      memberHasThreeExpiry = false;
+      memberHasWeekExpiry = false;
 
       for (Subscription subscription in member.subscriptions) {
         if (subscription.subscriptionDate.isAfter(startOfMonth)) {
@@ -63,16 +63,16 @@ class AnalyticsModuleBloc extends BaseBloc {
         final daysLeft = subscription.endDate.difference(now).inDays;
         if (daysLeft <= 3 && daysLeft > 0) {
           expireInThreeMembers.add(member);
-          if(!memberHasThreeExpiry) {
+          if (!memberHasThreeExpiry) {
             expireInThreeSubscriptions.add(subscription);
-            memberHasThreeExpiry=true;
+            memberHasThreeExpiry = true;
           }
         }
         if (daysLeft <= 7 && daysLeft >= 4) {
           expireInWeekMembers.add(member);
-          if(!memberHasWeekExpiry) {
+          if (!memberHasWeekExpiry) {
             expireInWeekSubscriptions.add(subscription);
-            memberHasWeekExpiry=true;
+            memberHasWeekExpiry = true;
           }
         }
 
@@ -94,10 +94,15 @@ class AnalyticsModuleBloc extends BaseBloc {
     emit(AnalyticsLoaded());
   }
 
-  Future<void> showAnalyticsSection(AnalyticsSectionTappedEvent event, Emitter emit) async{
+  Future<void> showAnalyticsSection(
+    AnalyticsSectionTappedEvent event,
+    Emitter emit,
+  ) async {
     print("Tapped");
     emit(AnalyticsSectionLoaded(members: event.members));
   }
 
-
+  Future<void> showChart(AnalyticsChartTappedEvent event, Emitter emit) async{
+    emit(AnalyticsChartLoaded());
+  }
 }

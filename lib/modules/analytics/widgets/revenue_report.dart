@@ -9,10 +9,11 @@ class RevenueReport extends StatelessWidget {
   RevenueReport({
     super.key,
     required this.monthlyRevenue,
-    required this.weeklyRevenue,
+    required this.onChartTapped
   });
 
-  int weeklyRevenue, monthlyRevenue;
+  int monthlyRevenue;
+  Function() onChartTapped;
 
   @override
   Widget build(BuildContext context) {
@@ -64,24 +65,27 @@ class RevenueReport extends StatelessWidget {
           ),
         ),
         10.ph,
-        Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/chartRed.png"),
-              opacity: 0.7,
+        InkWell(
+          onTap: onChartTapped,
+          child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/chartRed.png"),
+                opacity: 0.7,
+              ),
+              color: context.colorScheme.secondary,
+              borderRadius: BorderRadius.circular(20.r),
             ),
-            color: context.colorScheme.secondary,
-            borderRadius: BorderRadius.circular(20.r),
-          ),
-          height: context.screenSize.height * 0.15,
-          width: double.infinity,
-          child: Align(
-            alignment: Alignment.center,
-            child: Text(
-              LocaleKeys.yrly_chart.tr(),
-              style: TextStyle().copyWith(
-                fontSize: 45.sp,
-                color: Colors.white.withAlpha(200),
+            height: context.screenSize.height * 0.15,
+            width: double.infinity,
+            child: Align(
+              alignment: Alignment.center,
+              child: Text(
+                LocaleKeys.yrly_chart.tr(),
+                style: TextStyle().copyWith(
+                  fontSize: 45.sp,
+                  color: Colors.white.withAlpha(200),
+                ),
               ),
             ),
           ),

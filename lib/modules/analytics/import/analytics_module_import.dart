@@ -1,3 +1,4 @@
+import 'package:falcon_project/modules/analytics/widgets/yearly_chart.dart';
 import 'package:falcon_project/widgets/member_brief.dart';
 import 'package:falcon_project/widgets/members_brief_grid.dart';
 import 'package:flutter/material.dart';

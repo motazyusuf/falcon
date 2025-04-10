@@ -87,7 +87,7 @@ class AnalyticsScreenState
                 10.ph,
                 RevenueReport(
                   monthlyRevenue: bloc.monthlyRevenue,
-                  weeklyRevenue: bloc.weeklyRevenue,
+                  onChartTapped: ()=> postEvent(AnalyticsChartTappedEvent()),
                 ),
               ],
             ),
@@ -110,6 +110,17 @@ class AnalyticsScreenState
                 (context, index) => MemberBrief(member: state.members[index], onTap: (){}),
             itemCount: state.members.length,
           ),
+        ),
+      );
+    }
+    else if(state is AnalyticsChartLoaded){
+      CoreSheet.showCupertino(
+        enableDrag: false,
+        backgroundColor: context.colorScheme.secondary,
+        child: SizedBox(
+          height: screenHeight * 0.8,
+          width: screenWidth ,
+          child: YearlyChart(),
         ),
       );
     }

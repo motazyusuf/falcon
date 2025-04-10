@@ -11,3 +11,5 @@ class AnalyticsSectionTappedEvent extends BaseEvent {
 
   AnalyticsSectionTappedEvent({required this.members});
 }
+class AnalyticsChartTappedEvent extends BaseEvent {
+}
