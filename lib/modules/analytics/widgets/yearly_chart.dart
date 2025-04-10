@@ -103,17 +103,17 @@ class YearlyChartState extends State<YearlyChart> {
       case 6:
         return makeGroupData(6, 54500);
       case 7:
-        return makeGroupData(0, 30000);
+        return makeGroupData(7, 30000);
       case 8:
-        return makeGroupData(1, 160000);
+        return makeGroupData(8, 160000);
       case 9:
-        return makeGroupData(2, 145000);
+        return makeGroupData(9, 145000);
       case 10:
-        return makeGroupData(3, 37000);
+        return makeGroupData(10, 37000);
       case 11:
-        return makeGroupData(4, 150000);
+        return makeGroupData(11, 150000);
       case 12:
-        return makeGroupData(5, 100000);
+        return makeGroupData(12, 100000);
       default:
         return throw Error();
     }
@@ -126,7 +126,7 @@ class YearlyChartState extends State<YearlyChart> {
         touchTooltipData: BarTouchTooltipData(
           getTooltipColor: (_) => Colors.grey,
           tooltipHorizontalAlignment: FLHorizontalAlignment.center,
-          tooltipMargin: -10,
+          tooltipMargin: 10,
           getTooltipItem: (group, groupIndex, rod, rodIndex) {
             String month;
             switch (group.x) {
