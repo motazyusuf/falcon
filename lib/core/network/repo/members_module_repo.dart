@@ -17,14 +17,12 @@ class MembersModuleRepo extends BaseRepo {
 
     // reference the collection || create if !exist
     var collectionRef = getCollection();
-    print("Created collection if it was not there");
 
     // create empty document with id
     var documentRef = collectionRef.doc();
 
     member.id = documentRef.id;
 
-    member.subscriptions.sort((b, a) => a.endDate.compareTo(b.endDate));
 
     // set values to document
     await documentRef.set(member);
@@ -117,6 +115,9 @@ class MembersModuleRepo extends BaseRepo {
     var collectionRef = getCollection();
 
     var documentRef = collectionRef.doc(member.id);
+
+    member.subscriptions.sort((b, a) => a.endDate.compareTo(b.endDate));
+
     await documentRef.set(member, SetOptions(merge: true));
   }
 

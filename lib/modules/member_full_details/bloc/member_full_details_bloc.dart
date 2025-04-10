@@ -4,14 +4,10 @@ class MemberFullDetailsBloc extends BaseBloc {
   final MembersModuleRepo membersModuleRepo = MembersModuleRepo();
 
   Future<void> deleteMember(DeleteMemberEvent event, Emitter emit) async {
-    print("start loading");
     emit(LoadingStateNonRender());
     await membersModuleRepo.deleteMember(event.id);
-    print("Deleted");
     emit(EndLoadingStateNonRender());
-    print("Loading ended");
     emit(DetailsLoaded());
-    print("Details loaded");
   }
 
   Future<void> editMember(EditMemberEvent event, Emitter emit) async {

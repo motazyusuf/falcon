@@ -1,8 +1,6 @@
 part of '../import/members_module_import.dart';
 
 class MembersModuleBloc extends BaseBloc {
-
-
   @override
   Future<void> close() async {
     debugPrint(">>>>>>>>>>>Member Bloc Will not be Closed<<<<<<<<<<<");
@@ -22,16 +20,17 @@ class MembersModuleBloc extends BaseBloc {
       stream,
       onData: (snapshot) {
         allMembers = snapshot.docs.map((doc) => doc.data()).toList();
+        var sortedMembers = allMembers.map((member) {
+          member.subscriptions.sort((a, b) => b.endDate.compareTo(a.endDate));
+          return member;
+        }).toList();
         emit(EndLoadingStateNonRender());
-
-        return MembersLoaded(allMembers);
+        return MembersLoaded(sortedMembers);
       },
     );
   }
 
-  getSearchedMembers(SearchForMembersEvent event,
-      Emitter emit,) async
-  {
+  getSearchedMembers(SearchForMembersEvent event, Emitter emit) async {
     searchedMembers =
         allMembers.where((member) {
           return member.name.toLowerCase().contains(

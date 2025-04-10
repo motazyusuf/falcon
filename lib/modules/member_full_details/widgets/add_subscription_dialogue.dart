@@ -250,13 +250,13 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                       if (key.currentState!.validate() && isEndDatePicked) {
                         widget.member.subscriptions.add(subscription);
                         widget.onConfirmTapped(widget.member);
+                        context.pop();
                       } else {
                         ToastHelper.showToast(
                           "Check End Date And Paid Amount",
-                          type: ToastType.error,
+                          type: ToastType.warning,
                         );
                       }
-                      context.pop();
                     },
                   ),
                   10.ph,

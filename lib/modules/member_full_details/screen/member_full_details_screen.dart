@@ -31,7 +31,7 @@ class _MemberFullDetailsScreenState
   void showLoading() {
     super.closeKeyboard();
     cancelFunc?.call();
-    cancelFunc =  AppHelper.showCustomLoading();
+    cancelFunc = AppHelper.showCustomLoading();
   }
 
   @override
@@ -40,7 +40,8 @@ class _MemberFullDetailsScreenState
   }
 
   @override
-  ScaffoldConfig get scaffoldConfig => ScaffoldConfig(backgroundColor: context.colorScheme.secondary);
+  ScaffoldConfig get scaffoldConfig =>
+      ScaffoldConfig(backgroundColor: context.colorScheme.secondary);
 
   @override
   Widget buildWidget(BuildContext context, RenderDataState state) {
@@ -57,7 +58,8 @@ class _MemberFullDetailsScreenState
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    InkWell(child: Icon(Icons.arrow_back_ios),onTap: ()=> context.pop(),),
+                    // InkWell(child: Icon(Icons.arrow_back_ios),onTap:
+                    // ()=> context.pop(),),
                     Expanded(
                       child: Text(
                         textAlign: TextAlign.center,
@@ -219,30 +221,27 @@ class _MemberFullDetailsScreenState
                         onSettleTapped:
                             isActive && sub.dueAmount != 0
                                 ? () {
-                              print("Settle Tapped");
-                                    showDialog(
-                                      context: context,
-                                      builder:
-                                          (context) =>
-                                              CriticalActionDialogue(
-                                            message:
-                                                "Amount will be added to revenue",
-                                            onConfirmTapped: ()
-                                            {
-                                              sub.paidAmount =
-                                                  sub.paidAmount +
-                                                  sub.dueAmount!;
-                                              sub.dueAmount = 0;
-                                              postEvent(
-                                                SettleSubscriptionEvent(
-                                                  id: widget.member.id!,
-                                                  subscription: sub,
-                                                ),
-                                              );
-                                              context.pop();
-                                            },
-                                          ),
-                                    );
+                                  print("Settle Tapped");
+                                  showDialog(
+                                    context: context,
+                                    builder:
+                                        (context) => CriticalActionDialogue(
+                                          message:
+                                              "Amount will be added to revenue",
+                                          onConfirmTapped: () {
+                                            sub.paidAmount =
+                                                sub.paidAmount + sub.dueAmount!;
+                                            sub.dueAmount = 0;
+                                            postEvent(
+                                              SettleSubscriptionEvent(
+                                                id: widget.member.id!,
+                                                subscription: sub,
+                                              ),
+                                            );
+                                            context.pop();
+                                          },
+                                        ),
+                                  );
                                 }
                                 : null,
                       );
