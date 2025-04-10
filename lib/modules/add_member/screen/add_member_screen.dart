@@ -248,7 +248,7 @@ class AddMemberScreenState
 
     if (state is MemberAdded) {
       ToastHelper.showToast("Member added", type: ToastType.success);
-      context.pop();
+      context.pop(0);
     }
   }
 }

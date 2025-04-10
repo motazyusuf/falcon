@@ -67,8 +67,13 @@ class _MainLayoutState extends State<MainLayout> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.r),
         ),
-        onPressed: () {
-          context.pushNamed(PagesRoutes.addMember);
+        onPressed: () async {
+          int? result = await context.pushNamed(PagesRoutes.addMember);
+          if(result!=null){
+            setState(() {
+              currentIndex = result;
+            });
+          }
         },
         child: Icon(Icons.add),
       ),
