@@ -4,14 +4,17 @@ class AddMemberBloc extends BaseBloc {
   final MembersModuleRepo membersModuleRepo = MembersModuleRepo();
 
   Future<void> addMember(AddMemberEvent event, Emitter emit) async {
+    print(">>>>>>>>>>Loading<<<<<<<<<<<<<");
     emit(LoadingStateNonRender());
     await membersModuleRepo.addMember(event.member);
-    print(">>>>>>>>>>Member Added<<<<<<<<<<<<<");
     emit(EndLoadingStateNonRender());
+    print(">>>>>>>>>>End Loading<<<<<<<<<<<<<");
+    emit(MemberAdded());
+    print(">>>>>>>>>>Member Added<<<<<<<<<<<<<");
+
   }
 
   addMemberWithNoEndDateEvent(AddMemberWithNoEndDateEvent event, Emitter emit) {
-    print("I am inside add member with no end date");
     emit(NoEndDate());
   }
 

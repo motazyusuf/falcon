@@ -22,8 +22,7 @@ class AddMemberScreenState
   Sport selectedSport = Sport.mt_advanced;
   DateTime subscriptionDate = DateTime.now();
   DateTime endDate = DateTime.now().add(Duration(days: 30));
-  List<Subscription> subscriptions =
-  [
+  List<Subscription> subscriptions = [
     Subscription(
       sport: Sport.values.first,
       // Default sport
@@ -43,7 +42,7 @@ class AddMemberScreenState
   void showLoading() {
     super.closeKeyboard();
     cancelFunc?.call();
-    cancelFunc =  AppHelper.showCustomLoading();
+    cancelFunc = AppHelper.showCustomLoading();
   }
 
   @override
@@ -63,13 +62,11 @@ class AddMemberScreenState
     ),
   );
 
-
   @override
   Widget buildWidget(BuildContext context, RenderDataState state) {
     return StatefulBuilder(
       builder:
-          (context, setState) =>
-          Form(
+          (context, setState) => Form(
             key: _formKey,
             child: SingleChildScrollView(
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
@@ -94,13 +91,14 @@ class AddMemberScreenState
                       controller: lastNameController,
                       decoration: InputDecoration(
                         hintText: LocaleKeys.last_name.tr(),
-                      )),
+                      ),
+                    ),
                     10.ph,
-              TextFormField(
-                validator: AppHelper.validateNotEmpty,
-                style: context.textTheme.bodyLarge,
-                controller: phoneController,
-                decoration: InputDecoration(
+                    TextFormField(
+                      validator: AppHelper.validateNotEmpty,
+                      style: context.textTheme.bodyLarge,
+                      controller: phoneController,
+                      decoration: InputDecoration(
                         hintText: LocaleKeys.phone_number.tr(),
                       ),
                       keyboardType: TextInputType.phone,
@@ -124,7 +122,7 @@ class AddMemberScreenState
                             itemBuilder: (context, index) {
                               return SubscriptionItem(
                                 pickedStartDate:
-                                subscriptions[index].subscriptionDate,
+                                    subscriptions[index].subscriptionDate,
                                 onSportChanged: (newSport) {
                                   newState(() {
                                     subscriptions[index].sport = newSport!;
@@ -151,12 +149,11 @@ class AddMemberScreenState
                                     }
                                   });
                                 },
-                                onStartDateChanged: () async
-                                {
+                                onStartDateChanged: () async {
                                   DateTime? pickedDate = await showDatePicker(
                                     context: context,
                                     initialDate:
-                                    subscriptions[index].subscriptionDate,
+                                        subscriptions[index].subscriptionDate,
                                     firstDate: DateTime(2000),
                                     lastDate: DateTime(2101),
                                   );
@@ -185,8 +182,7 @@ class AddMemberScreenState
                                 isEndDatePicked: isEndDatePicked,
                               );
                             },
-                            separatorBuilder:
-                                (context, index) => 10.pw,
+                            separatorBuilder: (context, index) => 10.pw,
                           ),
                         );
                       },
@@ -219,19 +215,20 @@ class AddMemberScreenState
                             bloc.add(AddMemberWithNoEndDateEvent());
                             return;
                           }
-                          bloc.add(
+                          else{
+                            bloc.add(
                             AddMemberEvent(
                               Member(
                                 id: "",
                                 extraNotes: notesController.text,
-                                name: "${firstNameController
-                                    .text} ${lastNameController.text}",
+                                name:
+                                "${firstNameController.text} ${lastNameController.text}",
                                 phoneNumber: phoneController.text.toIntOrNull!,
                                 subscriptions: subscriptions,
                               ),
                             ),
                           );
-                          context.pop();
+                          }
                         }
                       },
                     ),
@@ -245,15 +242,14 @@ class AddMemberScreenState
 
   @override
   void listenToState(BuildContext context, BaseState state) {
+    print(state.toString());
     if (state is NoEndDate) {
-      ToastHelper.showToast(
-        "Months required",
-        type: ToastType.error,
-      );
+      ToastHelper.showToast("Months required", type: ToastType.error);
     }
 
     if (state is MemberAdded) {
       ToastHelper.showToast("Member added", type: ToastType.success);
+      context.pop();
     }
   }
 }
