@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:opticore/opticore.dart';
+import 'package:intl/intl.dart';
 
 import '../model/member_model.dart';
 
@@ -123,4 +124,25 @@ class MembersModuleRepo extends BaseRepo {
     final docRef = FirebaseFirestore.instance.collection('Members').doc(userId);
     await docRef.delete();
   }
+
+  Future<void> incrementMonthlyRevenue(int value) async {
+    final now = DateTime.now();
+    final month = DateFormat('MMM').format(now).toLowerCase();
+
+    await FirebaseFirestore.instance
+        .collection('Revenue')
+        .doc(month)
+        .update({'revenue': FieldValue.increment(value)});
+  }
+
+  Future<void> decrementMonthlyRevenue(int value) async {
+    final now = DateTime.now();
+    final month = DateFormat('MMM').format(now).toLowerCase();
+
+    await FirebaseFirestore.instance
+        .collection('Revenue')
+        .doc(month)
+        .update({'revenue': FieldValue.increment((-value))});
+  }
+
 }

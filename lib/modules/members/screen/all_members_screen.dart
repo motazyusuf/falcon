@@ -57,6 +57,7 @@ class AllMembersScreenState
                   // postEvent(GetMembersEvent());
                   postEvent(FilterMembersEvent(null));
                 } else {
+                  searchController.clear();
                   canSearch = false;
                   postEvent(
                     FilterMembersEvent(Sport.values[index - 1].localeKey),
@@ -159,7 +160,7 @@ class AllMembersScreenState
         enableDrag: false,
         backgroundColor: context.colorScheme.secondary,
         child: SizedBox(
-          height: context.screenSize.height * 0.8,
+          height: context.screenSize.height * 0.75,
           child: MemberFullDetailsScreen(
             bloc: MemberFullDetailsBloc(),
             member: expandedMember,

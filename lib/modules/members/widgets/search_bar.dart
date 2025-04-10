@@ -23,6 +23,7 @@ class MySearchBar extends StatelessWidget {
     return SizedBox(
       height: 50.h, // Adjust height as needed
       child: TextFormField(
+        style: TextStyle().copyWith(color: context.colorScheme.secondaryContainer.withAlpha(180)),
         enabled: canSearch,
         controller: searchController,
         onChanged: onChanged,
