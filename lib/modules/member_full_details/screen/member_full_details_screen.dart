@@ -261,7 +261,6 @@ class _MemberFullDetailsScreenState
                         (context) => CriticalActionDialogue(
                           message: "member will be deleted",
                           onConfirmTapped: () {
-                            context.pop();
                             postEvent(DeleteMemberEvent(id: widget.member.id!));
                             context.pop();
                           },
@@ -279,5 +278,10 @@ class _MemberFullDetailsScreenState
   }
 
   @override
-  void listenToState(BuildContext context, BaseState state) {}
+  void listenToState(BuildContext context, BaseState state) {
+    if (state is MemberDeleted) {
+      context.pop();
+      ToastHelper.showToast("Member deleted", type: ToastType.success);
+    }
+  }
 }

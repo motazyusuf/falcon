@@ -7,3 +7,7 @@ class MemberFullDetailsInitialState extends RenderDataState {
 class DetailsLoaded extends RenderDataState {
   DetailsLoaded() : super(null);
 }
+
+class MemberDeleted extends NonRenderState{}
+
+

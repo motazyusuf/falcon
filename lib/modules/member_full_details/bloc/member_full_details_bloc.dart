@@ -7,7 +7,7 @@ class MemberFullDetailsBloc extends BaseBloc {
     emit(LoadingStateNonRender());
     await membersModuleRepo.deleteMember(event.id);
     emit(EndLoadingStateNonRender());
-    emit(DetailsLoaded());
+    emit(MemberDeleted());
   }
 
   Future<void> editMember(EditMemberEvent event, Emitter emit) async {
