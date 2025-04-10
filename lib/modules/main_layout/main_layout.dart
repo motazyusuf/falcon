@@ -45,6 +45,8 @@ class _MainLayoutState extends State<MainLayout> {
         centerTitle: true,
         // actions: [
         //   InkWell(
+  // splashColor: Colors.transparent,
+  // highlightColor: Colors.transparent,
         //     onTap: () {
         //       Locale currentLocale = context.locale;
         //       Locale newLocale =

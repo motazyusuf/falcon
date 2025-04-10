@@ -18,8 +18,6 @@ class AllMembersScreenState
   @override
   bool? get ignoreSafeArea => true;
 
-  @override
-  bool get ignoreScaffold => true;
 
   CancelFunc? cancelFunc;
 
@@ -27,7 +25,7 @@ class AllMembersScreenState
   void showLoading() {
     super.closeKeyboard();
     cancelFunc?.call();
-    cancelFunc =  AppHelper.showCustomLoading();
+    cancelFunc = AppHelper.showCustomLoading();
   }
 
   @override
@@ -36,7 +34,6 @@ class AllMembersScreenState
   }
 
   bool canSearch = true;
-
 
   @override
   Widget buildWidget(BuildContext context, RenderDataState state) {
@@ -108,36 +105,40 @@ class AllMembersScreenState
           ),
           5.ph,
           state is MembersLoaded
-              ? MembersBriefGrid(
-                builder:
-                    (context, index) => MemberBrief(
-                      onTap: () {
-                        postEvent(
-                          ShowMemberDetailsEvent(
-                            index: index,
-                            list: state.members,
-                          ),
-                        );
-                      },
-                      member: state.members[index],
-                    ),
-                itemCount: state.members.length,
+              ? Expanded(
+                child: MembersBriefGrid(
+                  builder:
+                      (context, index) => MemberBrief(
+                        onTap: () {
+                          postEvent(
+                            ShowMemberDetailsEvent(
+                              index: index,
+                              list: state.members,
+                            ),
+                          );
+                        },
+                        member: state.members[index],
+                      ),
+                  itemCount: state.members.length,
+                ),
               )
               : state is MembersFiltered
-              ? MembersBriefGrid(
-                builder:
-                    (context, index) => MemberBrief(
-                      onTap: () {
-                        postEvent(
-                          ShowMemberDetailsEvent(
-                            index: index,
-                            list: state.filteredMembers,
-                          ),
-                        );
-                      },
-                      member: state.filteredMembers[index],
-                    ),
-                itemCount: state.filteredMembers.length,
+              ? Expanded(
+                child: MembersBriefGrid(
+                  builder:
+                      (context, index) => MemberBrief(
+                        onTap: () {
+                          postEvent(
+                            ShowMemberDetailsEvent(
+                              index: index,
+                              list: state.filteredMembers,
+                            ),
+                          );
+                        },
+                        member: state.filteredMembers[index],
+                      ),
+                  itemCount: state.filteredMembers.length,
+                ),
               )
               : SizedBox(),
         ],
@@ -160,7 +161,9 @@ class AllMembersScreenState
         child: SizedBox(
           height: context.screenSize.height * 0.8,
           child: MemberFullDetailsScreen(
-              bloc: MemberFullDetailsBloc(), member: expandedMember),
+            bloc: MemberFullDetailsBloc(),
+            member: expandedMember,
+          ),
         ),
       );
     }

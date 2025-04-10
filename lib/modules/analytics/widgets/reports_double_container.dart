@@ -28,6 +28,8 @@ class TwoReportsContainers extends StatelessWidget {
         children: [
           Expanded(
             child: InkWell(
+  splashColor: Colors.transparent,
+  highlightColor: Colors.transparent,
               onTap: onFirstTapped,
               child: Container(
                 padding: EdgeInsets.all(10.w),
@@ -56,6 +58,8 @@ class TwoReportsContainers extends StatelessWidget {
           10.pw,
           Expanded(
             child: InkWell(
+  splashColor: Colors.transparent,
+  highlightColor: Colors.transparent,
               onTap: onSecondTapped,
               child: Container(
                 padding: EdgeInsets.all(10.w),

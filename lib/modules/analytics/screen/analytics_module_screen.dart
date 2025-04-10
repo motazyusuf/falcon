@@ -16,7 +16,7 @@ class AnalyticsScreenState
   CancelFunc? cancelFunc;
 
   @override
-  bool get ignoreScaffold => true;
+  bool get ignoreScaffold => false;
 
   @override
   void showLoading() {
@@ -29,6 +29,7 @@ class AnalyticsScreenState
   void hideLoading() {
     cancelFunc?.call();
   }
+
 
   @override
   Widget buildWidget(BuildContext context, RenderDataState state) {
@@ -95,6 +96,7 @@ class AnalyticsScreenState
         )
         : SizedBox();
   }
+
 
   @override
   void listenToState(BuildContext context, BaseState state) {

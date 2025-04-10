@@ -91,6 +91,8 @@ class _AddSubscriptionDialogueState extends State<AddSubscriptionDialogue> {
                       10.ph,
                       // Subscription Start Date
                       InkWell(
+  splashColor: Colors.transparent,
+  highlightColor: Colors.transparent,
                         onTap:
                             isEndDatePicked
                                 ? null

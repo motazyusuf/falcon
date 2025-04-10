@@ -63,6 +63,8 @@ class SubscriptionItem extends StatelessWidget {
           10.ph,
           // Subscription Start Date
           InkWell(
+  splashColor: Colors.transparent,
+  highlightColor: Colors.transparent,
             onTap: isEndDatePicked[index] ? null : onStartDateChanged,
             child: Text(
               "${LocaleKeys.sub_date.tr()}: ${pickedStartDate.toString().substring(

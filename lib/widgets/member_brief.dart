@@ -17,6 +17,8 @@ class MemberBrief extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+  splashColor: Colors.transparent,
+  highlightColor: Colors.transparent,
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.all(16.w),

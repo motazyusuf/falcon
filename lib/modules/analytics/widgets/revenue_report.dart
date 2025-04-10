@@ -24,14 +24,6 @@ class RevenueReport extends StatelessWidget {
           "${LocaleKeys.rvn_report.tr()}:",
           style: context.textTheme.titleMedium,
         ),
-        // TwoReportsContainers(
-        //   firstNumber: monthlyRevenue,
-        //   firstText: LocaleKeys.mnthly_rvn.tr(),
-        //   secondNumber: weeklyRevenue,
-        //   secondText: LocaleKeys.wkly_rvn.tr(),
-        //   onFirstTapped: () {},
-        //   onSecondTapped: () {},
-        // ),
         10.ph,
         Container(
           padding: EdgeInsets.all(10.w),
@@ -50,7 +42,9 @@ class RevenueReport extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  "$monthlyRevenue",
+                  "${(monthlyRevenue / 1000).toStringAsFixed(1).toDouble() % 1 == 0
+                      ? (monthlyRevenue / 1000).toInt()
+                      : (monthlyRevenue / 1000).toStringAsFixed(1)}K",
                   style: context.textTheme.titleLarge?.copyWith(
                     color: context.colorScheme.primary,
                     fontSize: 40.sp,
@@ -66,6 +60,8 @@ class RevenueReport extends StatelessWidget {
         ),
         10.ph,
         InkWell(
+  splashColor: Colors.transparent,
+  highlightColor: Colors.transparent,
           onTap: onChartTapped,
           child: Container(
             decoration: BoxDecoration(

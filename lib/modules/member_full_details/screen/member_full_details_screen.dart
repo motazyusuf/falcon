@@ -57,7 +57,9 @@ class _MemberFullDetailsScreenState
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // InkWell(child: Icon(Icons.arrow_back_ios),onTap:
+                    // InkWell(
+                    // splashColor: Colors.transparent,
+                    // highlightColor: Colors.transparent,child: Icon(Icons.arrow_back_ios),onTap:
                     // ()=> context.pop(),),
                     Expanded(
                       child: Text(
@@ -70,6 +72,8 @@ class _MemberFullDetailsScreenState
                       ),
                     ),
                     InkWell(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
                       onTap: () {
                         showDialog(
                           context: context,
@@ -136,6 +140,8 @@ class _MemberFullDetailsScreenState
                 children: [
                   Expanded(child: Text("${LocaleKeys.sub_history.tr()}: ")),
                   InkWell(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
                     onTap: () {
                       showDialog(
                         context: context,
@@ -273,6 +279,5 @@ class _MemberFullDetailsScreenState
   }
 
   @override
-  void listenToState(BuildContext context, BaseState state) {
-  }
+  void listenToState(BuildContext context, BaseState state) {}
 }
