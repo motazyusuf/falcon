@@ -177,7 +177,7 @@ class YearlyChartState extends State<YearlyChart> {
               ),
               children: <TextSpan>[
                 TextSpan(
-                  text: (rod.toY.toInt()).toString(),
+                  text: "${((rod.toY / 1000)).toString()}K",
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
