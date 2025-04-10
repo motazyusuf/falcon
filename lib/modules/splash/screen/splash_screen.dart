@@ -44,7 +44,6 @@ class _SplashScreenState extends BaseScreen<SplashBloc, SplashScreen, dynamic> {
   @override
   void listenToState(BuildContext context, BaseState state) {
     if(state is AppInitialized){
-      print("State is $state");
       context.pushReplacementNamed(PagesRoutes.mainLayout);
     }
 

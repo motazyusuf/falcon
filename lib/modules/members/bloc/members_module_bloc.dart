@@ -12,8 +12,18 @@ class MembersModuleBloc extends BaseBloc {
   List<Member> searchedMembers = [];
   String? filterKeyword;
 
+
+  MembersModuleBloc()
+      : super(MembersModuleStateFactory(), initialState: MembersInitialState()) {
+    debugPrint(">>>>>>>>>>>Start MembersBloc<<<<<<<<<<<");
+    on<GetMembersEvent>(getMembers);
+    on<FilterMembersEvent>(filterMembers);
+    on<SearchForMembersEvent>(getSearchedMembers);
+    on<ShowMemberDetailsEvent>(showMemberDetails);
+    add(GetMembersEvent());
+  }
+
   Future<void> getMembers(GetMembersEvent event, Emitter emit) async {
-    print("Get Members");
     emit(LoadingStateNonRender());
     var stream = membersModuleRepo.getDataStream();
     await emit.forEach<QuerySnapshot<Member>>(
@@ -61,56 +71,10 @@ class MembersModuleBloc extends BaseBloc {
     emit(EndLoadingStateNonRender());
   }
 
-  // Future<void> cancelSubscription(
-  //   CancelSubscriptionEvent event,
-  //   Emitter emit,) async
-  // {
-  //   emit(LoadingStateNonRender());
-  //   await membersModuleRepo.cancelSubscription(event.id, event.subscription);
-  //   emit(EndLoadingStateNonRender());
-  //   // emit(MembersLoaded());
-  // }
-
-  // Future<void> deleteMember(DeleteMemberEvent event, Emitter emit) async {
-  //   print("Delete Member");
-  //   emit(LoadingStateNonRender());
-  //   await membersModuleRepo.deleteMember(event.id);
-  //   emit(EndLoadingStateNonRender());
-  //   add(FilterMembersEvent(filterKeyword));
-  //   emit(MemberDeleted());
-  // }
-  //
-  // Future<void> editMember(EditMemberEvent event, Emitter emit) async {
-  //   emit(LoadingStateNonRender());
-  //   await membersModuleRepo.editMember(event.member);
-  //   emit(EndLoadingStateNonRender());
-  // }
-
   showMemberDetails(ShowMemberDetailsEvent event, Emitter emit) {
     emit(MemberDetails(event.index, event.list));
   }
 
-  // Future<void> settleSubscription(
-  //   SettleSubscriptionEvent event,
-  //   Emitter emit,) async
-  // {
-  //   emit(LoadingStateNonRender());
-  //   await membersModuleRepo.settleSubscription(event.id, event.subscription);
-  //   emit(EndLoadingStateNonRender());
-  //   // emit(MembersLoaded());
-  // }
 
-  MembersModuleBloc()
-    : super(MembersModuleStateFactory(), initialState: MembersInitialState()) {
-    debugPrint(">>>>>>>>>>>Start MembersBloc<<<<<<<<<<<");
-    on<GetMembersEvent>(getMembers);
-    on<FilterMembersEvent>(filterMembers);
-    on<SearchForMembersEvent>(getSearchedMembers);
-    // on<CancelSubscriptionEvent>(cancelSubscription);
-    // on<SettleSubscriptionEvent>(settleSubscription);
-    // on<DeleteMemberEvent>(deleteMember);
-    // on<EditMemberEvent>(editMember);
-    on<ShowMemberDetailsEvent>(showMemberDetails);
-    add(GetMembersEvent());
-  }
+
 }

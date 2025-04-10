@@ -45,7 +45,6 @@ class _MemberFullDetailsScreenState
 
   @override
   Widget buildWidget(BuildContext context, RenderDataState state) {
-    print(state.toString());
     if (state is DetailsLoaded) {
       return SingleChildScrollView(
         child: Padding(
@@ -221,7 +220,6 @@ class _MemberFullDetailsScreenState
                         onSettleTapped:
                             isActive && sub.dueAmount != 0
                                 ? () {
-                                  print("Settle Tapped");
                                   showDialog(
                                     context: context,
                                     builder:
@@ -276,6 +274,5 @@ class _MemberFullDetailsScreenState
 
   @override
   void listenToState(BuildContext context, BaseState state) {
-    print(state.toString());
   }
 }

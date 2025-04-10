@@ -20,7 +20,7 @@ class AnalyticsModuleBloc extends BaseBloc {
         AnalyticsModuleStateFactory(),
         initialState: AnalyticsModuleInitialState(),
       ) {
-    print(">>>>>>>>>>>>>>>Analytics Bloc<<<<<<<<<<<<<<<<<<<<<<");
+    debugPrint(">>>>>>>>>>>>>>>Analytics Bloc<<<<<<<<<<<<<<<<<<<<<<");
     on<PrepareAnalyticsEvent>(prepareAnalytics);
     on<AnalyticsSectionTappedEvent>(showAnalyticsSection);
     on<AnalyticsChartTappedEvent>(showChart);
@@ -34,7 +34,6 @@ class AnalyticsModuleBloc extends BaseBloc {
   }
 
   void prepareAnalytics(PrepareAnalyticsEvent event, Emitter emit) {
-    print("Got analytics");
     dueMembers.clear();
     activeMembers.clear();
     inactiveMembers.clear();
@@ -98,7 +97,6 @@ class AnalyticsModuleBloc extends BaseBloc {
     AnalyticsSectionTappedEvent event,
     Emitter emit,
   ) async {
-    print("Tapped");
     emit(AnalyticsSectionLoaded(members: event.members));
   }
 

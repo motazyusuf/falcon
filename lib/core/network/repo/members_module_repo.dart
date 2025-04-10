@@ -34,14 +34,12 @@ class MembersModuleRepo extends BaseRepo {
 
     // stream snapshots
     var stream = collectionRef.snapshots();
-    print("Opened Stream");
     return stream;
   }
 
   Future<List<Member>> searchMembers(String query) async {
     var collectionRef = getCollection();
 
-    print("Typed: ${query}");
     if (query.isEmpty) return [];
 
     // Search by 'name'
@@ -52,7 +50,6 @@ class MembersModuleRepo extends BaseRepo {
 
     final results = keywordsQuery.docs.map((doc) => doc.data()).toList();
 
-    print(results);
     return results;
   }
 
