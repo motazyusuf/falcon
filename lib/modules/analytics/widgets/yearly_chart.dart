@@ -38,8 +38,8 @@ class YearlyChartState extends State<YearlyChart> {
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
-          children:[
-             Text(
+          children: [
+            Text(
               'Yearly Chart',
               style: TextStyle(
                 color: Colors.white,
@@ -48,12 +48,7 @@ class YearlyChartState extends State<YearlyChart> {
               ),
             ),
             40.ph,
-            Expanded(
-              child: BarChart(
-               mainBarData(),
-                duration: animDuration,
-              ),
-            ),
+            Expanded(child: BarChart(mainBarData(), duration: animDuration)),
           ],
         ),
       ),
@@ -120,7 +115,8 @@ class YearlyChartState extends State<YearlyChart> {
   });
 
   BarChartData mainBarData() {
-    return BarChartData(minY: 0,
+    return BarChartData(
+      minY: 0,
       maxY: 160000,
       barTouchData: BarTouchData(
         touchTooltipData: BarTouchTooltipData(
@@ -171,13 +167,13 @@ class YearlyChartState extends State<YearlyChart> {
             }
             return BarTooltipItem(
               '$month\n',
-              const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
+              const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               children: <TextSpan>[
                 TextSpan(
-                  text: "${((rod.toY / 1000)).toString()}K",
+                  text:
+                      // "${((rod.toY / 1000)).toString()}K",
+                      "${(rod.toY / 1000) % 1 == 0 ?
+                      (rod.toY / 1000).toInt() : (rod.toY / 1000)}K",
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
@@ -202,7 +198,7 @@ class YearlyChartState extends State<YearlyChart> {
       titlesData: FlTitlesData(
         show: true,
         rightTitles: const AxisTitles(
-          sideTitles: SideTitles(showTitles: false,reservedSize: 70),
+          sideTitles: SideTitles(showTitles: false, reservedSize: 70),
         ),
         topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
         bottomTitles: AxisTitles(
@@ -220,10 +216,7 @@ class YearlyChartState extends State<YearlyChart> {
   }
 
   Widget getTitles(double value, TitleMeta meta) {
-    final style = TextStyle(
-      fontWeight: FontWeight.bold,
-      fontSize: 12.sp,
-    );
+    final style = TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp);
     Widget text;
     switch (value.toInt()) {
       case 0:
@@ -236,40 +229,36 @@ class YearlyChartState extends State<YearlyChart> {
         text = Text('Mar', style: style);
         break;
       case 3:
-        text =  Text('Apr', style: style);
+        text = Text('Apr', style: style);
         break;
       case 4:
-        text =  Text('May', style: style);
+        text = Text('May', style: style);
         break;
       case 5:
-        text =  Text('Jun', style: style);
+        text = Text('Jun', style: style);
         break;
       case 6:
-        text =  Text('Jul', style: style);
+        text = Text('Jul', style: style);
         break;
       case 7:
-        text =  Text('Aug', style: style);
+        text = Text('Aug', style: style);
         break;
       case 8:
-        text =  Text('Sep', style: style);
+        text = Text('Sep', style: style);
         break;
       case 9:
-        text =  Text('Oct', style: style);
+        text = Text('Oct', style: style);
         break;
       case 10:
-        text =  Text('Nov', style: style);
+        text = Text('Nov', style: style);
         break;
       case 11:
-        text =  Text('Dec', style: style);
+        text = Text('Dec', style: style);
         break;
       default:
-        text =  Text('', style: style);
+        text = Text('', style: style);
         break;
     }
     return SideTitleWidget(meta: meta, space: 15, child: text);
   }
-
-
-
-
 }
