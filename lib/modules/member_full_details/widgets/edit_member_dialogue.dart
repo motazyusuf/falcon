@@ -77,7 +77,7 @@ class EditMemberDialogue extends StatelessWidget {
                   onTap: () {
                     updateMemberName(member);
                     if (phoneController.text.isNotEmpty) {
-                      member.phoneNumber = num.parse(phoneController.text);
+                      member.phoneNumber = phoneController.text;
                     }
                     if (notesController.text.isNotEmpty) {
                       member.extraNotes = notesController.text;

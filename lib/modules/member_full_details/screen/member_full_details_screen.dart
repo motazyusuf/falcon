@@ -111,7 +111,7 @@ class _MemberFullDetailsScreenState
               ),
               10.ph,
               Text(
-                "${LocaleKeys.phone_number.tr()}:  0${widget.member.phoneNumber}",
+                "${LocaleKeys.phone_number.tr()}:  ${widget.member.phoneNumber}",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23.sp),
               ),
               10.ph,

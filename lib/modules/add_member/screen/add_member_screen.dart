@@ -225,7 +225,7 @@ class AddMemberScreenState
                                 extraNotes: notesController.text,
                                 name:
                                 "${firstNameController.text} ${lastNameController.text}",
-                                phoneNumber: phoneController.text.toIntOrNull!,
+                                phoneNumber: phoneController.text,
                                 subscriptions: subscriptions,
                               ),
                             ),

@@ -6,7 +6,7 @@ class Member {
   String? id;
   String name;
   String? extraNotes;
-  num phoneNumber;
+  String phoneNumber;
   List<Subscription> subscriptions;
 
   Member({
