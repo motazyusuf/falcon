@@ -1,6 +1,12 @@
 part of '../import/member_full_details_import.dart';
 
 class MemberFullDetailsBloc extends BaseBloc {
+  @override
+  Future<void> close() {
+    print("Member full details bloc closed");
+    return super.close();
+  }
+
   final MembersModuleRepo membersModuleRepo = MembersModuleRepo();
 
   Future<void> deleteMember(DeleteMemberEvent event, Emitter emit) async {
@@ -19,8 +25,8 @@ class MemberFullDetailsBloc extends BaseBloc {
 
   Future<void> settleSubscription(
     SettleSubscriptionEvent event,
-    Emitter emit,) async
-  {
+    Emitter emit,
+  ) async {
     emit(LoadingStateNonRender());
     await membersModuleRepo.settleSubscription(event.id, event.subscription);
     emit(EndLoadingStateNonRender());
@@ -29,8 +35,8 @@ class MemberFullDetailsBloc extends BaseBloc {
 
   Future<void> cancelSubscription(
     CancelSubscriptionEvent event,
-    Emitter emit,) async
-  {
+    Emitter emit,
+  ) async {
     emit(LoadingStateNonRender());
     await membersModuleRepo.cancelSubscription(event.id, event.subscription);
     debugPrint("Sub deleted");
@@ -47,6 +53,7 @@ class MemberFullDetailsBloc extends BaseBloc {
         MemberFullDetailsFactory(),
         initialState: MemberFullDetailsInitialState(),
       ) {
+    print("Ful details bloc start");
     on<CancelSubscriptionEvent>(cancelSubscription);
     on<SettleSubscriptionEvent>(settleSubscription);
     on<DeleteMemberEvent>(deleteMember);

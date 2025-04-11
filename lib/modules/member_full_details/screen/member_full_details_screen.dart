@@ -207,7 +207,9 @@ class _MemberFullDetailsScreenState
                                                 ),
                                               );
                                               context.pop();
-                                            } else {
+                                            }
+                                            else
+                                            {
                                               postEvent(
                                                 CancelSubscriptionEvent(
                                                   id: widget.member.id!,
@@ -217,7 +219,6 @@ class _MemberFullDetailsScreenState
                                               widget.member.subscriptions
                                                   .remove(sub);
                                             }
-                                            context.pop();
                                           },
                                         ),
                                   );
