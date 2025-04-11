@@ -90,7 +90,6 @@ class AnalyticsModuleBloc extends BaseBloc {
       }
     }
 
-    add(SetRevenueEvent());
     emit(AnalyticsLoaded());
   }
 
@@ -109,6 +108,7 @@ class AnalyticsModuleBloc extends BaseBloc {
 
   Future<void> showChart(AnalyticsChartTappedEvent event, Emitter emit) async{
     emit(LoadingStateNonRender());
+    await membersModuleRepo.setMonthlyRevenue(monthlyRevenue);
     final monthsRevenue = await membersModuleRepo.getMonthlyRevenue();
     emit(EndLoadingStateNonRender());
     emit(AnalyticsChartLoaded(monthsRevenue));
