@@ -79,7 +79,12 @@ class SubscriptionContainer extends StatelessWidget {
                               ? context.colorScheme.secondaryContainer
                               : null,
                     ),
+
                   ),
+                  Text(
+                    "${LocaleKeys.paid_on.tr()}: ${subscription.paymentDate.toDateOnlyString}",
+                  ),
+
                   Text(
                     "${LocaleKeys.due.tr()}:  ${subscription.dueAmount}",
                     style: TextStyle().copyWith(

@@ -35,6 +35,7 @@ abstract class  LocaleKeys {
   static const sub_date = 'sub_date';
   static const end_date = 'end_date';
   static const paid = 'paid';
+  static const paid_on = 'paid_on';
   static const due = 'due';
   static const delete_member = 'delete_member';
   static const settle = 'settle';

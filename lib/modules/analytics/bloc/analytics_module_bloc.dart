@@ -51,7 +51,7 @@ class AnalyticsModuleBloc extends BaseBloc {
       memberHasWeekExpiry = false;
 
       for (Subscription subscription in member.subscriptions) {
-        if (subscription.subscriptionDate.isAfter(startOfMonth)) {
+        if (subscription.paymentDate.isAfter(startOfMonth)) {
           monthlyRevenue += subscription.paidAmount.toInt();
         }
 

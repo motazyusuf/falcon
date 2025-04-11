@@ -57,10 +57,6 @@ class _MemberFullDetailsScreenState
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // InkWell(
-                    // splashColor: Colors.transparent,
-                    // highlightColor: Colors.transparent,child: Icon(Icons.arrow_back_ios),onTap:
-                    // ()=> context.pop(),),
                     Expanded(
                       child: Text(
                         textAlign: TextAlign.center,
@@ -98,17 +94,7 @@ class _MemberFullDetailsScreenState
                   ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: AdvancedLine(
-                  direction: Axis.horizontal,
-                  line: SolidLine(),
-                  paintDef:
-                      Paint()
-                        ..color = context.colorScheme.primary
-                        ..strokeWidth = 2.h,
-                ),
-              ),
+              RedLine(),
               10.ph,
               Text(
                 "${LocaleKeys.phone_number.tr()}:  ${widget.member.phoneNumber}",
@@ -218,6 +204,7 @@ class _MemberFullDetailsScreenState
                                               );
                                               widget.member.subscriptions
                                                   .remove(sub);
+                                              context.pop();
                                             }
                                           },
                                         ),
