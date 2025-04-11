@@ -41,12 +41,11 @@ class MembersModuleBloc extends BaseBloc {
   }
 
   getSearchedMembers(SearchForMembersEvent event, Emitter emit) async {
-    searchedMembers =
-        allMembers.where((member) {
-          return member.name.toLowerCase().contains(
-            event.searchedForValue.toLowerCase(),
-          );
-        }).toList();
+    searchedMembers = allMembers.where((member) {
+      final query = event.searchedForValue.toLowerCase();
+      return member.name.toLowerCase().contains(query) ||
+          member.phoneNumber.toString().contains(query);
+    }).toList();
     emit(MembersLoaded(searchedMembers));
   }
 

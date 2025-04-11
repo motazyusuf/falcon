@@ -32,7 +32,7 @@ class Member {
   static Map<String, dynamic> toJson(Member member) {
     return {
       "id": member.id ?? "",
-      "name": member.name,
+      "name": member.name.toLowerCase(),
       "extra_notes": member.extraNotes ?? "",
       "phone_number": member.phoneNumber,
       "subscriptions": member.subscriptions
