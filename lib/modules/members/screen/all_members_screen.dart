@@ -18,7 +18,6 @@ class AllMembersScreenState
   @override
   bool? get ignoreSafeArea => true;
 
-
   CancelFunc? cancelFunc;
 
   @override
@@ -34,6 +33,7 @@ class AllMembersScreenState
   }
 
   bool canSearch = true;
+  bool isFiltered = false;
 
   @override
   Widget buildWidget(BuildContext context, RenderDataState state) {
@@ -43,8 +43,7 @@ class AllMembersScreenState
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           MySearchBar(
-            canSearch: canSearch,
-            onChanged: (value) => postEvent(SearchForMembersEvent(value)),
+            onChanged: (value) => postEvent(SearchForMembersEvent(value, isFiltered)),
             searchController: searchController,
           ),
           DefaultTabController(
@@ -108,36 +107,40 @@ class AllMembersScreenState
           state is MembersLoaded
               ? Expanded(
                 child: MembersBriefGrid(
-                  builder:
-                      (context, index) => MemberBrief(
-                        onTap: () {
-                          postEvent(
-                            ShowMemberDetailsEvent(
-                              index: index,
-                              list: state.members,
-                            ),
-                          );
-                        },
-                        member: state.members[index],
-                      ),
+                  builder: (context, index) {
+                    isFiltered = false;
+                    return MemberBrief(
+                      onTap: () {
+                        postEvent(
+                          ShowMemberDetailsEvent(
+                            index: index,
+                            list: state.members,
+                          ),
+                        );
+                      },
+                      member: state.members[index],
+                    );
+                  },
                   itemCount: state.members.length,
                 ),
               )
               : state is MembersFiltered
               ? Expanded(
                 child: MembersBriefGrid(
-                  builder:
-                      (context, index) => MemberBrief(
-                        onTap: () {
-                          postEvent(
-                            ShowMemberDetailsEvent(
-                              index: index,
-                              list: state.filteredMembers,
-                            ),
-                          );
-                        },
-                        member: state.filteredMembers[index],
-                      ),
+                  builder: (context, index) {
+                    isFiltered = true;
+                    return MemberBrief(
+                      onTap: () {
+                        postEvent(
+                          ShowMemberDetailsEvent(
+                            index: index,
+                            list: state.filteredMembers,
+                          ),
+                        );
+                      },
+                      member: state.filteredMembers[index],
+                    );
+                  },
                   itemCount: state.filteredMembers.length,
                 ),
               )

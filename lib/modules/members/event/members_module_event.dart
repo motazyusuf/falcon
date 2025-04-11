@@ -7,8 +7,9 @@ class GetMembersEvent extends BaseEvent {}
 
 class SearchForMembersEvent extends BaseEvent {
   String searchedForValue;
+  bool isFiltered;
 
-  SearchForMembersEvent(this.searchedForValue);
+  SearchForMembersEvent(this.searchedForValue, this.isFiltered);
 }
 
 class FilterMembersEvent extends BaseEvent {

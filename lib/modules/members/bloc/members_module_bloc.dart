@@ -41,12 +41,25 @@ class MembersModuleBloc extends BaseBloc {
   }
 
   getSearchedMembers(SearchForMembersEvent event, Emitter emit) async {
-    searchedMembers = allMembers.where((member) {
-      final query = event.searchedForValue.toLowerCase();
-      return member.name.toLowerCase().contains(query) ||
-          member.phoneNumber.toString().contains(query);
-    }).toList();
-    emit(MembersLoaded(searchedMembers));
+    if(event.isFiltered){
+      searchedMembers = filteredMembers.where((member) {
+        final query = event.searchedForValue.toLowerCase();
+        return member.name.toLowerCase().contains(query) ||
+            member.phoneNumber.toString().contains(query);
+      }).toList();
+      emit(MembersFiltered(searchedMembers));
+
+    }
+    else{
+      searchedMembers = allMembers.where((member) {
+        final query = event.searchedForValue.toLowerCase();
+        return member.name.toLowerCase().contains(query) ||
+            member.phoneNumber.toString().contains(query);
+      }).toList();
+      emit(MembersLoaded(searchedMembers));
+
+    }
+
   }
 
   filterMembers(FilterMembersEvent event, Emitter emit) async {
