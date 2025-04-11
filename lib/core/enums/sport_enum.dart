@@ -17,22 +17,21 @@ enum Sport {
 // static const pt = 'pt';
 // static const pt_advanced = 'pt_advanced';
 // static const SC = 'SC';
-
+  mt_advanced(LocaleKeys.mt_advanced),
+  mma(LocaleKeys.mma),
+  mt_101(LocaleKeys.mt_101),
+  boxing(LocaleKeys.boxing),
+  grappling(LocaleKeys.grappling),
+  pt(LocaleKeys.pt),
+  pt_advanced(LocaleKeys.pt_advanced),
+  SC(LocaleKeys.SC),
   mt_teens(LocaleKeys.mt_teens),
   mt_ladies(LocaleKeys.mt_ladies),
-  mt_101(LocaleKeys.mt_101),
-  mt_advanced(LocaleKeys.mt_advanced),
   kids_kickboxing(LocaleKeys.kids_kickboxing),
   kickboxing(LocaleKeys.kickboxing),
   kids_boxing(LocaleKeys.kids_boxing),
   boxing_teens(LocaleKeys.boxing_teens),
-  boxing(LocaleKeys.boxing),
-  mma(LocaleKeys.mma),
-  grappling(LocaleKeys.grappling),
-  burn_gain(LocaleKeys.burn_gain),
-  pt(LocaleKeys.pt),
-  pt_advanced(LocaleKeys.pt_advanced),
-  SC(LocaleKeys.SC);
+  burn_gain(LocaleKeys.burn_gain);
 
   final String localeKey;
   const Sport(this.localeKey);
