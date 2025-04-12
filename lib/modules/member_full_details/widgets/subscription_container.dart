@@ -83,6 +83,12 @@ class SubscriptionContainer extends StatelessWidget {
                   ),
                   Text(
                     "${LocaleKeys.paid_on.tr()}: ${subscription.paymentDate.toDateOnlyString}",
+                      style: TextStyle().copyWith(
+                        color:
+                        !isActive
+                            ? context.colorScheme.secondaryContainer
+                            : null,
+                      )
                   ),
 
                   Text(

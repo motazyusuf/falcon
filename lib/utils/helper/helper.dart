@@ -1,6 +1,8 @@
 
-
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
@@ -50,5 +52,22 @@ class AppHelper {
     return null;
   }
 
+  static Future<void> backgroundHandler(RemoteMessage message) async {
+    Firebase.initializeApp();
+
+    final data = message.data;
+    FlutterLocalNotificationsPlugin().show(
+      message.messageId.hashCode,
+      data['title'] ?? message.notification!.title,
+      data['body'] ?? message.notification!.body,
+      const NotificationDetails(
+        android: AndroidNotificationDetails('falconProject', 'channelName',
+            importance: Importance.max,
+            priority: Priority.high,
+            icon: '@mipmap/ic_launcher'),
+        iOS: DarwinNotificationDetails(),
+      ),
+    );
+  }
 
 }

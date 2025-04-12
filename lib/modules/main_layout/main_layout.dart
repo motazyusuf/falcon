@@ -43,24 +43,7 @@ class _MainLayoutState extends State<MainLayout> {
           backgroundImage: AssetImage(AppAssets.logo), // Replace with your logo
         ),
         centerTitle: true,
-        // actions: [
-        //   InkWell(
-  // splashColor: Colors.transparent,
-  // highlightColor: Colors.transparent,
-        //     onTap: () {
-        //       Locale currentLocale = context.locale;
-        //       Locale newLocale =
-        //           currentLocale.languageCode == 'en'
-        //               ? Locale('ar')
-        //               : Locale('en');
-        //       EasyLocalization.of(context)!.setLocale(newLocale);
-        //     },
-        //     child: Padding(
-        //       padding: EdgeInsets.all(8.w),
-        //       child: Icon(Icons.language, size: 25.r, color: context.colorScheme.secondaryContainer,),
-        //     ),
-        //   ),
-        // ],
+
       ),
       body: IndexedStack(index: currentIndex, children: modules),
       extendBody: true,
@@ -90,3 +73,22 @@ class _MainLayoutState extends State<MainLayout> {
     );
   }
 }
+
+// actions: [
+//   InkWell(
+// splashColor: Colors.transparent,
+// highlightColor: Colors.transparent,
+//     onTap: () {
+//       Locale currentLocale = context.locale;
+//       Locale newLocale =
+//           currentLocale.languageCode == 'en'
+//               ? Locale('ar')
+//               : Locale('en');
+//       EasyLocalization.of(context)!.setLocale(newLocale);
+//     },
+//     child: Padding(
+//       padding: EdgeInsets.all(8.w),
+//       child: Icon(Icons.language, size: 25.r, color: context.colorScheme.secondaryContainer,),
+//     ),
+//   ),
+// ],

@@ -14,12 +14,17 @@ class MembersBriefGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FlexibleGridView(
-      crossAxisSpacing: 10.w,
-      mainAxisSpacing: 10.h,
-      builder: builder,
-      itemCount: itemCount,
-      crossAxisCount: 2,
+    return SingleChildScrollView(
+      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+      child: FlexibleGridView(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        crossAxisSpacing: 10.w,
+        mainAxisSpacing: 10.h,
+        builder: builder,
+        itemCount: itemCount,
+        crossAxisCount: 2,
+      ),
     );
   }
 }
