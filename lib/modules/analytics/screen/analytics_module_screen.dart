@@ -50,13 +50,14 @@ class AnalyticsScreenState
                   inWeekMembersLength: bloc.expireInWeekMembers.length,
                   onThreeTapped:
                       () => postEvent(
-                        AnalyticsSectionTappedEvent(
+                        AnalyticsSectionTappedEvent(title: LocaleKeys.upcmng_exp.tr(),
                           members: bloc.expireInThreeMembers,
                         ),
                       ),
                   onWeekTapped:
                       () => postEvent(
                         AnalyticsSectionTappedEvent(
+                          title: LocaleKeys.upcmng_exp.tr(),
                           members: bloc.expireInWeekMembers,
                         ),
                       ),
@@ -69,17 +70,17 @@ class AnalyticsScreenState
                   inactiveMembers: bloc.inactiveMembers,
                   onActiveMembersTaped:
                       () => postEvent(
-                        AnalyticsSectionTappedEvent(
+                        AnalyticsSectionTappedEvent(title: LocaleKeys.active_members.tr(),
                           members: bloc.activeMembers,
                         ),
                       ),
                   onDueMembersTaped:
                       () => postEvent(
-                        AnalyticsSectionTappedEvent(members: bloc.dueMembers),
+                        AnalyticsSectionTappedEvent(title: LocaleKeys.members_dues.tr(),members: bloc.dueMembers),
                       ),
                   onInactiveMembersTaped:
                       () => postEvent(
-                        AnalyticsSectionTappedEvent(
+                        AnalyticsSectionTappedEvent(title: LocaleKeys.inactive_members.tr(),
                           members: bloc.inactiveMembers,
                         ),
                       ),
@@ -105,7 +106,7 @@ class AnalyticsScreenState
         child: SizedBox(
           height: screenHeight * 0.8,
           width: screenWidth * 0.9,
-          child: MembersBriefGrid(
+          child: MembersBriefGrid(title: state.title,
             builder:
                 (context, index) =>
                     MemberBrief(member: state.members[index], onTap: () {}),

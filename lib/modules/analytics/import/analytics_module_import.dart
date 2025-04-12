@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:falcon_project/modules/analytics/widgets/yearly_chart.dart';
 import 'package:falcon_project/widgets/member_brief.dart';
 import 'package:falcon_project/widgets/members_brief_grid.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
+import '../../../core/config/translations/codegen_loader.g.dart';
 import '../../../core/network/model/member_model.dart';
 import '../../../core/network/repo/members_module_repo.dart';
 import '../../../utils/helper/helper.dart';

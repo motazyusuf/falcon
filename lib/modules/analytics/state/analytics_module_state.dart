@@ -9,8 +9,9 @@ class AnalyticsLoaded extends RenderDataState {
 }
 
 class AnalyticsSectionLoaded extends NonRenderState {
+  String title;
   List<Member> members;
-  AnalyticsSectionLoaded({required this.members});
+  AnalyticsSectionLoaded({required this.members, required this.title});
 }
 
 class AnalyticsChartLoaded extends NonRenderState {

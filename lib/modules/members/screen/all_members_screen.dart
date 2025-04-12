@@ -33,10 +33,14 @@ class AllMembersScreenState
   }
 
   bool canSearch = true;
-  bool isFiltered = false;
+  late bool isFiltered;
+
+  
 
   @override
   Widget buildWidget(BuildContext context, RenderDataState state) {
+    print("Built to state >>>>>> $state");
+
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
       child: Column(
@@ -152,6 +156,7 @@ class AllMembersScreenState
 
   @override
   void listenToState(BuildContext context, BaseState state) {
+    print("Listened to state >>>>>> $state");
     if (state is MemberDeleted) {
       ToastHelper.showToast("Member Deleted", type: ToastType.success);
     }

@@ -97,7 +97,7 @@ class AnalyticsModuleBloc extends BaseBloc {
     AnalyticsSectionTappedEvent event,
     Emitter emit,
   ) async {
-    emit(AnalyticsSectionLoaded(members: event.members));
+    emit(AnalyticsSectionLoaded(title: event.title,members: event.members));
   }
 
   Future<void> setRevenue(SetRevenueEvent event, Emitter emit)async {

@@ -4,7 +4,6 @@ import 'package:falcon_project/modules/members/import/members_module_import.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
-
 import '../../core/app/routes/pages_routes.dart';
 import '../../core/config/ui/assets.dart';
 
@@ -30,6 +29,9 @@ class _MainLayoutState extends State<MainLayout> {
         : const SizedBox.shrink(), // Released when not active
   ];
 
+  final GlobalKey<AllMembersScreenState> allMembersKey = GlobalKey<AllMembersScreenState>();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +45,6 @@ class _MainLayoutState extends State<MainLayout> {
           backgroundImage: AssetImage(AppAssets.logo), // Replace with your logo
         ),
         centerTitle: true,
-
       ),
       body: IndexedStack(index: currentIndex, children: modules),
       extendBody: true,
@@ -55,6 +56,7 @@ class _MainLayoutState extends State<MainLayout> {
         onPressed: () async {
           int? result = await context.pushNamed(PagesRoutes.addMember);
           if(result!=null){
+            print(">>>>>>>>>>>>>>>$result<<<<<<<<<<<<<<");
             setState(() {
               currentIndex = result;
             });
