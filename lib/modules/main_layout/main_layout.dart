@@ -4,6 +4,7 @@ import 'package:falcon_project/modules/members/import/members_module_import.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
+
 import '../../core/app/routes/pages_routes.dart';
 import '../../core/config/ui/assets.dart';
 
@@ -21,7 +22,7 @@ class _MainLayoutState extends State<MainLayout> {
   bool get isAnalyticsScreenActive => currentIndex == 1;
 
   List<Widget> get modules => [
-    AllMembersScreen(bloc: membersBloc), // Always stays alive
+    AllMembersScreen(key:allMembersKey ,bloc: membersBloc), // Always stays alive
     isAnalyticsScreenActive
         ? AnalyticsScreen(
           bloc: AnalyticsModuleBloc(MembersModuleBloc.allMembers),
@@ -60,6 +61,7 @@ class _MainLayoutState extends State<MainLayout> {
             setState(() {
               currentIndex = result;
             });
+            allMembersKey.currentState?.triggerLocalSetState();
           }
         },
         child: Icon(Icons.add),

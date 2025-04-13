@@ -15,10 +15,18 @@ class AllMembersScreenState
 
   final TextEditingController searchController = TextEditingController();
 
+  void Function(void Function())? externalSetState;
+
   @override
   bool? get ignoreSafeArea => true;
 
   CancelFunc? cancelFunc;
+
+  void triggerLocalSetState() {
+    externalSetState?.call(() {
+      searchController.clear();
+    });
+  }
 
   @override
   void showLoading() {
@@ -39,124 +47,130 @@ class AllMembersScreenState
 
   @override
   Widget buildWidget(BuildContext context, RenderDataState state) {
-    print("Built to state >>>>>> $state");
-
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          MySearchBar(
-            onChanged: (value) => postEvent(SearchForMembersEvent(value, isFiltered)),
-            searchController: searchController,
-          ),
-          DefaultTabController(
-            length: Sport.values.length + 1,
-            child: TabBar(
-              tabAlignment: TabAlignment.start,
-              onTap: (index) {
-                if (index == 0) {
-                  canSearch = true;
-                  // postEvent(GetMembersEvent());
-                  postEvent(FilterMembersEvent(null));
-                } else {
-                  searchController.clear();
-                  canSearch = false;
-                  postEvent(
-                    FilterMembersEvent(Sport.values[index - 1].localeKey),
+    debugPrint("Built state >>>>>> $state");
+        return Padding(
+          padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              StatefulBuilder(
+                builder: (context,newState) {
+                  externalSetState = newState;
+                  return MySearchBar(
+                    onChanged: (value) => postEvent(SearchForMembersEvent(value, isFiltered)),
+                    searchController: searchController,
                   );
                 }
-              },
-              isScrollable: true,
-              indicatorPadding: EdgeInsets.zero,
-              labelPadding: const EdgeInsets.symmetric(horizontal: 5),
-              padding: const EdgeInsets.only(top: 8, bottom: 8),
-              indicatorColor: Colors.transparent,
-              dividerColor: Colors.transparent,
-              tabs: [
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-                  decoration: BoxDecoration(
-                    color: context.colorScheme.secondary,
-                    borderRadius: BorderRadius.circular(25.r),
-                  ),
-                  child: Text(
-                    LocaleKeys.all_sports.tr(),
-                    style: TextStyle().copyWith(
-                      fontFamily: "Anton_SC",
-                      fontSize: 13.sp,
-                    ),
-                  ),
-                ),
-                ...Sport.values.map(
-                  (sport) => Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-                    decoration: BoxDecoration(
-                      color: context.colorScheme.secondary,
-                      borderRadius: BorderRadius.circular(25.r),
-                    ),
-                    child: Text(
-                      sport.localeKey.tr(),
-                      style: TextStyle().copyWith(
-                        fontFamily: "Anton_SC",
-                        fontSize: 13.sp,
+              ),
+              DefaultTabController(
+                length: Sport.values.length + 1,
+                child: TabBar(
+                  tabAlignment: TabAlignment.start,
+                  onTap: (index) {
+                    if (index == 0) {
+                      canSearch = true;
+                      // postEvent(GetMembersEvent());
+                      postEvent(FilterMembersEvent(null));
+                    } else {
+                      searchController.clear();
+                      canSearch = false;
+                      postEvent(
+                        FilterMembersEvent(Sport.values[index - 1].localeKey),
+                      );
+                    }
+                  },
+                  isScrollable: true,
+                  indicatorPadding: EdgeInsets.zero,
+                  labelPadding: const EdgeInsets.symmetric(horizontal: 5),
+                  padding: const EdgeInsets.only(top: 8, bottom: 8),
+                  indicatorColor: Colors.transparent,
+                  dividerColor: Colors.transparent,
+                  tabs: [
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                      decoration: BoxDecoration(
+                        color: context.colorScheme.secondary,
+                        borderRadius: BorderRadius.circular(25.r),
+                      ),
+                      child: Text(
+                        LocaleKeys.all_sports.tr(),
+                        style: TextStyle().copyWith(
+                          fontFamily: "Anton_SC",
+                          fontSize: 13.sp,
+                        ),
                       ),
                     ),
-                  ),
+                    ...Sport.values.map(
+                      (sport) => Container(
+                        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                        decoration: BoxDecoration(
+                          color: context.colorScheme.secondary,
+                          borderRadius: BorderRadius.circular(25.r),
+                        ),
+                        child: Text(
+                          sport.localeKey.tr(),
+                          style: TextStyle().copyWith(
+                            fontFamily: "Anton_SC",
+                            fontSize: 13.sp,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              5.ph,
+              state is MembersLoaded
+                  ? Expanded(
+                    child: MembersBriefGrid(
+                      builder: (context, index) {
+                        isFiltered = false;
+                        return MemberBrief(
+                          onTap: () {
+                            postEvent(
+                              ShowMemberDetailsEvent(
+                                index: index,
+                                list: state.members,
+                              ),
+                            );
+                          },
+                          member: state.members[index],
+                        );
+                      },
+                      itemCount: state.members.length,
+                    ),
+                  )
+                  : state is MembersFiltered
+                  ? Expanded(
+                    child: MembersBriefGrid(
+                      builder: (context, index) {
+                        isFiltered = true;
+                        return MemberBrief(
+                          onTap: () {
+                            postEvent(
+                              ShowMemberDetailsEvent(
+                                index: index,
+                                list: state.filteredMembers,
+                              ),
+                            );
+                          },
+                          member: state.filteredMembers[index],
+                        );
+                      },
+                      itemCount: state.filteredMembers.length,
+                    ),
+                  )
+                  : SizedBox(),
+            ],
           ),
-          5.ph,
-          state is MembersLoaded
-              ? Expanded(
-                child: MembersBriefGrid(
-                  builder: (context, index) {
-                    isFiltered = false;
-                    return MemberBrief(
-                      onTap: () {
-                        postEvent(
-                          ShowMemberDetailsEvent(
-                            index: index,
-                            list: state.members,
-                          ),
-                        );
-                      },
-                      member: state.members[index],
-                    );
-                  },
-                  itemCount: state.members.length,
-                ),
-              )
-              : state is MembersFiltered
-              ? Expanded(
-                child: MembersBriefGrid(
-                  builder: (context, index) {
-                    isFiltered = true;
-                    return MemberBrief(
-                      onTap: () {
-                        postEvent(
-                          ShowMemberDetailsEvent(
-                            index: index,
-                            list: state.filteredMembers,
-                          ),
-                        );
-                      },
-                      member: state.filteredMembers[index],
-                    );
-                  },
-                  itemCount: state.filteredMembers.length,
-                ),
-              )
-              : SizedBox(),
-        ],
-      ),
-    );
+        );
+
+
   }
 
   @override
   void listenToState(BuildContext context, BaseState state) {
-    print("Listened to state >>>>>> $state");
+    debugPrint("Listened to state >>>>>> $state");
     if (state is MemberDeleted) {
       ToastHelper.showToast("Member Deleted", type: ToastType.success);
     }

@@ -37,6 +37,7 @@ class AddMemberScreenState
   List<bool> isEndDatePicked = [false];
   final _formKey = GlobalKey<FormState>();
 
+
   CancelFunc? cancelFunc;
 
   @override
@@ -188,7 +189,7 @@ class AddMemberScreenState
                         );
                       },
                     ),
-                    40.ph,
+                    (screenHeight * 0.15).ph,
                     CoreButton(
                       title: LocaleKeys.add_sub.tr(),
                       backgroundColor: context.colorScheme.secondaryContainer,
@@ -211,7 +212,8 @@ class AddMemberScreenState
                     10.ph,
                     CoreButton(
                       title: LocaleKeys.add_member.tr(),
-                      onTap: () {
+                      onTap: ()
+                      {
                         if (_formKey.currentState!.validate()) {
                           if (isEndDatePicked.contains(false)) {
                             postEvent(AddMemberWithNoEndDateEvent());
@@ -250,7 +252,7 @@ class AddMemberScreenState
 
     if (state is MemberAdded) {
       ToastHelper.showToast("Member added", type: ToastType.success);
-      Navigator.pop(context,0);
+      Navigator.pop(context, 0);
     }
   }
 }
