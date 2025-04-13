@@ -21,7 +21,7 @@ class MyBottomBar extends StatelessWidget {
     return BottomAppBar(
       color: context.colorScheme.secondary,
       notchMargin: 8,
-      height: context.screenSize.height *0.1,
+      height: context.screenSize.height *0.085,
       child: ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(16)),
         child: BottomNavigationBar(
