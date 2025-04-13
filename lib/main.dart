@@ -13,15 +13,14 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await EasyLocalization.ensureInitialized();
-  // await FirebaseApi().fcmNotifications();
+  await FirebaseApi().fcmNotifications();
   // if (Platform.isIOS || Platform.isMacOS) {
   //   print("It is ios");
   //   var iosToken = await FirebaseMessaging.instance.getAPNSToken();
   //   print("iOS/macOS Token: $iosToken");
   // }
-  // String? token = await FirebaseApi().firebaseMessaging.getToken();
-  //
-  // print("token:$token");
+  String? token = await FirebaseApi().firebaseMessaging.getToken();
+  print("token:$token");
   runApp(LocalizedApp());
 }
 

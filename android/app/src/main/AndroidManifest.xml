@@ -7,6 +7,10 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:label="Falcon">
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_stat_falcon_logo" />
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
@@ -33,6 +37,10 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="falconProject" />
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and
@@ -46,7 +54,7 @@
         </intent>
     </queries>
 
-    <meta-data
-        android:name="com.google.firebase.messaging.default_notification_channel_id"
-        android:value="falconProject" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+
 </manifest>

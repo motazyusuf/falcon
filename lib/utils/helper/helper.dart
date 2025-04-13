@@ -1,6 +1,6 @@
 
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -54,9 +54,19 @@ class AppHelper {
 
   static Future<void> backgroundHandler(RemoteMessage message) async {
     Firebase.initializeApp();
-
     final data = message.data;
-    FlutterLocalNotificationsPlugin().show(
+    // AndroidNotificationChannel channel = AndroidNotificationChannel(
+    //   'falcon_project',
+    //   'channelName',
+    //   description: 'This channel is used for important notifications.',
+    //   importance: Importance.high,
+    // );
+    final notificationPlugin = FlutterLocalNotificationsPlugin();
+    // await notificationPlugin
+    //     .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
+    //     ?.createNotificationChannel(channel);
+
+    notificationPlugin.show(
       message.messageId.hashCode,
       data['title'] ?? message.notification!.title,
       data['body'] ?? message.notification!.body,
@@ -64,7 +74,7 @@ class AppHelper {
         android: AndroidNotificationDetails('falconProject', 'channelName',
             importance: Importance.max,
             priority: Priority.high,
-            icon: '@mipmap/ic_launcher'),
+            icon: 'ic_stat_falcon_logo'),
         iOS: DarwinNotificationDetails(),
       ),
     );
