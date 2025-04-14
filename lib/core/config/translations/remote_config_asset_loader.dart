@@ -6,7 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 
-
 class RemoteConfigAssetLoader extends AssetLoader {
   @override
   Future<Map<String, dynamic>> load(String path, Locale locale) async {
@@ -32,7 +31,9 @@ class RemoteConfigAssetLoader extends AssetLoader {
         return json.decode(cached);
       }
       debugPrint("FallBack assets");
-      final local = await rootBundle.loadString('assets/languages/${locale.languageCode}.json');
+      final local = await rootBundle.loadString(
+        'assets/languages/${locale.languageCode}.json',
+      );
       return json.decode(local);
     }
   }
