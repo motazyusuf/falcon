@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,15 +25,9 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -65,4 +56,34 @@ class DefaultFirebaseOptions {
     storageBucket: 'falcon-50e43.firebasestorage.app',
     iosBundleId: 'com.example.falconProject',
   );
+
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyA9vGU3m6REKhlw9QA5lqOFOMOT97h6jaU',
+    appId: '1:999128384703:web:ad49700c66e942cf52320a',
+    messagingSenderId: '999128384703',
+    projectId: 'falcon-50e43',
+    authDomain: 'falcon-50e43.firebaseapp.com',
+    storageBucket: 'falcon-50e43.firebasestorage.app',
+    measurementId: 'G-B7CZ3YYW37',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyAbcPdMEf_25gQdeP1jnieczNssPnJqRwA',
+    appId: '1:999128384703:ios:a88961a7a2c9bbf852320a',
+    messagingSenderId: '999128384703',
+    projectId: 'falcon-50e43',
+    storageBucket: 'falcon-50e43.firebasestorage.app',
+    iosBundleId: 'com.example.falconProject',
+  );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyA9vGU3m6REKhlw9QA5lqOFOMOT97h6jaU',
+    appId: '1:999128384703:web:e107280465fc786b52320a',
+    messagingSenderId: '999128384703',
+    projectId: 'falcon-50e43',
+    authDomain: 'falcon-50e43.firebaseapp.com',
+    storageBucket: 'falcon-50e43.firebasestorage.app',
+    measurementId: 'G-GGB7T5BB2K',
+  );
+
 }
