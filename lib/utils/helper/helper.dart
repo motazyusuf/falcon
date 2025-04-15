@@ -8,7 +8,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 import 'package:opticore/opticore.dart';
 import 'package:path_provider/path_provider.dart';
-
 import '../../firebase_options.dart';
 import '../services/notification.dart';
 
