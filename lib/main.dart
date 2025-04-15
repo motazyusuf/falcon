@@ -11,15 +11,14 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await EasyLocalization.ensureInitialized();
-  await FirebaseApi().fcmNotifications();
+  await NotificationsService().initLocalNotification();
   tz.initializeTimeZones(); // Initialize the timezone database
-
   // if (Platform.isIOS || Platform.isMacOS) {
   //   print("It is ios");
   //   var iosToken = await FirebaseMessaging.instance.getAPNSToken();
   //   print("iOS/macOS Token: $iosToken");
   // }
-  // String? token = await FirebaseApi().firebaseMessaging.getToken();
+  // String? token = await NotificationsService().firebaseMessaging.getToken();
   // print("token:$token");
   runApp(LocalizedApp());
 }

@@ -7,7 +7,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
   cupertino_icons: ^1.0.8
   opticore: ^2.0.1
   easy_localization: ^3.0.7+1

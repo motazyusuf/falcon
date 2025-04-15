@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:falcon_project/utils/helper/helper.dart';
 import 'package:opticore/opticore.dart';
 import 'package:intl/intl.dart';
 
@@ -16,6 +18,7 @@ class MembersModuleRepo extends BaseRepo {
 
   Future<void> addMember(Member member) async {
 
+    print(">>>>>>>Inside add member in repo<<<<<<<<<<");
     // reference the collection || create if !exist
     var collectionRef = getCollection();
 
@@ -24,9 +27,30 @@ class MembersModuleRepo extends BaseRepo {
 
     member.id = documentRef.id;
 
-
     // set values to document
     await documentRef.set(member);
+    print("added");
+    // Schedule notifications for each subscription
+    for (var subscription in member.subscriptions) {
+      // Create a unique ID based on subscription ID or member+index
+      final notificationId =
+          '${member.id}_${subscription.sport!.localeKey}_${subscription.paymentDate}';
+
+      // Schedule the notification at subscription.expiryDate + 14 hours
+      final expiryDate = subscription.endDate;
+      print(expiryDate.toString());
+
+      // Skip if already expired
+      if (expiryDate.add(Duration(hours: 16)).isBefore(DateTime.now())) continue;
+
+      await AppHelper.scheduleExpiryNotification(
+        expiryDate,
+        member.name,
+        subscription.sport!.localeKey.tr(),
+        notificationId.hashCode,
+      );
+      print("Notification scheduled");
+    }
   }
 
   Stream<QuerySnapshot<Member>> getDataStream() {
@@ -80,49 +104,51 @@ class MembersModuleRepo extends BaseRepo {
     print("Deleted from repo");
   }
 
-  Future<void> settleSubscription(String userId,
-      Subscription subscription) async
-  {
+  Future<void> settleSubscription(
+    String userId,
+    Subscription subscription,
+  ) async {
     final docRef = FirebaseFirestore.instance.collection('Members').doc(userId);
 
     await FirebaseFirestore.instance.runTransaction((transaction) async {
       final snapshot = await transaction.get(docRef);
 
-
       List<dynamic> subscriptions = snapshot.get('subscriptions');
 
       // Create a modified list
-      List<dynamic> updatedSubscriptions = subscriptions.map((sub) {
-        if (sub['sport'] == subscription.sport?.localeKey &&
-            sub['subscription_date'] ==
-                subscription.subscriptionDate.millisecondsSinceEpoch &&
-            sub['end_date'] == subscription.endDate.millisecondsSinceEpoch) {
-          return {
-            ...sub, // Keep other properties the same
-            'due_amount': int.parse(subscription.dueAmount!.toString()),
-            'paid_amount': int.parse(subscription.paidAmount.toString()),
-          };
-        }
-        return sub;
-      }).toList();
+      List<dynamic> updatedSubscriptions =
+          subscriptions.map((sub) {
+            if (sub['sport'] == subscription.sport?.localeKey &&
+                sub['subscription_date'] ==
+                    subscription.subscriptionDate.millisecondsSinceEpoch &&
+                sub['end_date'] ==
+                    subscription.endDate.millisecondsSinceEpoch) {
+              return {
+                ...sub, // Keep other properties the same
+                'due_amount': int.parse(subscription.dueAmount!.toString()),
+                'paid_amount': int.parse(subscription.paidAmount.toString()),
+              };
+            }
+            return sub;
+          }).toList();
 
       // Update the document
       transaction.update(docRef, {'subscriptions': updatedSubscriptions});
     });
   }
 
-  Future<void> editMember(Member member) async
-  {
+  Future<void> editMember(Member member) async {
     // reference the collection || create if !exist
     var collectionRef = getCollection();
 
     var documentRef = collectionRef.doc(member.id);
 
     member.subscriptions.sort((b, a) => a.endDate.compareTo(b.endDate));
-    member.subscriptions.map((subscription)=> print(subscription.sport?.localeKey));
+    member.subscriptions.map(
+      (subscription) => print(subscription.sport?.localeKey),
+    );
     await documentRef.set(member, SetOptions(merge: true));
   }
-
 
   Future<void> deleteMember(String userId) async {
     final docRef = FirebaseFirestore.instance.collection('Members').doc(userId);
@@ -140,19 +166,28 @@ class MembersModuleRepo extends BaseRepo {
   }
 
   Future<List<int>> getMonthlyRevenue() async {
-    final doc = await FirebaseFirestore.instance
-        .collection('revenue')
-        .doc('rve1piG2xD6umTd03oGf')
-        .get();
+    final doc =
+        await FirebaseFirestore.instance
+            .collection('revenue')
+            .doc('rve1piG2xD6umTd03oGf')
+            .get();
 
     final data = doc.data()!;
     const orderedMonths = [
-      'jan', 'feb', 'mar', 'apr', 'may', 'jun',
-      'jul', 'aug', 'sep', 'oct', 'nov', 'dec'
+      'jan',
+      'feb',
+      'mar',
+      'apr',
+      'may',
+      'jun',
+      'jul',
+      'aug',
+      'sep',
+      'oct',
+      'nov',
+      'dec',
     ];
 
     return orderedMonths.map((m) => data[m] as int).toList();
   }
-
-
 }

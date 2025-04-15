@@ -2,11 +2,8 @@ import 'package:falcon_project/modules/analytics/import/analytics_module_import.
 import 'package:falcon_project/modules/main_layout/widget/my_bottom_bar.dart';
 import 'package:falcon_project/modules/members/import/members_module_import.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
-import 'package:timezone/timezone.dart' as tz;
-import 'package:timezone/data/latest_all.dart' as tz;
 import '../../core/app/routes/pages_routes.dart';
 import '../../core/config/ui/assets.dart';
 
@@ -59,59 +56,14 @@ class _MainLayoutState extends State<MainLayout> {
           borderRadius: BorderRadius.circular(30.r),
         ),
         onPressed: () async {
-          debugPrint("Taped");
-          // Initialize timezone (ensure this is also done once in main())
-          tz.initializeTimeZones();
-          final String timeZoneName = 'Africa/Cairo';
-          final tz.Location cairoTimeZone = tz.getLocation(timeZoneName);
-
-          final tz.TZDateTime nowCairo = tz.TZDateTime.now(cairoTimeZone);
-          final tz.TZDateTime scheduledDate = nowCairo.add(
-            const Duration(seconds: 5),
-          );
-
-          const AndroidNotificationDetails androidNotificationDetails =
-              AndroidNotificationDetails(
-                "falconProject",
-                "channelName",
-                importance: Importance.max,
-                priority: Priority.high,
-                icon: 'ic_stat_falcon_logo',
-              );
-
-          const DarwinNotificationDetails iOSNotificationDetails =
-              DarwinNotificationDetails(
-                presentSound: true,
-                presentAlert: true,
-                presentBadge: true,
-              );
-
-          const NotificationDetails notificationDetails = NotificationDetails(
-            android: androidNotificationDetails,
-            iOS: iOSNotificationDetails,
-          );
-
-          const UILocalNotificationDateInterpretation
-          uiLocalNotificationDateInterpretation =
-              UILocalNotificationDateInterpretation.absoluteTime;
-
-          await FlutterLocalNotificationsPlugin().zonedSchedule(
-            0,
-            "title",
-            "body",
-            scheduledDate,
-            notificationDetails,
-            uiLocalNotificationDateInterpretation:
-                uiLocalNotificationDateInterpretation,
-            androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-            // Use inexact mode
-            payload: 'on_tap_scheduled_payload',
-          );
-
-          print(
-            'Notification scheduled for: $scheduledDate (Cairo Time) on tap',
-          );
-          // await FlutterLocalNotificationsPlugin().show(1, "title", "body", notificationDetails);
+          int? result = await context.pushNamed(PagesRoutes.addMember);
+          if (result != null) {
+            print(">>>>>>>>>>>>>>>$result<<<<<<<<<<<<<<");
+            setState(() {
+              currentIndex = result;
+            });
+            allMembersKey.currentState?.triggerLocalSetState();
+          }
         },
 
         child: Icon(Icons.add),

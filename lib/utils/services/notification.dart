@@ -3,13 +3,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import '../helper/helper.dart';
 
-class FirebaseApi {
-  //  AndroidNotificationChannel channel = AndroidNotificationChannel(
-  //   'falconProject',
-  //   'channelName',
-  //   description: 'This channel is used for important notifications.',
-  //   importance: Importance.max,
-  // );
+class NotificationsService {
+
 
   final firebaseMessaging = FirebaseMessaging.instance;
   final notificationPlugin = FlutterLocalNotificationsPlugin();
@@ -17,11 +12,26 @@ class FirebaseApi {
 
   get localNotificationIsInitialized => _localNotificationIsInitialized;
 
-  Future<void> fcmNotifications() async {
-    // await notificationPlugin
-    //     .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
-    //     ?.createNotificationChannel(channel);
+  localNotificationDetails() {
+    return const NotificationDetails(
+      iOS: DarwinNotificationDetails(
+        presentSound: true,
+        presentAlert: true,
+        presentBadge: true,
+      ),
+      android: AndroidNotificationDetails(
+        "falconProject",
+        "channelName",
+        importance: Importance.max,
+        priority: Priority.high,
+        icon: 'ic_stat_falcon_logo',
+      ),
+    );
+  }
 
+
+  // remote messaging
+  Future<void> fcmNotifications() async {
     FirebaseMessaging.onBackgroundMessage(AppHelper.backgroundHandler);
     await firebaseMessaging.requestPermission(
       alert: true,
@@ -60,20 +70,5 @@ class FirebaseApi {
     await notificationPlugin.initialize(initSettings);
   }
 
-  localNotificationDetails() {
-    return const NotificationDetails(
-      iOS: DarwinNotificationDetails(
-        presentSound: true,
-        presentAlert: true,
-        presentBadge: true,
-      ),
-      android: AndroidNotificationDetails(
-        "falconProject",
-        "channelName",
-        importance: Importance.max,
-        priority: Priority.high,
-        icon: 'ic_stat_falcon_logo',
-      ),
-    );
-  }
+
 }
