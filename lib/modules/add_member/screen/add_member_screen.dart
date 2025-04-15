@@ -189,7 +189,7 @@ class AddMemberScreenState
                         );
                       },
                     ),
-                    (screenHeight * 0.15).ph,
+                    20.ph,
                     CoreButton(
                       title: LocaleKeys.add_sub.tr(),
                       backgroundColor: context.colorScheme.secondaryContainer,

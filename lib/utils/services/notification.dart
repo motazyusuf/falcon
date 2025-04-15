@@ -15,11 +15,9 @@ class FirebaseApi {
   final notificationPlugin = FlutterLocalNotificationsPlugin();
   final bool _localNotificationIsInitialized = false;
 
-
   get localNotificationIsInitialized => _localNotificationIsInitialized;
 
   Future<void> fcmNotifications() async {
-
     // await notificationPlugin
     //     .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
     //     ?.createNotificationChannel(channel);
@@ -35,14 +33,12 @@ class FirebaseApi {
       sound: true,
     );
 
-
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       notificationPlugin.show(
         message.ttl ?? 0,
         message.notification!.title,
         message.notification!.body,
         localNotificationDetails(),
-
       );
     });
   }
@@ -61,13 +57,16 @@ class FirebaseApi {
       android: initAndroid,
       iOS: initIOS,
     );
-
     await notificationPlugin.initialize(initSettings);
   }
 
   localNotificationDetails() {
     return const NotificationDetails(
-      iOS: DarwinNotificationDetails(),
+      iOS: DarwinNotificationDetails(
+        presentSound: true,
+        presentAlert: true,
+        presentBadge: true,
+      ),
       android: AndroidNotificationDetails(
         "falconProject",
         "channelName",
@@ -78,4 +77,3 @@ class FirebaseApi {
     );
   }
 }
-

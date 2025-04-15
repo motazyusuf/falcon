@@ -2,6 +2,7 @@ import 'package:falcon_project/modules/analytics/import/analytics_module_import.
 import 'package:falcon_project/modules/main_layout/widget/my_bottom_bar.dart';
 import 'package:falcon_project/modules/members/import/members_module_import.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 
@@ -22,16 +23,18 @@ class _MainLayoutState extends State<MainLayout> {
   bool get isAnalyticsScreenActive => currentIndex == 1;
 
   List<Widget> get modules => [
-    AllMembersScreen(key:allMembersKey ,bloc: membersBloc), // Always stays alive
+    AllMembersScreen(key: allMembersKey, bloc: membersBloc),
+    // Always stays alive
     isAnalyticsScreenActive
         ? AnalyticsScreen(
           bloc: AnalyticsModuleBloc(MembersModuleBloc.allMembers),
         )
-        : const SizedBox.shrink(), // Released when not active
+        : const SizedBox.shrink(),
+    // Released when not active
   ];
 
-  final GlobalKey<AllMembersScreenState> allMembersKey = GlobalKey<AllMembersScreenState>();
-
+  final GlobalKey<AllMembersScreenState> allMembersKey =
+      GlobalKey<AllMembersScreenState>();
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +57,8 @@ class _MainLayoutState extends State<MainLayout> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.r),
         ),
-        onPressed: () async {
+        onPressed: () async
+        {
           int? result = await context.pushNamed(PagesRoutes.addMember);
           if(result!=null){
             print(">>>>>>>>>>>>>>>$result<<<<<<<<<<<<<<");
