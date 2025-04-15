@@ -1,12 +1,18 @@
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive/hive.dart';
 import 'package:opticore/opticore.dart';
+import 'package:path_provider/path_provider.dart';
 
-class AppHelper {
+import '../../firebase_options.dart';
+import '../services/notification.dart';
+
+abstract class AppHelper {
   static CancelFunc showCustomLoading() {
     return BotToast.showCustomLoading(
       toastBuilder: (func) {
@@ -78,6 +84,15 @@ class AppHelper {
         iOS: DarwinNotificationDetails(),
       ),
     );
+  }
+
+ static Future<void> appInit()async{
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+    await EasyLocalization.ensureInitialized();
+    await FirebaseApi().fcmNotifications();
+    final appDocDir = await getApplicationDocumentsDirectory();
+    Hive.init(appDocDir.path);
   }
 
 }

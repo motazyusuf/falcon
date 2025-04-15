@@ -32,7 +32,7 @@ class RemoteConfigAssetLoader extends AssetLoader {
       }
       debugPrint("FallBack assets");
       final local = await rootBundle.loadString(
-        'assets/languages/${locale.languageCode}.json',
+        'assets/languages/en.json',
       );
       return json.decode(local);
     }
