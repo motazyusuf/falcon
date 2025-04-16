@@ -10,7 +10,7 @@ plugins {
 
 android {
     namespace = "com.example.falcon_project"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 35
     ndkVersion = "28.0.12674087"
 
     kotlinOptions {
@@ -24,6 +24,7 @@ android {
     }
 
     dependencies {
+        implementation ("com.google.android.material:material:1.11.0")
         coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
     }
 
