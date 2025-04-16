@@ -31,29 +31,30 @@ class NotificationsService {
 
 
   // remote messaging
-  Future<void> fcmNotifications() async {
-    FirebaseMessaging.onBackgroundMessage(AppHelper.backgroundHandler);
-    await firebaseMessaging.requestPermission(
-      alert: true,
-      announcement: true,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
-
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      notificationPlugin.show(
-        message.ttl ?? 0,
-        message.notification!.title,
-        message.notification!.body,
-        localNotificationDetails(),
-      );
-    });
-  }
+  // Future<void> fcmNotifications() async {
+  //   FirebaseMessaging.onBackgroundMessage(AppHelper.backgroundHandler);
+  //   await firebaseMessaging.requestPermission(
+  //     alert: true,
+  //     announcement: true,
+  //     badge: true,
+  //     carPlay: false,
+  //     criticalAlert: false,
+  //     provisional: false,
+  //     sound: true,
+  //   );
+  //
+  //   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+  //     notificationPlugin.show(
+  //       message.ttl ?? 0,
+  //       message.notification!.title,
+  //       message.notification!.body,
+  //       localNotificationDetails(),
+  //     );
+  //   });
+  // }
 
   // local notification
+
   Future<void> initLocalNotification() async {
     if (_localNotificationIsInitialized) return;
 

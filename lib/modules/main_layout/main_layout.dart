@@ -58,7 +58,7 @@ class _MainLayoutState extends State<MainLayout> {
         onPressed: () async {
           int? result = await context.pushNamed(PagesRoutes.addMember);
           if (result != null) {
-            print(">>>>>>>>>>>>>>>$result<<<<<<<<<<<<<<");
+            debugPrint(">>>>>>>>>>>>>>>$result<<<<<<<<<<<<<<");
             setState(() {
               currentIndex = result;
             });
@@ -102,7 +102,7 @@ class _MainLayoutState extends State<MainLayout> {
 // {
 //   int? result = await context.pushNamed(PagesRoutes.addMember);
 //   if(result!=null){
-//     print(">>>>>>>>>>>>>>>$result<<<<<<<<<<<<<<");
+//     debugPrint(">>>>>>>>>>>>>>>$result<<<<<<<<<<<<<<");
 //     setState(() {
 //       currentIndex = result;
 //     });

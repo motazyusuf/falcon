@@ -81,7 +81,7 @@ class _MemberFullDetailsScreenState
                                     widget.member = editedMember;
                                     context.pop();
                                     postEvent(
-                                      EditMemberEvent(member: editedMember),
+                                      EditMemberEvent(member: editedMember,isAddSubscription: false),
                                     );
                                   }
                                 },
@@ -142,7 +142,7 @@ class _MemberFullDetailsScreenState
                                     type: ToastType.success,
                                   );
                                   postEvent(
-                                    EditMemberEvent(member: editedMember),
+                                    EditMemberEvent(member: editedMember, isAddSubscription: true),
                                   );
                                 }
                               },
@@ -189,7 +189,7 @@ class _MemberFullDetailsScreenState
                                                 1) {
                                               postEvent(
                                                 DeleteMemberEvent(
-                                                  id: widget.member.id!,
+                                                  member: widget.member,
                                                 ),
                                               );
                                               context.pop();
@@ -249,7 +249,7 @@ class _MemberFullDetailsScreenState
                         (context) => CriticalActionDialogue(
                           message: "member will be deleted",
                           onConfirmTapped: () {
-                            postEvent(DeleteMemberEvent(id: widget.member.id!));
+                            postEvent(DeleteMemberEvent(member: widget.member));
                             context.pop();
                           },
                         ),

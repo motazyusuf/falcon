@@ -1,5 +1,4 @@
 import 'package:falcon_project/core/extensions/date_extensions.dart';
-
 import '../../enums/sport_enum.dart';
 
 class Member {
@@ -45,6 +44,7 @@ class Member {
 }
 
 class Subscription {
+  int? id;
   Sport? sport;
   DateTime subscriptionDate;
   DateTime endDate;
@@ -53,6 +53,7 @@ class Subscription {
   DateTime paymentDate;
 
   Subscription({
+    this.id,
     this.sport,
     required this.subscriptionDate,
     required this.endDate,
@@ -63,6 +64,7 @@ class Subscription {
 
   factory Subscription.fromJson(Map<String, dynamic> json) {
     return Subscription(
+      id: json["id"],
       paidAmount: json["paid_amount"] ?? 0,
       dueAmount: json["due_amount"] ?? 0,
       sport: Sport.fromString(json["sport"]),
@@ -76,6 +78,7 @@ class Subscription {
 
   static Map<String, dynamic> toJson(Subscription subscription) {
     return {
+      "id":subscription.id?? 0,
       "paid_amount": subscription.paidAmount,
       "due_amount": subscription.dueAmount ?? 0,
       "sport": subscription.sport?.localeKey,

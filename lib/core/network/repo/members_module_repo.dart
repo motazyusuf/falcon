@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:falcon_project/utils/helper/helper.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:opticore/opticore.dart';
 import 'package:intl/intl.dart';
 
@@ -17,8 +18,7 @@ class MembersModuleRepo extends BaseRepo {
   }
 
   Future<void> addMember(Member member) async {
-
-    print(">>>>>>>Inside add member in repo<<<<<<<<<<");
+    debugPrint(">>>>>>>Inside add member in repo<<<<<<<<<<");
     // reference the collection || create if !exist
     var collectionRef = getCollection();
 
@@ -27,21 +27,24 @@ class MembersModuleRepo extends BaseRepo {
 
     member.id = documentRef.id;
 
-    // set values to document
-    await documentRef.set(member);
-    print("added");
     // Schedule notifications for each subscription
     for (var subscription in member.subscriptions) {
-      // Create a unique ID based on subscription ID or member+index
+      // Create a unique ID
       final notificationId =
           '${member.id}_${subscription.sport!.localeKey}_${subscription.paymentDate}';
 
-      // Schedule the notification at subscription.expiryDate + 14 hours
+      subscription.id = notificationId.hashCode;
+
       final expiryDate = subscription.endDate;
-      print(expiryDate.toString());
+      debugPrint(expiryDate.toString());
 
       // Skip if already expired
-      if (expiryDate.add(Duration(hours: 16)).isBefore(DateTime.now())) continue;
+      if (expiryDate.isBefore(
+        DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day),
+      )) {
+        debugPrint("Skipped");
+        continue;
+      }
 
       await AppHelper.scheduleExpiryNotification(
         expiryDate,
@@ -49,8 +52,11 @@ class MembersModuleRepo extends BaseRepo {
         subscription.sport!.localeKey.tr(),
         notificationId.hashCode,
       );
-      print("Notification scheduled");
+      debugPrint("${subscription.id} Notification scheduled");
     }
+
+    await documentRef.set(member);
+    debugPrint("added");
   }
 
   Stream<QuerySnapshot<Member>> getDataStream() {
@@ -83,6 +89,8 @@ class MembersModuleRepo extends BaseRepo {
     Subscription subscription,
   ) async {
     final docRef = FirebaseFirestore.instance.collection('Members').doc(userId);
+
+    AppHelper.cancelScheduledNotification(subscription.id!);
     await docRef.update({
       'subscriptions': FieldValue.arrayRemove([
         {
@@ -101,7 +109,7 @@ class MembersModuleRepo extends BaseRepo {
         },
       ]),
     });
-    print("Deleted from repo");
+    debugPrint("Cancelled Subscription & ${subscription.id} notification");
   }
 
   Future<void> settleSubscription(
@@ -137,21 +145,47 @@ class MembersModuleRepo extends BaseRepo {
     });
   }
 
-  Future<void> editMember(Member member) async {
+  Future<void> editMember(Member member, bool isAddSubscription) async {
+    debugPrint("/////////////////////Edit Member");
     // reference the collection || create if !exist
     var collectionRef = getCollection();
 
     var documentRef = collectionRef.doc(member.id);
 
     member.subscriptions.sort((b, a) => a.endDate.compareTo(b.endDate));
-    member.subscriptions.map(
-      (subscription) => print(subscription.sport?.localeKey),
-    );
+
+    if (isAddSubscription) {
+      debugPrint("Subscription's being added");
+      for (var subscription in member.subscriptions) {
+        if (subscription.id == null || subscription.id == 0) {
+          debugPrint(
+            "found new subscription added and its id is ${subscription.id}",
+          );
+          final notificationId =
+              '${member.id}_${subscription.sport!.localeKey}_${subscription.paymentDate}';
+          subscription.id = notificationId.hashCode;
+          debugPrint("its id now is ${subscription.id}");
+          AppHelper.scheduleExpiryNotification(
+            subscription.endDate,
+            member.name,
+            subscription.sport!.localeKey.tr(),
+            subscription.id!,
+          );
+        }
+      }
+    }
+
     await documentRef.set(member, SetOptions(merge: true));
   }
 
-  Future<void> deleteMember(String userId) async {
-    final docRef = FirebaseFirestore.instance.collection('Members').doc(userId);
+  Future<void> deleteMember(Member member) async {
+    final docRef = FirebaseFirestore.instance
+        .collection('Members')
+        .doc(member.id);
+    for (var subscription in member.subscriptions) {
+      await AppHelper.cancelScheduledNotification(subscription.id!);
+      debugPrint(" ${subscription.id!} Notification deleted");
+    }
     await docRef.delete();
   }
 

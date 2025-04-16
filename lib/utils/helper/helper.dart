@@ -51,48 +51,49 @@ class AppHelper {
     return null;
   }
 
-  static Future<void> backgroundHandler(RemoteMessage message) async {
-    Firebase.initializeApp();
-    final data = message.data;
-    // AndroidNotificationChannel channel = AndroidNotificationChannel(
-    //   'falcon_project',
-    //   'channelName',
-    //   description: 'This channel is used for important notifications.',
-    //   importance: Importance.high,
-    // );
-    final notificationPlugin = FlutterLocalNotificationsPlugin();
-    // await notificationPlugin
-    //     .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
-    //     ?.createNotificationChannel(channel);
-
-    notificationPlugin.show(
-      message.messageId.hashCode,
-      data['title'] ?? message.notification!.title,
-      data['body'] ?? message.notification!.body,
-      const NotificationDetails(
-        android: AndroidNotificationDetails(
-          'falconProject',
-          'channelName',
-          importance: Importance.max,
-          priority: Priority.high,
-          icon: 'ic_stat_falcon_logo',
-        ),
-        iOS: DarwinNotificationDetails(),
-      ),
-    );
-  }
+  // static Future<void> backgroundHandler(RemoteMessage message) async {
+  //   Firebase.initializeApp();
+  //   final data = message.data;
+  //   // AndroidNotificationChannel channel = AndroidNotificationChannel(
+  //   //   'falcon_project',
+  //   //   'channelName',
+  //   //   description: 'This channel is used for important notifications.',
+  //   //   importance: Importance.high,
+  //   // );
+  //   final notificationPlugin = FlutterLocalNotificationsPlugin();
+  //   // await notificationPlugin
+  //   //     .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
+  //   //     ?.createNotificationChannel(channel);
+  //
+  //   notificationPlugin.show(
+  //     message.messageId.hashCode,
+  //     data['title'] ?? message.notification!.title,
+  //     data['body'] ?? message.notification!.body,
+  //     const NotificationDetails(
+  //       android: AndroidNotificationDetails(
+  //         'falconProject',
+  //         'channelName',
+  //         importance: Importance.max,
+  //         priority: Priority.high,
+  //         icon: 'ic_stat_falcon_logo',
+  //       ),
+  //       iOS: DarwinNotificationDetails(),
+  //     ),
+  //   );
+  // }
 
   static Future<void> scheduleExpiryNotification(
     DateTime expiryDate,
     String memberName,
     String subscriptionName,
     int id,
-  ) async {
-    print(">>>>>>>>>>>>>Inside helper<<<<<<<<<<<<<");
+  ) async
+  {
+    debugPrint(">>>>>>>>>>>>>Inside helper<<<<<<<<<<<<<");
     final scheduledDate = tz.TZDateTime.from(
       expiryDate,
       tz.getLocation('Africa/Cairo'),
-    ).add(Duration(hours: 14));
+    ).add(Duration(hours: 12, minutes: 52));
 
     const AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails(
@@ -130,6 +131,10 @@ class AppHelper {
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       payload: 'expiry_payload',
     );
-    print('Notification scheduled for: $scheduledDate');
+    debugPrint('Notification scheduled for: $scheduledDate');
+  }
+
+  static Future<void> cancelScheduledNotification(int notificationId) async {
+    await FlutterLocalNotificationsPlugin().cancel(notificationId);
   }
 }

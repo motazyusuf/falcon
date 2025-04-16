@@ -3,7 +3,7 @@ part of '../import/member_full_details_import.dart';
 class MemberFullDetailsBloc extends BaseBloc {
   @override
   Future<void> close() {
-    print("Member full details bloc closed");
+    debugPrint("Member full details bloc closed");
     return super.close();
   }
 
@@ -11,14 +11,14 @@ class MemberFullDetailsBloc extends BaseBloc {
 
   Future<void> deleteMember(DeleteMemberEvent event, Emitter emit) async {
     emit(LoadingStateNonRender());
-    await membersModuleRepo.deleteMember(event.id);
+    await membersModuleRepo.deleteMember(event.member);
     emit(EndLoadingStateNonRender());
     emit(MemberDeleted());
   }
 
   Future<void> editMember(EditMemberEvent event, Emitter emit) async {
     emit(LoadingStateNonRender());
-    await membersModuleRepo.editMember(event.member);
+    await membersModuleRepo.editMember(event.member, event.isAddSubscription);
     emit(EndLoadingStateNonRender());
     emit(DetailsLoaded());
   }
@@ -53,7 +53,7 @@ class MemberFullDetailsBloc extends BaseBloc {
         MemberFullDetailsFactory(),
         initialState: MemberFullDetailsInitialState(),
       ) {
-    print("Ful details bloc start");
+    debugPrint("Ful details bloc start");
     on<CancelSubscriptionEvent>(cancelSubscription);
     on<SettleSubscriptionEvent>(settleSubscription);
     on<DeleteMemberEvent>(deleteMember);

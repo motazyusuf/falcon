@@ -17,12 +17,13 @@ class SettleSubscriptionEvent extends BaseEvent {
 }
 
 class DeleteMemberEvent extends BaseEvent {
-  String id;
+  Member member;
 
-  DeleteMemberEvent({required this.id});
+  DeleteMemberEvent({required this.member});
 }
 
 class EditMemberEvent extends BaseEvent {
   Member member;
-  EditMemberEvent({required this.member});
+  bool isAddSubscription;
+  EditMemberEvent({required this.member, required this.isAddSubscription});
 }

@@ -3,7 +3,6 @@ import 'package:falcon_project/core/app/localized_app.dart';
 import 'package:falcon_project/utils/services/notification.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'firebase_options.dart';
 

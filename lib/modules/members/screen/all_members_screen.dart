@@ -182,7 +182,7 @@ class AllMembersScreenState
         enableDrag: false,
         backgroundColor: context.colorScheme.secondary,
         child: SizedBox(
-          height: context.screenSize.height * 0.75,
+          height: context.screenSize.height * 0.77,
           child: MemberFullDetailsScreen(
             bloc: MemberFullDetailsBloc(),
             member: expandedMember,
