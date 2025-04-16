@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:falcon_project/utils/helper/helper.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:opticore/opticore.dart';
 import 'package:intl/intl.dart';
 import '../model/member_model.dart';
@@ -222,5 +223,27 @@ class MembersModuleRepo extends BaseRepo {
     ];
 
     return orderedMonths.map((m) => data[m] as int).toList();
+  }
+
+  Future<String> getClientSecret(String amount, String currency) async {
+    await super.updateHeaders(
+      onUpdate: (headers) async {
+        final updatedHeaders = Map<String, String>.from(headers);
+        updatedHeaders['Authorization'] = 'Bearer ${dotenv.env['STRIPE_SECRET']}';
+        updatedHeaders['Content-Type'] = 'application/x-www-form-urlencoded';
+        return updatedHeaders;
+      },
+    );
+
+    final response = await networkHelper?.request(
+      dotenv.env['API_URL'] ?? '',
+      (_) {},
+      body: {
+        'amount': amount,
+        'currency': currency,
+      },
+      method: HTTPMethod.post,
+    );
+    return response?.data['client_secret'];
   }
 }

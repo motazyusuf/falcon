@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 import 'package:timezone/timezone.dart' as tz;
 
-class AppHelper {
+abstract class AppHelper {
   static CancelFunc showCustomLoading() {
     return BotToast.showCustomLoading(
       toastBuilder: (func) {
