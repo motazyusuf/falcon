@@ -4,7 +4,6 @@ import 'package:falcon_project/utils/helper/helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:opticore/opticore.dart';
 import 'package:intl/intl.dart';
-
 import '../model/member_model.dart';
 
 class MembersModuleRepo extends BaseRepo {
