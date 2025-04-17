@@ -1,10 +1,14 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:falcon_project/utils/services/notification.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 import 'package:timezone/timezone.dart' as tz;
+
+import '../../firebase_options.dart';
 
 class AppHelper {
   static CancelFunc showCustomLoading() {
@@ -93,7 +97,7 @@ class AppHelper {
     final scheduledDate = tz.TZDateTime.from(
       expiryDate,
       tz.getLocation('Africa/Cairo'),
-    ).add(Duration(hours: 12, minutes: 52));
+    ).add(Duration(hours: 14));
 
     const AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails(
@@ -136,5 +140,14 @@ class AppHelper {
 
   static Future<void> cancelScheduledNotification(int notificationId) async {
     await FlutterLocalNotificationsPlugin().cancel(notificationId);
+  }
+
+  static appInit() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+    await EasyLocalization.ensureInitialized();
+    await NotificationsService().initLocalNotification();
+    tz.initializeTimeZones(); // Initialize the timezone database
+
   }
 }

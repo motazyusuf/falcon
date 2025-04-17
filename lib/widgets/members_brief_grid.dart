@@ -13,7 +13,7 @@ class MembersBriefGrid extends StatelessWidget {
 
   final Widget Function(BuildContext, int) builder;
   int itemCount;
-  String? title;
+  final String? title;
 
   @override
   Widget build(BuildContext context) {

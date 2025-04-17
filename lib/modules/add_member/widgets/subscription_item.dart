@@ -28,7 +28,7 @@ class SubscriptionItem extends StatelessWidget {
     required this.onDueAmountChanged,
     required this.pickedStartDate,
     required this.index,
-    required this.isEndDatePicked
+    required this.isEndDatePicked,
   });
 
   @override
@@ -45,32 +45,36 @@ class SubscriptionItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           DropdownButtonFormField<Sport>(
+            menuMaxHeight: 350.h,
             dropdownColor: context.colorScheme.secondaryContainer,
             value: Sport.values[0],
             items:
-            Sport.values.map((sport) {
-              return DropdownMenuItem(
-                value: sport,
-                child: Text(
-                  sport.localeKey.tr(),
-                  style: TextStyle().copyWith(fontSize: 15.sp),
-                ),
-              );
-            }).toList(),
+                Sport.values.map((sport) {
+                  return DropdownMenuItem(
+                    value: sport,
+                    child: Text(
+                      sport.localeKey.tr(),
+                      style: TextStyle().copyWith(fontSize: 15.sp),
+                    ),
+                  );
+                }).toList(),
             onChanged: onSportChanged,
           ),
           10.ph,
           // Subscription Start Date
           InkWell(
-  splashColor: Colors.transparent,
-  highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
             onTap: isEndDatePicked[index] ? null : onStartDateChanged,
             child: Text(
-              "${LocaleKeys.sub_date.tr()}: ${pickedStartDate.toString().substring(
-                  0, 10)}",
-              style: context.textTheme.displaySmall?.copyWith(fontSize: 12.sp,
-                  color: isEndDatePicked[index] ? context.colorScheme
-                      .secondaryContainer : null),
+              "${LocaleKeys.sub_date.tr()}: ${pickedStartDate.toString().substring(0, 10)}",
+              style: context.textTheme.displaySmall?.copyWith(
+                fontSize: 12.sp,
+                color:
+                    isEndDatePicked[index]
+                        ? context.colorScheme.secondaryContainer
+                        : null,
+              ),
             ),
           ),
           15.ph,
