@@ -117,7 +117,7 @@ class AddMemberScreenState
                     StatefulBuilder(
                       builder: (context, newState) {
                         return SizedBox(
-                          height: 230.h,
+                          height: 220.h,
                           child: ListView.separated(
                             itemCount: subscriptions.length,
                             scrollDirection: Axis.horizontal,

@@ -34,8 +34,7 @@ class SubscriptionItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 180.w,
-      height: 250.h,
+      width: 150.w,
       padding: EdgeInsets.symmetric(horizontal: 5.w),
       decoration: BoxDecoration(
         color: context.colorScheme.secondaryFixed,
