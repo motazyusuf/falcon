@@ -255,7 +255,7 @@ class MembersModuleRepo extends BaseRepo {
     final data = {
       'amount': '1000000',
       // Stripe expects the smallest unit, e.g., cents (1000000 = $1000)
-      'currency': 'usd',
+      'currency': 'EGP',
       'payment_method_types[]': 'card',
       // Array syntax
     };

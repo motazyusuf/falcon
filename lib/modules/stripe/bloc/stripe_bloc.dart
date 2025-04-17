@@ -24,6 +24,10 @@ class StripeBloc extends BaseBloc {
                   paymentIntent!['client_secret'], //Gotten from payment intent
               style: ThemeMode.dark,
               merchantDisplayName: 'Falcon',
+              googlePay: const PaymentSheetGooglePay(
+                merchantCountryCode: 'EG',
+                testEnv: true,
+              ),
             ),
           );
 
@@ -32,7 +36,6 @@ class StripeBloc extends BaseBloc {
         await Stripe.instance
             .presentPaymentSheet()
             .then((value) {
-              //Clear paymentIntent variable after successful payment
               paymentIntent = null;
             })
             .onError((error, stackTrace) {

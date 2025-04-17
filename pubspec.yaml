@@ -22,7 +22,6 @@ dependencies:
   flutter_local_notifications: ^18.0.1
   firebase_messaging: ^15.2.4
   flutter_dotenv: ^5.2.1
-  flutter_amazonpaymentservices: ^0.0.8
   flutter_stripe: ^11.5.0
 
 
