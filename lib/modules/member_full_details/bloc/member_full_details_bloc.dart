@@ -3,7 +3,7 @@ part of '../import/member_full_details_import.dart';
 class MemberFullDetailsBloc extends BaseBloc {
   @override
   Future<void> close() {
-    debugPrint("Member full details bloc closed");
+    debugPrint(">>>>>>>>>>Member full details bloc closed<<<<<<<<<<<<<<<");
     return super.close();
   }
 
@@ -53,7 +53,7 @@ class MemberFullDetailsBloc extends BaseBloc {
         MemberFullDetailsFactory(),
         initialState: MemberFullDetailsInitialState(),
       ) {
-    debugPrint("Ful details bloc start");
+    debugPrint(">>>>>>>>>>>>Full details bloc start<<<<<<<<<<<<<<");
     on<CancelSubscriptionEvent>(cancelSubscription);
     on<SettleSubscriptionEvent>(settleSubscription);
     on<DeleteMemberEvent>(deleteMember);

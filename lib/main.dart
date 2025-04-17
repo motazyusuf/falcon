@@ -4,6 +4,7 @@ import 'package:falcon_project/utils/services/notification.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'firebase_options.dart';
 
@@ -20,7 +21,9 @@ void main() async {
   // }
   // String? token = await NotificationsService().firebaseMessaging.getToken();
   // print("token:$token");
-  await dotenv.load(fileName: ".env.dev");
+  await dotenv.load(fileName: '.env.dev');
+  Stripe.publishableKey = dotenv.env['STRIPE_PUBLISH']!;
+
   runApp(LocalizedApp());
 }
 

@@ -3,6 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:opticore/opticore.dart';
 import 'package:timezone/timezone.dart' as tz;
 
@@ -137,4 +138,23 @@ abstract class AppHelper {
   static Future<void> cancelScheduledNotification(int notificationId) async {
     await FlutterLocalNotificationsPlugin().cancel(notificationId);
   }
+  // static displayPaymentSheet() async {
+  //   try {
+  //     await Stripe.instance.presentPaymentSheet().then((value) {
+  //
+  //       //Clear paymentIntent variable after successful payment
+  //       paymentIntent = null;
+  //
+  //     })
+  //         .onError((error, stackTrace) {
+  //       throw Exception(error);
+  //     });
+  //   }
+  //   on StripeException catch (e) {
+  //     print('Error is:---> $e');
+  //   }
+  //   catch (e) {
+  //     print('$e');
+  //   }
+  // }
 }

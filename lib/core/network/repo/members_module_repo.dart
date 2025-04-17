@@ -225,25 +225,71 @@ class MembersModuleRepo extends BaseRepo {
     return orderedMonths.map((m) => data[m] as int).toList();
   }
 
-  Future<String> getClientSecret(String amount, String currency) async {
-    await super.updateHeaders(
-      onUpdate: (headers) async {
-        final updatedHeaders = Map<String, String>.from(headers);
-        updatedHeaders['Authorization'] = 'Bearer ${dotenv.env['STRIPE_SECRET']}';
-        updatedHeaders['Content-Type'] = 'application/x-www-form-urlencoded';
-        return updatedHeaders;
-      },
-    );
+  Future<Response?> createPaymentIntent(String amount, String currency) async
+  // {
+  //   await super.updateHeaders(
+  //     onUpdate: (headers) async {
+  //       final updatedHeaders = Map<String, String>.from(headers);
+  //       updatedHeaders['Authorization'] = 'Bearer ${dotenv.env['STRIPE_SECRET']}';
+  //       updatedHeaders['Content-Type'] = 'application/x-www-form-urlencoded';
+  //       return updatedHeaders;
+  //     },
+  //   );
+  //
+  //   final response = await networkHelper?.request(
+  //     "https://api.stripe.com/v1/payment_intents",
+  //     (_) {},
+  //     body: {
+  //       'amount': amount,
+  //       'currency': currency,
+  //     },
+  //     method: HTTPMethod.post,
+  //   );
+  //   return response;
+  // }
+  {
+    final dio = Dio();
+    final url = 'https://api.stripe.com/v1/payment_intents';
 
-    final response = await networkHelper?.request(
-      dotenv.env['API_URL'] ?? '',
-      (_) {},
-      body: {
-        'amount': amount,
-        'currency': currency,
-      },
-      method: HTTPMethod.post,
-    );
-    return response?.data['client_secret'];
+    // Prepare your data
+    final data = {
+      'amount': '1000000',
+      // Stripe expects the smallest unit, e.g., cents (1000000 = $1000)
+      'currency': 'usd',
+      'payment_method_types[]': 'card',
+      // Array syntax
+    };
+
+    // Manually URL-encode the data
+    final encodedData = data.entries
+        .map(
+          (entry) =>
+              '${Uri.encodeComponent(entry.key)}=${Uri.encodeComponent(entry.value)}',
+        )
+        .join('&');
+
+    // Set the headers
+    final headers = {
+      'Authorization': 'Bearer ${dotenv.env['STRIPE_SECRET']}',
+      'Content-Type': 'application/x-www-form-urlencoded',
+    };
+
+    try {
+      // Send the POST request with manually URL-encoded data
+      final response = await dio.post(
+        url,
+        data: encodedData, // Send the encoded body
+        options: Options(headers: headers),
+      );
+
+      // Check the response
+      if (response.statusCode == 200) {
+        return response;
+      } else {
+        print('Failed to create payment intent: ${response.data}');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
   }
 }

@@ -3,6 +3,6 @@ class PagesRoutes {
 
   static const String splash = "/";
   static const String mainLayout = "/mainLayout";
-  static const String home = "/home";
+  static const String payment = "/payment";
   static const String addMember = "/addMember";
 }
