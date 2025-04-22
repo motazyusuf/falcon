@@ -27,7 +27,6 @@ class NotificationsService {
 
   Future<void> initLocalNotification() async {
     if (_localNotificationIsInitialized) return;
-
     const initAndroid = AndroidInitializationSettings('ic_stat_falcon_logo');
     const initIOS = DarwinInitializationSettings(
       requestAlertPermission: true,
@@ -40,7 +39,6 @@ class NotificationsService {
     );
     await notificationPlugin.initialize(initSettings);
   }
-
 }
 
 
