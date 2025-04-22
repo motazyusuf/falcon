@@ -59,7 +59,8 @@ class AppHelper {
     String memberName,
     String subscriptionName,
     int id,
-  ) async {
+  ) async
+  {
     final scheduledDate = tz.TZDateTime.from(
       expiryDate,
       tz.getLocation('Africa/Cairo'),
