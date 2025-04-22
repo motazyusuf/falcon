@@ -7,7 +7,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:opticore/opticore.dart';
 import 'package:timezone/timezone.dart' as tz;
-
 import '../../firebase_options.dart';
 
 class AppHelper {
@@ -91,47 +90,19 @@ class AppHelper {
     String memberName,
     String subscriptionName,
     int id,
-  ) async
-  {
-    debugPrint(">>>>>>>>>>>>>Inside helper<<<<<<<<<<<<<");
+  ) async {
     final scheduledDate = tz.TZDateTime.from(
       expiryDate,
       tz.getLocation('Africa/Cairo'),
-    ).add(Duration(hours: 14));
-
-    const AndroidNotificationDetails androidNotificationDetails =
-        AndroidNotificationDetails(
-          "falconProject",
-          "channelName",
-          importance: Importance.max,
-          priority: Priority.high,
-          icon: 'ic_stat_falcon_logo',
-        );
-
-    const DarwinNotificationDetails iOSNotificationDetails =
-        DarwinNotificationDetails(
-          presentSound: true,
-          presentAlert: true,
-          presentBadge: true,
-        );
-
-    const NotificationDetails notificationDetails = NotificationDetails(
-      android: androidNotificationDetails,
-      iOS: iOSNotificationDetails,
-    );
-
-    const UILocalNotificationDateInterpretation
-    uiLocalNotificationDateInterpretation =
-        UILocalNotificationDateInterpretation.absoluteTime;
-
+    ).add(Duration(hours: 10, minutes: 35));
     await FlutterLocalNotificationsPlugin().zonedSchedule(
       id,
       "Subscription Expiring",
-      "${memberName.capitalizeFirst}\'s $subscriptionName subscription expires today!",
+      "${memberName.capitalizeFirst}\'s $subscriptionName subscription expired today!",
       scheduledDate,
-      notificationDetails,
+      NotificationsService.localNotificationDetails(),
       uiLocalNotificationDateInterpretation:
-          uiLocalNotificationDateInterpretation,
+      UILocalNotificationDateInterpretation.absoluteTime,
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       payload: 'expiry_payload',
     );
@@ -144,10 +115,11 @@ class AppHelper {
 
   static appInit() async {
     WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
     await EasyLocalization.ensureInitialized();
     await NotificationsService().initLocalNotification();
     tz.initializeTimeZones(); // Initialize the timezone database
-
   }
 }

@@ -1,17 +1,14 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 
 class NotificationsService {
-
-
-  final firebaseMessaging = FirebaseMessaging.instance;
+  // final firebaseMessaging = FirebaseMessaging.instance;
   final notificationPlugin = FlutterLocalNotificationsPlugin();
   final bool _localNotificationIsInitialized = false;
 
   get localNotificationIsInitialized => _localNotificationIsInitialized;
 
-  localNotificationDetails() {
+  static localNotificationDetails() {
     return const NotificationDetails(
       iOS: DarwinNotificationDetails(
         presentSound: true,
@@ -27,32 +24,6 @@ class NotificationsService {
       ),
     );
   }
-
-
-  // remote messaging
-  // Future<void> fcmNotifications() async {
-  //   FirebaseMessaging.onBackgroundMessage(AppHelper.backgroundHandler);
-  //   await firebaseMessaging.requestPermission(
-  //     alert: true,
-  //     announcement: true,
-  //     badge: true,
-  //     carPlay: false,
-  //     criticalAlert: false,
-  //     provisional: false,
-  //     sound: true,
-  //   );
-  //
-  //   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-  //     notificationPlugin.show(
-  //       message.ttl ?? 0,
-  //       message.notification!.title,
-  //       message.notification!.body,
-  //       localNotificationDetails(),
-  //     );
-  //   });
-  // }
-
-  // local notification
 
   Future<void> initLocalNotification() async {
     if (_localNotificationIsInitialized) return;
@@ -70,5 +41,30 @@ class NotificationsService {
     await notificationPlugin.initialize(initSettings);
   }
 
-
 }
+
+
+// remote messaging
+// Future<void> fcmNotifications() async {
+//   FirebaseMessaging.onBackgroundMessage(AppHelper.backgroundHandler);
+//   await firebaseMessaging.requestPermission(
+//     alert: true,
+//     announcement: true,
+//     badge: true,
+//     carPlay: false,
+//     criticalAlert: false,
+//     provisional: false,
+//     sound: true,
+//   );
+//
+//   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+//     notificationPlugin.show(
+//       message.ttl ?? 0,
+//       message.notification!.title,
+//       message.notification!.body,
+//       localNotificationDetails(),
+//     );
+//   });
+// }
+
+// local notification
