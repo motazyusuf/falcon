@@ -2,6 +2,7 @@ part of '../import/splash_import.dart';
 
 class SplashScreen extends StatefulWidget {
   final SplashBloc bloc;
+
   const SplashScreen({super.key, required this.bloc});
 
   @override
@@ -12,16 +13,30 @@ class _SplashScreenState extends BaseScreen<SplashBloc, SplashScreen, dynamic> {
   _SplashScreenState(super.bloc);
 
   @override
-  // TODO: implement scaffoldConfig
-  ScaffoldConfig get scaffoldConfig => ScaffoldConfig(backgroundColor: Colors.black);
+  void initState() {
+    super.initState();
+    final appLinks = AppLinks();
+    appLinks.uriLinkStream.listen((uri) {
+      if(mounted) {
+        debugPrint("received ${uri.fragment}");
+        context.pushNamed(uri.path);
+      }
+    });
+  }
+
+  @override
+  ScaffoldConfig get scaffoldConfig =>
+      ScaffoldConfig(backgroundColor: Colors.black);
+
   @override
   Widget buildWidget(BuildContext context, RenderDataState state) {
     return Align(
       alignment: Alignment.center,
-      child: ZoomIn(duration: Duration(milliseconds: 700),
+      child: ZoomIn(
+        duration: Duration(milliseconds: 700),
         child: SizedBox(
-            height : 350.h,
-            width : 350.w,
+          height: 350.h,
+          width: 350.w,
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -40,13 +55,11 @@ class _SplashScreenState extends BaseScreen<SplashBloc, SplashScreen, dynamic> {
       ),
     );
   }
-  
+
   @override
   void listenToState(BuildContext context, BaseState state) {
-    if(state is AppInitialized){
-      context.pushReplacementNamed(PagesRoutes.mainLayout);
+    if (state is AppInitialized) {
+      context.pushNamedAndRemoveUntil(PagesRoutes.mainLayout);
     }
-
   }
 }
-  

@@ -1,4 +1,4 @@
-
+import 'package:app_links/app_links.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -9,9 +9,12 @@ import 'package:hive/hive.dart';
 import 'package:opticore/opticore.dart';
 import 'package:path_provider/path_provider.dart';
 import '../../firebase_options.dart';
+import '../../modules/add_member/import/add_member_import.dart';
+import '../../modules/splash/import/splash_import.dart';
 import '../services/notification.dart';
 
 abstract class AppHelper {
+
   static CancelFunc showCustomLoading() {
     return BotToast.showCustomLoading(
       toastBuilder: (func) {
@@ -47,7 +50,6 @@ abstract class AppHelper {
       backgroundColor: Colors.transparent, // Remove default overlay
       allowClick: false, // Prevent taps
     );
-
   }
 
   static String? validateNotEmpty(String? value) {
@@ -76,22 +78,37 @@ abstract class AppHelper {
       data['title'] ?? message.notification!.title,
       data['body'] ?? message.notification!.body,
       const NotificationDetails(
-        android: AndroidNotificationDetails('falconProject', 'channelName',
-            importance: Importance.max,
-            priority: Priority.high,
-            icon: 'ic_stat_falcon_logo'),
+        android: AndroidNotificationDetails(
+          'falconProject',
+          'channelName',
+          importance: Importance.max,
+          priority: Priority.high,
+          icon: 'ic_stat_falcon_logo',
+        ),
         iOS: DarwinNotificationDetails(),
       ),
     );
   }
 
- static Future<void> appInit()async{
+  static Future<void> appInit() async {
     WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
     await EasyLocalization.ensureInitialized();
     await FirebaseApi().fcmNotifications();
     final appDocDir = await getApplicationDocumentsDirectory();
     Hive.init(appDocDir.path);
   }
 
+  static deepLinkListener(AppLinks appLinks) {
+    appLinks.uriLinkStream.listen((uri) {
+      debugPrint("received $uri");
+      });
+  }
+
+  // static Future<String?> deepLinkInitialRoute() async {
+  //   final Uri? initialUri = await appLinks.getInitialLink();
+  //   return initialUri?.path;
+  // }
 }

@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'app.dart';
 
 class LocalizedApp extends StatelessWidget {
-  const LocalizedApp({super.key});
-
+  const LocalizedApp({super.key, this.initRoute});
+  final String? initRoute;
   @override
   Widget build(BuildContext context) {
     return EasyLocalization(
       path: 'assets/languages',
       supportedLocales: [Locale('en'), Locale('ar')],
       assetLoader: RemoteConfigAssetLoader(),
-      child: MyApp(),
+      child: MyApp(initRoute: initRoute,),
     );
   }
 }

@@ -7,7 +7,10 @@ import 'package:opticore/opticore.dart';
 import '../config/theme/theme_manager.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key,this.initRoute});
+  final String? initRoute;
+
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -16,7 +19,7 @@ class MyApp extends StatelessWidget {
         appConfig: AppConfig(
           theme: ApplicationThemeManager.myAppTheme,
           onGenerateRoute: AppRouter.onGenerateRoute,
-          initialRoute: PagesRoutes.splash,
+          initialRoute: initRoute?? PagesRoutes.splash,
           supportedLocales: context.supportedLocales,
           localizationsDelegates: context.localizationDelegates,
           locale: context.locale,

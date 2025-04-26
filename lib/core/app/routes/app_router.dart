@@ -4,7 +4,6 @@ import 'package:falcon_project/modules/main_layout/main_layout.dart';
 import 'package:falcon_project/modules/splash/import/splash_import.dart';
 import 'package:flutter/material.dart';
 
-import '../../../modules/members/import/members_module_import.dart';
 
 class AppRouter {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -15,11 +14,6 @@ class AppRouter {
           settings: settings,
         );
 
-      case PagesRoutes.home:
-        return MaterialPageRoute(
-          builder: (context) => AllMembersScreen(bloc: MembersModuleBloc()),
-          settings: settings,
-        );
 
       case PagesRoutes.addMember:
         return MaterialPageRoute(
